@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08F042E4DC63A6B204382EF5 /* Pods_HBDNavigationBar_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F2C765ADD03C74651D23B9 /* Pods_HBDNavigationBar_Tests.framework */; };
+		2BC9E54A907A565BBE0CB3FF /* libPods-HBDNavigationBar_Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EDF8011858C0F08178E05507 /* libPods-HBDNavigationBar_Tests.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* HBDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* HBDAppDelegate.m */; };
-		6003F5A7195388D20070C39A /* HBDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* HBDViewController.m */; };
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
@@ -22,8 +21,12 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
-		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		EBC8E9DEE97D600638E58053 /* Pods_HBDNavigationBar_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 349CF6773108852BB2D5BBB4 /* Pods_HBDNavigationBar_Example.framework */; };
+		91508EEB2064F3FB00316FA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91508EEA2064F3FB00316FA0 /* Main.storyboard */; };
+		91508EEE2064F85600316FA0 /* NavigationBarColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91508EED2064F85600316FA0 /* NavigationBarColorViewController.m */; };
+		91508EF12064FB0700316FA0 /* ShadowHiddenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91508EF02064FB0700316FA0 /* ShadowHiddenViewController.m */; };
+		91508EF42064FB2800316FA0 /* NavigationBarHiddenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91508EF32064FB2800316FA0 /* NavigationBarHiddenViewController.m */; };
+		91508EF72064FB3800316FA0 /* NavigationBarAlphaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91508EF62064FB3800316FA0 /* NavigationBarAlphaViewController.m */; };
+		CD671FD8AE21609722E04CF8 /* libPods-HBDNavigationBar_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A13908942A92DA17B0E2C267 /* libPods-HBDNavigationBar_Example.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,10 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		12539303FEF479E73A06CB81 /* HBDNavigationBar.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = HBDNavigationBar.podspec; path = ../HBDNavigationBar.podspec; sourceTree = "<group>"; };
-		349CF6773108852BB2D5BBB4 /* Pods_HBDNavigationBar_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HBDNavigationBar_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D6CD8082ED6F38FF5C370DC /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		51F2C765ADD03C74651D23B9 /* Pods_HBDNavigationBar_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HBDNavigationBar_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		12539303FEF479E73A06CB81 /* HBDNavigationBar.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = HBDNavigationBar.podspec; path = ../HBDNavigationBar.podspec; sourceTree = "<group>"; };
+		3D6CD8082ED6F38FF5C370DC /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* HBDNavigationBar_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HBDNavigationBar_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -51,8 +52,6 @@
 		6003F59B195388D20070C39A /* HBDNavigationBar-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HBDNavigationBar-Prefix.pch"; sourceTree = "<group>"; };
 		6003F59C195388D20070C39A /* HBDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBDAppDelegate.h; sourceTree = "<group>"; };
 		6003F59D195388D20070C39A /* HBDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBDAppDelegate.m; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* HBDViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HBDViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* HBDViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HBDViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* HBDNavigationBar_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HBDNavigationBar_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -62,10 +61,20 @@
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
 		6FE69C85C4E63CDC743C3D23 /* Pods-HBDNavigationBar_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HBDNavigationBar_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HBDNavigationBar_Tests/Pods-HBDNavigationBar_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		91508EEA2064F3FB00316FA0 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		91508EEC2064F85600316FA0 /* NavigationBarColorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationBarColorViewController.h; sourceTree = "<group>"; };
+		91508EED2064F85600316FA0 /* NavigationBarColorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationBarColorViewController.m; sourceTree = "<group>"; };
+		91508EEF2064FB0700316FA0 /* ShadowHiddenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShadowHiddenViewController.h; sourceTree = "<group>"; };
+		91508EF02064FB0700316FA0 /* ShadowHiddenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShadowHiddenViewController.m; sourceTree = "<group>"; };
+		91508EF22064FB2800316FA0 /* NavigationBarHiddenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationBarHiddenViewController.h; sourceTree = "<group>"; };
+		91508EF32064FB2800316FA0 /* NavigationBarHiddenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationBarHiddenViewController.m; sourceTree = "<group>"; };
+		91508EF52064FB3800316FA0 /* NavigationBarAlphaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationBarAlphaViewController.h; sourceTree = "<group>"; };
+		91508EF62064FB3800316FA0 /* NavigationBarAlphaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationBarAlphaViewController.m; sourceTree = "<group>"; };
 		91D77696FC9CE1A013393325 /* Pods-HBDNavigationBar_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HBDNavigationBar_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HBDNavigationBar_Tests/Pods-HBDNavigationBar_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		A12383705CD9091B97E204F7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		A12383705CD9091B97E204F7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		A13908942A92DA17B0E2C267 /* libPods-HBDNavigationBar_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HBDNavigationBar_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4CB778013B4106CEE199CD0 /* Pods-HBDNavigationBar_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HBDNavigationBar_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HBDNavigationBar_Example/Pods-HBDNavigationBar_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		EDF8011858C0F08178E05507 /* libPods-HBDNavigationBar_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HBDNavigationBar_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F10CA745C33C3DA26A969DE6 /* Pods-HBDNavigationBar_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HBDNavigationBar_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-HBDNavigationBar_Example/Pods-HBDNavigationBar_Example.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,7 +86,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				EBC8E9DEE97D600638E58053 /* Pods_HBDNavigationBar_Example.framework in Frameworks */,
+				CD671FD8AE21609722E04CF8 /* libPods-HBDNavigationBar_Example.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +97,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				08F042E4DC63A6B204382EF5 /* Pods_HBDNavigationBar_Tests.framework in Frameworks */,
+				2BC9E54A907A565BBE0CB3FF /* libPods-HBDNavigationBar_Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,8 +132,8 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				349CF6773108852BB2D5BBB4 /* Pods_HBDNavigationBar_Example.framework */,
-				51F2C765ADD03C74651D23B9 /* Pods_HBDNavigationBar_Tests.framework */,
+				A13908942A92DA17B0E2C267 /* libPods-HBDNavigationBar_Example.a */,
+				EDF8011858C0F08178E05507 /* libPods-HBDNavigationBar_Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -134,12 +143,18 @@
 			children = (
 				6003F59C195388D20070C39A /* HBDAppDelegate.h */,
 				6003F59D195388D20070C39A /* HBDAppDelegate.m */,
-				873B8AEA1B1F5CCA007FD442 /* Main.storyboard */,
-				6003F5A5195388D20070C39A /* HBDViewController.h */,
-				6003F5A6195388D20070C39A /* HBDViewController.m */,
+				91508EEC2064F85600316FA0 /* NavigationBarColorViewController.h */,
+				91508EED2064F85600316FA0 /* NavigationBarColorViewController.m */,
+				91508EEF2064FB0700316FA0 /* ShadowHiddenViewController.h */,
+				91508EF02064FB0700316FA0 /* ShadowHiddenViewController.m */,
+				91508EF22064FB2800316FA0 /* NavigationBarHiddenViewController.h */,
+				91508EF32064FB2800316FA0 /* NavigationBarHiddenViewController.m */,
+				91508EF52064FB3800316FA0 /* NavigationBarAlphaViewController.h */,
+				91508EF62064FB3800316FA0 /* NavigationBarAlphaViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
+				91508EEA2064F3FB00316FA0 /* Main.storyboard */,
 			);
 			name = "Example for HBDNavigationBar";
 			path = HBDNavigationBar;
@@ -279,8 +294,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
+				91508EEB2064F3FB00316FA0 /* Main.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);
@@ -403,9 +418,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91508EF42064FB2800316FA0 /* NavigationBarHiddenViewController.m in Sources */,
+				91508EF72064FB3800316FA0 /* NavigationBarAlphaViewController.m in Sources */,
+				91508EF12064FB0700316FA0 /* ShadowHiddenViewController.m in Sources */,
 				6003F59E195388D20070C39A /* HBDAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* HBDViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				91508EEE2064F85600316FA0 /* NavigationBarColorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

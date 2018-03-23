@@ -1,4 +1,3 @@
-use_frameworks!
 
 target 'HBDNavigationBar_Example' do
   pod 'HBDNavigationBar', :path => '../'
