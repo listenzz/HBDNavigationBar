@@ -20,6 +20,6 @@
 
 - (void)hbd_setNeedsUpdateNavigationBarColor;
 
-- (void)hbd_setNeedsUpdateNavigationBarShadowImageHidden;
+- (void)hbd_setNeedsUpdateNavigationBarShadowImageAlpha;
 
 @end

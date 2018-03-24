@@ -25,7 +25,7 @@
 
 - (IBAction)onHiddenChanged:(UISwitch *)sender {
     self.hbd_barShadowHidden = sender.on;
-    [self hbd_setNeedsUpdateNavigationBarShadowImageHidden];
+    [self hbd_setNeedsUpdateNavigationBarShadowImageAlpha];
 }
 
 

@@ -17,41 +17,6 @@
 
 @implementation HBDNavigationBar
 
-+ (UIImageView *)findShadowImageAt:(UINavigationBar *)bar {
-    NSArray *subViews = [self allSubviews:bar];
-    for (UIView *view in subViews) {
-        if ([view isKindOfClass:[UIImageView class]] && view.bounds.size.height <= 1){
-            return (UIImageView *)view;
-        }
-    }
-    return nil;
-}
-
-+ (NSArray *)allSubviews:(UIView *)aView {
-    NSArray *results = [aView subviews];
-    for (UIView *eachView in aView.subviews)
-    {
-        NSArray *subviews = [self allSubviews: eachView];
-        if (subviews)
-            results = [results arrayByAddingObjectsFromArray:subviews];
-    }
-    return results;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        _shadowImageAlpha = 1.0;
-    }
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)aDecoder {
-    if (self = [super initWithCoder:aDecoder]) {
-        _shadowImageAlpha = 1.0;
-    }
-    return self;
-}
-
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     if (!self.isUserInteractionEnabled || self.isHidden || self.alpha <= 0.01) {
         return nil;
@@ -93,10 +58,22 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    if (@available(iOS 11.0, *)) {
-        self.shadowImageView.alpha = self.shadowImageAlpha;
-    }
     self.fakeView.frame = self.fakeView.superview.bounds;
+    self.shadowImageView.frame = CGRectMake(0, CGRectGetHeight(self.shadowImageView.superview.bounds), CGRectGetWidth(self.shadowImageView.superview.bounds), 0.5);
+}
+
+- (void)setBarTintColor:(UIColor *)barTintColor {
+    [super setBarTintColor:barTintColor];
+    self.fakeView.backgroundColor = barTintColor;
+}
+
+- (void)setShadowImage:(UIImage *)shadowImage {
+    self.shadowImageView.image = shadowImage;
+    if (shadowImage) {
+        self.shadowImageView.backgroundColor = nil;
+    } else {
+        self.shadowImageView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:77.0/255];
+    }
 }
 
 - (UIView *)fakeView {
@@ -110,19 +87,13 @@
     return _fakeView;
 }
 
-- (void)setBarTintColor:(UIColor *)barTintColor {
-    [super setBarTintColor:barTintColor];
-    self.fakeView.backgroundColor = barTintColor;
-}
-
-- (void)setShadowImageAlpha:(float)shadowAlpha {
-    _shadowImageAlpha = shadowAlpha;
-    self.shadowImageView.alpha = shadowAlpha;
-}
-
 - (UIImageView *)shadowImageView {
     if (!_shadowImageView) {
-        _shadowImageView = [HBDNavigationBar findShadowImageAt:self];
+        [super setShadowImage:[UIImage new]];
+        _shadowImageView = [[UIImageView alloc] init];
+        _shadowImageView.userInteractionEnabled = NO;
+        _shadowImageView.contentScaleFactor = 1;
+        [[self.subviews firstObject] insertSubview:_shadowImageView aboveSubview:self.fakeView];
     }
     return _shadowImageView;
 }

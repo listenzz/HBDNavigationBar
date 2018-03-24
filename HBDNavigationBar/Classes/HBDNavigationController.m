@@ -31,6 +31,7 @@
     self.interactivePopGestureRecognizer.delegate = self;
     self.delegate = self;
     [self.navigationBar setBarTintColor:self.topViewController.hbd_barTintColor];
+    [self.navigationBar setShadowImage:[UINavigationBar appearance].shadowImage];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -60,23 +61,20 @@
 - (void)updateNavigationBarForController:(UIViewController *)vc {
     [self updateNavigationBarAlphaForViewController:vc];
     [self updateNavigationBarColorForViewController:vc];
-    [self updateNavigationBarShadowImageHiddenForViewController:vc];
+    [self updateNavigationBarShadowImageAlphaForViewController:vc];
 }
 
 - (void)updateNavigationBarAlphaForViewController:(UIViewController *)vc {
     self.navigationBar.alphaView.alpha = vc.hbd_barAlpha;
-    self.navigationBar.shadowImageAlpha = vc.hbd_barShadowAlpha;
+    self.navigationBar.shadowImageView.alpha = vc.hbd_barShadowAlpha;
 }
 
 - (void)updateNavigationBarColorForViewController:(UIViewController *)vc {
     self.navigationBar.barTintColor = vc.hbd_barTintColor;
 }
 
-- (void)updateNavigationBarShadowImageHiddenForViewController:(UIViewController *)vc {
-    self.navigationBar.shadowImageAlpha = vc.hbd_barShadowAlpha;
-    if (@available(iOS 11.0, *)) {
-        self.navigationBar.shadowImageView.hidden = vc.hbd_barShadowHidden || vc.hbd_barShadowAlpha <= 0.01;
-    }
+- (void)updateNavigationBarShadowImageAlphaForViewController:(UIViewController *)vc {
+    self.navigationBar.shadowImageView.alpha = vc.hbd_barShadowAlpha;
 }
 
 @end

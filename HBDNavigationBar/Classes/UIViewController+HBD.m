@@ -13,7 +13,13 @@
 
 - (UIColor *)hbd_barTintColor {
     id obj = objc_getAssociatedObject(self, _cmd);
-    return obj ?: [UINavigationBar appearance].barTintColor;
+    if (obj) {
+        return obj;
+    }
+    if ([UINavigationBar appearance].barTintColor) {
+        return [UINavigationBar appearance].barTintColor;
+    }
+    return [UINavigationBar appearance].barStyle == UIBarStyleDefault ? UIColor.whiteColor : UIColor.blackColor;
 }
 
 - (void)setHbd_barTintColor:(UIColor *)tintColor {
@@ -84,10 +90,10 @@
     }
 }
 
-- (void)hbd_setNeedsUpdateNavigationBarShadowImageHidden {
+- (void)hbd_setNeedsUpdateNavigationBarShadowImageAlpha {
     if (self.navigationController && [self.navigationController isKindOfClass:[HBDNavigationController class]]) {
         HBDNavigationController *nav = (HBDNavigationController *)self.navigationController;
-        [nav updateNavigationBarShadowImageHiddenForViewController:self];
+        [nav updateNavigationBarShadowImageAlphaForViewController:self];
     }
 }
 
