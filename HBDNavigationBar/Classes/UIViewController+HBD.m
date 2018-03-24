@@ -22,11 +22,13 @@
 
 - (float)hbd_barAlpha {
     id obj = objc_getAssociatedObject(self, _cmd);
+    if (self.hbd_barHidden) {
+        return 0;
+    }
     return obj ? [obj floatValue] : 1.0f;
 }
 
 - (void)setHbd_barAlpha:(float)alpha {
-    self.hbd_barShadowAlpha = alpha;
     objc_setAssociatedObject(self, @selector(hbd_barAlpha), @(alpha), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -36,8 +38,6 @@
 }
 
 - (void)setHbd_barHidden:(BOOL)hidden {
-    self.hbd_barAlpha = 0;
-    self.hbd_barShadowHidden = YES;
     if (hidden) {
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
         self.navigationItem.titleView = [UIView new];
@@ -49,21 +49,15 @@
 }
 
 - (float)hbd_barShadowAlpha {
-    id obj = objc_getAssociatedObject(self, _cmd);
-    return obj ? [obj floatValue] : 1.0f;
-}
-
-- (void)setHbd_barShadowAlpha:(float)alpha {
-    objc_setAssociatedObject(self, @selector(hbd_barShadowAlpha), @(alpha), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    return  self.hbd_barShadowHidden ? 0 : self.hbd_barAlpha;
 }
 
 - (BOOL)hbd_barShadowHidden {
     id obj = objc_getAssociatedObject(self, _cmd);
-    return obj ? [obj boolValue] : NO;
+    return  self.hbd_barHidden || obj ? [obj boolValue] : NO;
 }
 
 - (void)setHbd_barShadowHidden:(BOOL)hidden {
-    self.hbd_barShadowAlpha = hidden ? 0 : self.hbd_barAlpha;
     objc_setAssociatedObject(self, @selector(hbd_barShadowHidden), @(hidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 

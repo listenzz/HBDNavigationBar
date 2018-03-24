@@ -265,6 +265,9 @@
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "listenzz@163.com";
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = 9H9696K6NL;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -551,6 +554,7 @@
 			baseConfigurationReference = B4CB778013B4106CEE199CD0 /* Pods-HBDNavigationBar_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9H9696K6NL;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HBDNavigationBar/HBDNavigationBar-Prefix.pch";
 				INFOPLIST_FILE = "HBDNavigationBar/HBDNavigationBar-Info.plist";
@@ -566,6 +570,7 @@
 			baseConfigurationReference = F10CA745C33C3DA26A969DE6 /* Pods-HBDNavigationBar_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 9H9696K6NL;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HBDNavigationBar/HBDNavigationBar-Prefix.pch";
 				INFOPLIST_FILE = "HBDNavigationBar/HBDNavigationBar-Info.plist";

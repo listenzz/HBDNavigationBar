@@ -12,7 +12,7 @@
 @property (nonatomic, strong) UIColor *hbd_barTintColor;
 @property (nonatomic, assign) float hbd_barAlpha;
 @property (nonatomic, assign) BOOL hbd_barHidden;
-@property (nonatomic, assign) float hbd_barShadowAlpha;
+@property (nonatomic, assign, readonly) float hbd_barShadowAlpha;
 @property (nonatomic, assign) BOOL hbd_barShadowHidden;
 @property (nonatomic, assign) BOOL hbd_backInteractive;
 
