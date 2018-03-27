@@ -266,6 +266,7 @@
                             <outlet property="delegate" destination="3qD-nZ-Mk8" id="WiX-Nv-4ZD"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="wE3-9d-Rme"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ErQ-Ij-tUX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -704,7 +705,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="Uc4-rh-yro" kind="relationship" relationship="rootViewController" id="ux1-r9-33W"/>
+                        <segue destination="Uc4-rh-yro" kind="relationship" relationship="rootViewController" id="1cF-XZ-pP3"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eYY-Ns-uu3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -716,6 +717,6 @@
         <segue reference="C23-Ep-ghO"/>
         <segue reference="ufE-6N-ssX"/>
         <segue reference="gfE-nW-8L7"/>
-        <segue reference="fcq-eb-Hd3"/>
+        <segue reference="LOj-mL-AAO"/>
     </inferredMetricsTieBreakers>
 </document>
