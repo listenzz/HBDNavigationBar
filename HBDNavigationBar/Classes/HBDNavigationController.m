@@ -48,11 +48,11 @@
             [self updateNavigationBarForController:viewController];
         } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
             UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
-            UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
             if (context.isCancelled) {
                 [self updateNavigationBarForController:from];
             } else {
-                [self updateNavigationBarForController:to];
+                // 当 present 时 to 不等于 viewController
+                [self updateNavigationBarForController:viewController];
             }
         }];
     } else {
