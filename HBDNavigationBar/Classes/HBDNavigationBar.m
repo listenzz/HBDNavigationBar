@@ -69,14 +69,13 @@
 - (UIView *)fakeView {
     if (!_fakeView) {
         [super setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-        _fakeView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+        _fakeView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
         _fakeView.userInteractionEnabled = NO;
         _fakeView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
        [[self.subviews firstObject] insertSubview:_fakeView atIndex:0];
     }
     return _fakeView;
 }
-
 
 - (void)setBackgroundImage:(UIImage *)backgroundImage forBarMetrics:(UIBarMetrics)barMetrics {
     

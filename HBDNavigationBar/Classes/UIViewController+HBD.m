@@ -16,6 +16,11 @@
     if (obj) {
         return obj;
     }
+    
+    if (self.hbd_barHidden) {
+        return UIColor.clearColor;
+    }
+    
     if ([UINavigationBar appearance].barTintColor) {
         return [UINavigationBar appearance].barTintColor;
     }

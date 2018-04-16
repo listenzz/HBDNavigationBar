@@ -19,6 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     self.colors = @[[UIColor.redColor colorWithAlphaComponent:0.8], [UIColor.greenColor colorWithAlphaComponent:0.8], [UIColor.blueColor colorWithAlphaComponent:0.8] ];
     self.segment.selectedSegmentIndex = 0;
     self.hbd_barTintColor = self.colors[0];

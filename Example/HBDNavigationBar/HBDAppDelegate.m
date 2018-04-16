@@ -16,7 +16,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-   [[UINavigationBar appearance] setBarTintColor:[UIColor.whiteColor colorWithAlphaComponent:.8]];
+   [[UINavigationBar appearance] setBarTintColor:[UIColor.orangeColor colorWithAlphaComponent:.8]];
    // [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
    // [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:UIColor.blackColor] forBarMetrics:UIBarMetricsDefault];
 
