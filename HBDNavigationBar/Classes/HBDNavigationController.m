@@ -14,6 +14,8 @@
 @property (nonatomic, readonly) HBDNavigationBar *navigationBar;
 @property (nonatomic, strong) UIVisualEffectView *fromFakeBar;
 @property (nonatomic, strong) UIVisualEffectView *toFakeBar;
+@property (nonatomic, strong) UIImageView *fromFakeShadow;
+@property (nonatomic, strong) UIImageView *toFakeShadow;
 
 @end
 
@@ -51,19 +53,26 @@
         UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
         [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
             if (to == viewController && ![from.hbd_barTintColor isEqual:to.hbd_barTintColor]) {
-                [self updateNavigationBarShadowImageAlphaForViewController:to];
                 [UIView setAnimationsEnabled:NO];
                 self.navigationBar.fakeView.alpha = 0;
+                self.navigationBar.shadowImageView.alpha = 0;
                 
+                // from
                 self.fromFakeBar.subviews[1].backgroundColor = from.hbd_barTintColor;
                 self.fromFakeBar.alpha = from.hbd_barAlpha;
                 self.fromFakeBar.frame = [self fakeBarFrameForViewController:from];
                 [from.view addSubview:self.fromFakeBar];
-                
+                self.fromFakeShadow.alpha = from.hbd_barShadowAlpha;
+                self.fromFakeShadow.frame = [self fakeShadowFrameWithBarFrame:self.fromFakeBar.frame];
+                [from.view addSubview:self.fromFakeShadow];
+                // to
                 self.toFakeBar.subviews[1].backgroundColor = to.hbd_barTintColor;
                 self.toFakeBar.alpha = to.hbd_barAlpha;
                 self.toFakeBar.frame = [self fakeBarFrameForViewController:to];
                 [to.view addSubview:self.toFakeBar];
+                self.toFakeShadow.alpha = to.hbd_barShadowAlpha;
+                self.toFakeShadow.frame = [self fakeShadowFrameWithBarFrame:self.toFakeBar.frame];
+                [to.view addSubview:self.toFakeShadow];
                 
                 [UIView setAnimationsEnabled:YES];
             } else {
@@ -77,10 +86,7 @@
                 [self updateNavigationBarForController:viewController];
             }
             if (to == viewController) {
-                [self.fromFakeBar removeFromSuperview];
-                [self.toFakeBar removeFromSuperview];
-                self.fromFakeBar = nil;
-                self.toFakeBar = nil;
+                [self clearFake];
             }
         }];
     } else {
@@ -102,11 +108,42 @@
     return _toFakeBar;
 }
 
+- (UIImageView *)fromFakeShadow {
+    if (!_fromFakeShadow) {
+        _fromFakeShadow = [[UIImageView alloc] initWithImage:self.navigationBar.shadowImageView.image];
+        _fromFakeShadow.backgroundColor = self.navigationBar.shadowImageView.backgroundColor;
+    }
+    return _fromFakeShadow;
+}
+
+- (UIImageView *)toFakeShadow {
+    if (!_toFakeShadow) {
+        _toFakeShadow = [[UIImageView alloc] initWithImage:self.navigationBar.shadowImageView.image];
+        _toFakeShadow.backgroundColor = self.navigationBar.shadowImageView.backgroundColor;
+    }
+    return _toFakeShadow;
+}
+
+- (void)clearFake {
+    [self.fromFakeBar removeFromSuperview];
+    [self.toFakeBar removeFromSuperview];
+    [self.fromFakeShadow removeFromSuperview];
+    [self.toFakeShadow removeFromSuperview];
+    self.fromFakeBar = nil;
+    self.toFakeBar = nil;
+    self.fromFakeShadow = nil;
+    self.toFakeShadow = nil;
+}
+
 - (CGRect)fakeBarFrameForViewController:(UIViewController *)vc {
     CGRect frame = [self.navigationBar.fakeView convertRect:self.navigationBar.fakeView.frame toView:vc.view];
     NSLog(@"frame:%@", NSStringFromCGRect(frame));
     frame.origin.x = vc.view.frame.origin.x;
     return frame;
+}
+
+- (CGRect)fakeShadowFrameWithBarFrame:(CGRect)frame {
+    return CGRectMake(frame.origin.x, frame.size.height + frame.origin.y, frame.size.width, 0.5);
 }
 
 - (void)updateNavigationBarForController:(UIViewController *)vc {
