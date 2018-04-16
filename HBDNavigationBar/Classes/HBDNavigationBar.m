@@ -9,9 +9,8 @@
 
 @interface HBDNavigationBar()
 
-@property (nonatomic, strong, readwrite) UIView *alphaView;
 @property (nonatomic, strong, readwrite) UIImageView *shadowImageView;
-@property (nonatomic, strong) UIView *fakeView;
+@property (nonatomic, strong, readwrite) UIVisualEffectView *fakeView;
 
 @end
 
@@ -44,7 +43,7 @@
     
     NSArray *array = @[ @"UINavigationBarContentView", @"HBDNavigationBar" ];
     if ([array containsObject:viewName]) {
-        if (self.alphaView.alpha < 0.01) {
+        if (self.fakeView.alpha < 0.01) {
             return nil;
         }
     }
@@ -64,7 +63,23 @@
 
 - (void)setBarTintColor:(UIColor *)barTintColor {
     [super setBarTintColor:barTintColor];
-    self.fakeView.backgroundColor = barTintColor;
+    self.fakeView.subviews[1].backgroundColor =  barTintColor;
+}
+
+- (UIView *)fakeView {
+    if (!_fakeView) {
+        [super setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        _fakeView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleDark]];
+        _fakeView.userInteractionEnabled = NO;
+        _fakeView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+       [[self.subviews firstObject] insertSubview:_fakeView atIndex:0];
+    }
+    return _fakeView;
+}
+
+
+- (void)setBackgroundImage:(UIImage *)backgroundImage forBarMetrics:(UIBarMetrics)barMetrics {
+    
 }
 
 - (void)setShadowImage:(UIImage *)shadowImage {
@@ -76,17 +91,6 @@
     }
 }
 
-- (UIView *)fakeView {
-    if (!_fakeView) {
-        [self setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-        _fakeView = [[UIView alloc] init];
-        _fakeView.userInteractionEnabled = NO;
-        _fakeView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        [[self.subviews firstObject] insertSubview:_fakeView atIndex:0];
-    }
-    return _fakeView;
-}
-
 - (UIImageView *)shadowImageView {
     if (!_shadowImageView) {
         [super setShadowImage:[UIImage new]];
@@ -96,33 +100,6 @@
         [[self.subviews firstObject] insertSubview:_shadowImageView aboveSubview:self.fakeView];
     }
     return _shadowImageView;
-}
-
-- (UIView *)alphaView {
-    if (_alphaView) {
-        return _alphaView;
-    }
-    
-    id backgroundView = self.subviews[0];
-    UIView *alphaView;
-    if ([self isTranslucent]) {
-        if (@available(iOS 10.0, *)) {
-            UIImage *backgroundImage = [self backgroundImageForBarMetrics:UIBarMetricsDefault];
-            if (!backgroundImage) {
-                alphaView = [backgroundView valueForKey:@"_backgroundEffectView"];
-            }
-        } else {
-            UIView *adaptiveBackdrop = [backgroundView valueForKey:@"_adaptiveBackdrop"];
-            alphaView = adaptiveBackdrop;
-        }
-    }
-    
-    if (!alphaView) {
-        alphaView = self.fakeView;
-    }
-    
-    _alphaView = alphaView;
-    return alphaView;
 }
 
 @end

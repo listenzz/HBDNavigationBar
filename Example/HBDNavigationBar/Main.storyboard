@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lYX-Ny-kEa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lYX-Ny-kEa">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -290,12 +290,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="b1h-0N-v8E">
-                                                    <rect key="frame" x="46" y="25" width="283" height="31"/>
+                                                <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="b1h-0N-v8E">
+                                                    <rect key="frame" x="46" y="25" width="182" height="31"/>
                                                     <connections>
                                                         <action selector="onAlphaChanged:" destination="IdD-AP-Leo" eventType="valueChanged" id="5V3-PZ-FWC"/>
                                                     </connections>
                                                 </slider>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LMo-hO-YiN">
+                                                    <rect key="frame" x="240" y="24" width="49" height="31"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </switch>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="b1h-0N-v8E" firstAttribute="centerY" secondItem="bgb-TW-0AB" secondAttribute="centerY" id="0EC-h4-P6O"/>
@@ -410,7 +414,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ts5-Qv-DiB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2215" y="-111"/>
+            <point key="canvasLocation" x="2213.5999999999999" y="-111.0944527736132"/>
         </scene>
         <!--Color-->
         <scene sceneID="2hp-GN-cLK">
@@ -714,9 +718,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="C23-Ep-ghO"/>
-        <segue reference="ufE-6N-ssX"/>
+        <segue reference="6RE-xA-XXa"/>
+        <segue reference="beT-D1-pLO"/>
         <segue reference="gfE-nW-8L7"/>
-        <segue reference="LOj-mL-AAO"/>
+        <segue reference="COE-4d-URX"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -19,15 +19,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.colors = @[UIColor.redColor, UIColor.greenColor, UIColor.blueColor];
+    self.colors = @[[UIColor.redColor colorWithAlphaComponent:0.8], [UIColor.greenColor colorWithAlphaComponent:0.8], [UIColor.blueColor colorWithAlphaComponent:0.8] ];
     self.segment.selectedSegmentIndex = 0;
-    self.hbd_barTintColor = UIColor.redColor;
+    self.hbd_barTintColor = self.colors[0];
 }
 
 - (IBAction)onColorSelected:(UISegmentedControl *)sender {
     self.hbd_barTintColor = self.colors[sender.selectedSegmentIndex];
     [self hbd_setNeedsUpdateNavigationBarColor];
 }
-
 
 @end

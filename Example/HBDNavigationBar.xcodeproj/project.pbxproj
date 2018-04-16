@@ -26,6 +26,8 @@
 		91508EF12064FB0700316FA0 /* ShadowHiddenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91508EF02064FB0700316FA0 /* ShadowHiddenViewController.m */; };
 		91508EF42064FB2800316FA0 /* NavigationBarHiddenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91508EF32064FB2800316FA0 /* NavigationBarHiddenViewController.m */; };
 		91508EF72064FB3800316FA0 /* NavigationBarAlphaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91508EF62064FB3800316FA0 /* NavigationBarAlphaViewController.m */; };
+		91E2624020847BDC000E0A97 /* UIColor+Help.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E2623E20847BDC000E0A97 /* UIColor+Help.m */; };
+		91E2624120847BDC000E0A97 /* UIImage+Help.m in Sources */ = {isa = PBXBuildFile; fileRef = 91E2623F20847BDC000E0A97 /* UIImage+Help.m */; };
 		CD671FD8AE21609722E04CF8 /* libPods-HBDNavigationBar_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A13908942A92DA17B0E2C267 /* libPods-HBDNavigationBar_Example.a */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +73,10 @@
 		91508EF52064FB3800316FA0 /* NavigationBarAlphaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationBarAlphaViewController.h; sourceTree = "<group>"; };
 		91508EF62064FB3800316FA0 /* NavigationBarAlphaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationBarAlphaViewController.m; sourceTree = "<group>"; };
 		91D77696FC9CE1A013393325 /* Pods-HBDNavigationBar_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HBDNavigationBar_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HBDNavigationBar_Tests/Pods-HBDNavigationBar_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		91E2623C20847BDC000E0A97 /* UIImage+Help.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Help.h"; sourceTree = "<group>"; };
+		91E2623D20847BDC000E0A97 /* UIColor+Help.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Help.h"; sourceTree = "<group>"; };
+		91E2623E20847BDC000E0A97 /* UIColor+Help.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Help.m"; sourceTree = "<group>"; };
+		91E2623F20847BDC000E0A97 /* UIImage+Help.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Help.m"; sourceTree = "<group>"; };
 		A12383705CD9091B97E204F7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		A13908942A92DA17B0E2C267 /* libPods-HBDNavigationBar_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HBDNavigationBar_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4CB778013B4106CEE199CD0 /* Pods-HBDNavigationBar_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HBDNavigationBar_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HBDNavigationBar_Example/Pods-HBDNavigationBar_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -141,6 +147,10 @@
 		6003F593195388D20070C39A /* Example for HBDNavigationBar */ = {
 			isa = PBXGroup;
 			children = (
+				91E2623D20847BDC000E0A97 /* UIColor+Help.h */,
+				91E2623E20847BDC000E0A97 /* UIColor+Help.m */,
+				91E2623C20847BDC000E0A97 /* UIImage+Help.h */,
+				91E2623F20847BDC000E0A97 /* UIImage+Help.m */,
 				6003F59C195388D20070C39A /* HBDAppDelegate.h */,
 				6003F59D195388D20070C39A /* HBDAppDelegate.m */,
 				91508EEC2064F85600316FA0 /* NavigationBarColorViewController.h */,
@@ -424,8 +434,10 @@
 				91508EF42064FB2800316FA0 /* NavigationBarHiddenViewController.m in Sources */,
 				91508EF72064FB3800316FA0 /* NavigationBarAlphaViewController.m in Sources */,
 				91508EF12064FB0700316FA0 /* ShadowHiddenViewController.m in Sources */,
+				91E2624020847BDC000E0A97 /* UIColor+Help.m in Sources */,
 				6003F59E195388D20070C39A /* HBDAppDelegate.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				91E2624120847BDC000E0A97 /* UIImage+Help.m in Sources */,
 				91508EEE2064F85600316FA0 /* NavigationBarColorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

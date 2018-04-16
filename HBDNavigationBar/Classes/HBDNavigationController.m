@@ -67,7 +67,7 @@
 }
 
 - (void)updateNavigationBarAlphaForViewController:(UIViewController *)vc {
-    self.navigationBar.alphaView.alpha = vc.hbd_barAlpha;
+    self.navigationBar.fakeView.alpha = vc.hbd_barAlpha;
     self.navigationBar.shadowImageView.alpha = vc.hbd_barShadowAlpha;
 }
 
