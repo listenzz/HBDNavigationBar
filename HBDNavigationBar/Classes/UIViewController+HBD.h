@@ -9,6 +9,7 @@
 
 @interface UIViewController (HBD)
 
+@property (nonatomic, assign) UIBarStyle hbd_barStyle;
 @property (nonatomic, strong) UIColor *hbd_barTintColor;
 @property (nonatomic, assign) float hbd_barAlpha;
 @property (nonatomic, assign) BOOL hbd_barHidden;

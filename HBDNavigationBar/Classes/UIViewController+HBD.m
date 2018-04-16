@@ -11,6 +11,18 @@
 
 @implementation UIViewController (HBD)
 
+- (UIBarStyle)hbd_barStyle {
+    id obj = objc_getAssociatedObject(self, _cmd);
+    if (obj) {
+        return [obj integerValue];
+    }
+    return [UINavigationBar appearance].barStyle;
+}
+
+- (void)setHbd_barStyle:(UIBarStyle)hbd_barStyle {
+    objc_setAssociatedObject(self, @selector(hbd_barStyle), @(hbd_barStyle), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 - (UIColor *)hbd_barTintColor {
     id obj = objc_getAssociatedObject(self, _cmd);
     if (obj) {

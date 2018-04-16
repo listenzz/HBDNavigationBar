@@ -44,6 +44,7 @@
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    self.navigationBar.barStyle = viewController.hbd_barStyle;
     id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
     if (coordinator) {
         UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
@@ -61,9 +62,7 @@
                 
                 self.toFakeBar.subviews[1].backgroundColor = to.hbd_barTintColor;
                 self.toFakeBar.alpha = to.hbd_barAlpha;
-                CGRect frame = [self fakeBarFrameForViewController:to];
-                frame.origin.y = self.fromFakeBar.frame.origin.y;
-                self.toFakeBar.frame = frame;
+                self.toFakeBar.frame = [self fakeBarFrameForViewController:to];
                 [to.view addSubview:self.toFakeBar];
                 
                 [UIView setAnimationsEnabled:YES];
@@ -105,6 +104,7 @@
 
 - (CGRect)fakeBarFrameForViewController:(UIViewController *)vc {
     CGRect frame = [self.navigationBar.fakeView convertRect:self.navigationBar.fakeView.frame toView:vc.view];
+    NSLog(@"frame:%@", NSStringFromCGRect(frame));
     frame.origin.x = vc.view.frame.origin.x;
     return frame;
 }
@@ -113,6 +113,7 @@
     [self updateNavigationBarAlphaForViewController:vc];
     [self updateNavigationBarColorForViewController:vc];
     [self updateNavigationBarShadowImageAlphaForViewController:vc];
+    self.navigationBar.barStyle = vc.hbd_barStyle;
 }
 
 - (void)updateNavigationBarAlphaForViewController:(UIViewController *)vc {
