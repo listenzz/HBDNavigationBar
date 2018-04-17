@@ -24,19 +24,19 @@
 }
 
 - (UIColor *)hbd_barTintColor {
+    if (self.hbd_barHidden) {
+        return UIColor.clearColor;
+    }
+    
     id obj = objc_getAssociatedObject(self, _cmd);
     if (obj) {
         return obj;
     }
     
-    if (self.hbd_barHidden) {
-        return UIColor.clearColor;
-    }
-    
     if ([UINavigationBar appearance].barTintColor) {
         return [UINavigationBar appearance].barTintColor;
     }
-    return [UINavigationBar appearance].barStyle == UIBarStyleDefault ? UIColor.whiteColor : UIColor.blackColor;
+    return [UINavigationBar appearance].barStyle == UIBarStyleDefault ? [UIColor.whiteColor colorWithAlphaComponent:0.8]: [UIColor.blackColor colorWithAlphaComponent:0.8];
 }
 
 - (void)setHbd_barTintColor:(UIColor *)tintColor {
