@@ -52,7 +52,8 @@
         UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
         UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
         [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-            if (to == viewController && ![from.hbd_barTintColor isEqual:to.hbd_barTintColor]) {
+            BOOL shouldFake = to == viewController && (![from.hbd_barTintColor isEqual:to.hbd_barTintColor] || ABS(from.hbd_barAlpha - to.hbd_barAlpha) > 0.1);
+            if (shouldFake) {
                 [UIView setAnimationsEnabled:NO];
                 self.navigationBar.fakeView.alpha = 0;
                 self.navigationBar.shadowImageView.alpha = 0;
@@ -92,6 +93,25 @@
     } else {
         [self updateNavigationBarForController:viewController];
     }
+}
+
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated {
+    UIViewController *vc = [super popViewControllerAnimated:animated];
+    // fix bar style issue on iOS 11
+    self.navigationBar.barStyle = self.topViewController.hbd_barStyle;
+    return vc;
+}
+
+- (NSArray<UIViewController *> *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    NSArray *array = [super popToViewController:viewController animated:animated];
+    self.navigationBar.barStyle = self.topViewController.hbd_barStyle;
+    return array;
+}
+
+- (NSArray<UIViewController *> *)popToRootViewControllerAnimated:(BOOL)animated {
+    NSArray *array = [super popToRootViewControllerAnimated:animated];
+    self.navigationBar.barStyle = self.topViewController.hbd_barStyle;
+    return array;
 }
 
 - (UIVisualEffectView *)fromFakeBar {
@@ -137,7 +157,6 @@
 
 - (CGRect)fakeBarFrameForViewController:(UIViewController *)vc {
     CGRect frame = [self.navigationBar.fakeView convertRect:self.navigationBar.fakeView.frame toView:vc.view];
-    NSLog(@"frame:%@", NSStringFromCGRect(frame));
     frame.origin.x = vc.view.frame.origin.x;
     return frame;
 }

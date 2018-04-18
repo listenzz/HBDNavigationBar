@@ -23,7 +23,6 @@
     self.segment.selectedSegmentIndex = 0;
     self.hbd_barTintColor = self.colors[0];
     self.hbd_barStyle = UIBarStyleBlack;
-
 }
 
 - (IBAction)onColorSelected:(UISegmentedControl *)sender {

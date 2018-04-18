@@ -167,6 +167,14 @@
                                             <segue destination="1cg-tC-aWK" kind="show" id="ufE-6N-ssX"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="590" id="cBz-Wc-A9b">
+                                        <rect key="frame" x="0.0" y="220" width="375" height="590"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cBz-Wc-A9b" id="1xu-J5-8SG">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="589.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -326,6 +334,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <containerView key="tableFooterView" opaque="NO" contentMode="scaleToFill" id="QiJ-j8-KI7">
+                            <rect key="frame" x="0.0" y="256" width="375" height="494"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        </containerView>
                         <sections>
                             <tableViewSection id="G4j-FP-wdK">
                                 <cells>
@@ -587,6 +599,14 @@
                                             <segue destination="1cg-tC-aWK" kind="show" id="INb-zu-meh"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="782" id="W48-rd-jNE">
+                                        <rect key="frame" x="0.0" y="256" width="375" height="782"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="W48-rd-jNE" id="Z0T-J2-dWT">
+                                            <rect key="frame" x="0.0" y="0.0" width="341" height="781.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -601,7 +621,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ufZ-82-jud" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2214" y="654"/>
+            <point key="canvasLocation" x="2213.5999999999999" y="653.52323838080963"/>
         </scene>
         <!--Shadow Hidden-->
         <scene sceneID="5Re-Sr-XIi">
@@ -760,9 +780,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="C23-Ep-ghO"/>
+        <segue reference="uYy-z8-Njr"/>
         <segue reference="ufE-6N-ssX"/>
-        <segue reference="gfE-nW-8L7"/>
-        <segue reference="fcq-eb-Hd3"/>
+        <segue reference="ej9-2D-uA9"/>
+        <segue reference="UUY-gf-K1W"/>
     </inferredMetricsTieBreakers>
 </document>
