@@ -16,7 +16,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-   [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
+   // [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
    // [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:UIColor.blackColor] forBarMetrics:UIBarMetricsDefault];
 
     return YES;
