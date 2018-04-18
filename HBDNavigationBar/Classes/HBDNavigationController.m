@@ -52,7 +52,7 @@
         UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
         UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
         [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-            BOOL shouldFake = to == viewController && (![from.hbd_barTintColor isEqual:to.hbd_barTintColor] || ABS(from.hbd_barAlpha - to.hbd_barAlpha) > 0.1);
+            BOOL shouldFake = to == viewController && (![from.hbd_barTintColor.description  isEqual:to.hbd_barTintColor.description] || ABS(from.hbd_barAlpha - to.hbd_barAlpha) > 0.1);
             if (shouldFake) {
                 [UIView setAnimationsEnabled:NO];
                 self.navigationBar.fakeView.alpha = 0;
@@ -60,7 +60,10 @@
                 
                 // from
                 self.fromFakeBar.subviews[1].backgroundColor = from.hbd_barTintColor;
-                self.fromFakeBar.alpha = from.hbd_barAlpha;
+                self.fromFakeBar.alpha = from.hbd_barAlpha == 0 ? 0.01:from.hbd_barAlpha;
+                if (from.hbd_barAlpha == 0) {
+                    self.fromFakeBar.subviews[1].alpha = 0.01;
+                }
                 self.fromFakeBar.frame = [self fakeBarFrameForViewController:from];
                 [from.view addSubview:self.fromFakeBar];
                 self.fromFakeShadow.alpha = from.hbd_barShadowAlpha;
