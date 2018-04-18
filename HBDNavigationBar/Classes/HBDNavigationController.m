@@ -97,7 +97,6 @@
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {
     UIViewController *vc = [super popViewControllerAnimated:animated];
-    // fix bar style issue on iOS 11
     self.navigationBar.barStyle = self.topViewController.hbd_barStyle;
     return vc;
 }

@@ -36,7 +36,7 @@
     if ([UINavigationBar appearance].barTintColor) {
         return [UINavigationBar appearance].barTintColor;
     }
-    return [UINavigationBar appearance].barStyle == UIBarStyleDefault ? [UIColor.whiteColor colorWithAlphaComponent:0.8]: [UIColor.blackColor colorWithAlphaComponent:0.8];
+    return [UINavigationBar appearance].barStyle == UIBarStyleDefault ? [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:0.8]: [UIColor colorWithRed:28/255.0 green:28/255.0 blue:28/255.0 alpha:0.729];
 }
 
 - (void)setHbd_barTintColor:(UIColor *)tintColor {
