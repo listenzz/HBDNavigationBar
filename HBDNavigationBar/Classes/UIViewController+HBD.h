@@ -17,10 +17,9 @@
 @property (nonatomic, assign) BOOL hbd_barShadowHidden;
 @property (nonatomic, assign) BOOL hbd_backInteractive;
 
+- (void)hbd_setNeedsUpdateNavigationBar;
 - (void)hbd_setNeedsUpdateNavigationBarAlpha;
-
 - (void)hbd_setNeedsUpdateNavigationBarColor;
-
 - (void)hbd_setNeedsUpdateNavigationBarShadowImageAlpha;
 
 @end

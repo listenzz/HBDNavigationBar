@@ -22,6 +22,9 @@
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */; };
 		9115292820872CA50061A797 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9115292720872CA50061A797 /* DemoViewController.m */; };
+		91245721208780AB0094CAFE /* YPGradientDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9124571F208780AB0094CAFE /* YPGradientDemoViewController.m */; };
+		912457242087810B0094CAFE /* YPNavigationTitleLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 912457232087810B0094CAFE /* YPNavigationTitleLabel.m */; };
+		91245726208792F40094CAFE /* lakeside_sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 91245725208792F40094CAFE /* lakeside_sunset.png */; };
 		91508EEB2064F3FB00316FA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91508EEA2064F3FB00316FA0 /* Main.storyboard */; };
 		CD671FD8AE21609722E04CF8 /* libPods-HBDNavigationBar_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A13908942A92DA17B0E2C267 /* libPods-HBDNavigationBar_Example.a */; };
 /* End PBXBuildFile section */
@@ -60,6 +63,11 @@
 		71719F9E1E33DC2100824A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9115292620872CA50061A797 /* DemoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
 		9115292720872CA50061A797 /* DemoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
+		9124571F208780AB0094CAFE /* YPGradientDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPGradientDemoViewController.m; sourceTree = "<group>"; };
+		91245720208780AB0094CAFE /* YPGradientDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPGradientDemoViewController.h; sourceTree = "<group>"; };
+		912457222087810A0094CAFE /* YPNavigationTitleLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPNavigationTitleLabel.h; sourceTree = "<group>"; };
+		912457232087810B0094CAFE /* YPNavigationTitleLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPNavigationTitleLabel.m; sourceTree = "<group>"; };
+		91245725208792F40094CAFE /* lakeside_sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lakeside_sunset.png; sourceTree = "<group>"; };
 		91508EEA2064F3FB00316FA0 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		91D77696FC9CE1A013393325 /* Pods-HBDNavigationBar_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HBDNavigationBar_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HBDNavigationBar_Tests/Pods-HBDNavigationBar_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		A12383705CD9091B97E204F7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -140,6 +148,11 @@
 				91508EEA2064F3FB00316FA0 /* Main.storyboard */,
 				9115292620872CA50061A797 /* DemoViewController.h */,
 				9115292720872CA50061A797 /* DemoViewController.m */,
+				91245720208780AB0094CAFE /* YPGradientDemoViewController.h */,
+				9124571F208780AB0094CAFE /* YPGradientDemoViewController.m */,
+				912457222087810A0094CAFE /* YPNavigationTitleLabel.h */,
+				912457232087810B0094CAFE /* YPNavigationTitleLabel.m */,
+				91245725208792F40094CAFE /* lakeside_sunset.png */,
 			);
 			name = "Example for HBDNavigationBar";
 			path = HBDNavigationBar;
@@ -283,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
+				91245726208792F40094CAFE /* lakeside_sunset.png in Resources */,
 				91508EEB2064F3FB00316FA0 /* Main.storyboard in Resources */,
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
@@ -406,6 +420,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				912457242087810B0094CAFE /* YPNavigationTitleLabel.m in Sources */,
+				91245721208780AB0094CAFE /* YPGradientDemoViewController.m in Sources */,
 				6003F59E195388D20070C39A /* HBDAppDelegate.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				9115292820872CA50061A797 /* DemoViewController.m in Sources */,

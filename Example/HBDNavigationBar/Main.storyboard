@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -161,11 +162,26 @@
                                                             <action selector="pushToNext:" destination="6qN-D9-leZ" eventType="touchUpInside" id="fba-ST-pBt"/>
                                                         </connections>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f1s-Nl-k8t">
+                                                        <rect key="frame" x="32" y="68" width="311" height="44"/>
+                                                        <color key="backgroundColor" red="1" green="0.83234566450000003" blue="0.47320586440000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="44" id="5SI-Be-Jvp"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Dynamic Gradient"/>
+                                                        <connections>
+                                                            <action selector="dynamicGradient:" destination="6qN-D9-leZ" eventType="touchUpInside" id="yeq-hc-3gD"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstItem="f1s-Nl-k8t" firstAttribute="trailing" secondItem="nLe-Hm-xp7" secondAttribute="trailing" id="6nL-WU-XY6"/>
+                                                    <constraint firstItem="f1s-Nl-k8t" firstAttribute="leading" secondItem="nLe-Hm-xp7" secondAttribute="leading" id="6wr-K5-qyh"/>
                                                     <constraint firstItem="nLe-Hm-xp7" firstAttribute="top" secondItem="6YV-OK-z0H" secondAttribute="top" constant="16" id="AGI-Qk-beY"/>
                                                     <constraint firstAttribute="height" constant="400" id="EdW-37-GFb"/>
+                                                    <constraint firstItem="f1s-Nl-k8t" firstAttribute="top" secondItem="nLe-Hm-xp7" secondAttribute="bottom" constant="8" id="Rsi-YQ-tHa"/>
+                                                    <constraint firstItem="f1s-Nl-k8t" firstAttribute="height" secondItem="nLe-Hm-xp7" secondAttribute="height" id="SVd-VX-pUO"/>
                                                     <constraint firstItem="nLe-Hm-xp7" firstAttribute="leading" secondItem="6YV-OK-z0H" secondAttribute="leading" constant="32" id="coa-EP-v4d"/>
                                                     <constraint firstAttribute="trailing" secondItem="nLe-Hm-xp7" secondAttribute="trailing" constant="32" id="cxv-f0-0jm"/>
                                                 </constraints>
@@ -275,6 +291,7 @@
                             <constraint firstAttribute="bottom" secondItem="FtJ-GP-gT4" secondAttribute="bottom" id="hIx-c4-GJu"/>
                             <constraint firstItem="FtJ-GP-gT4" firstAttribute="top" secondItem="Vt1-dV-XnG" secondAttribute="top" id="ylI-Rr-aLp"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="1N1-MY-49k"/>
                     </view>
                     <navigationItem key="navigationItem" id="1Lr-Ga-sEd"/>
                     <connections>

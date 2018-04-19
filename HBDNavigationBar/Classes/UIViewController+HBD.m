@@ -93,6 +93,13 @@
     objc_setAssociatedObject(self, @selector(hbd_backInteractive), @(interactive), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (void)hbd_setNeedsUpdateNavigationBar {
+    if (self.navigationController && [self.navigationController isKindOfClass:[HBDNavigationController class]]) {
+        HBDNavigationController *nav = (HBDNavigationController *)self.navigationController;
+        [nav updateNavigationBarForController:self];
+    }
+}
+
 -(void)hbd_setNeedsUpdateNavigationBarAlpha {
     if (self.navigationController && [self.navigationController isKindOfClass:[HBDNavigationController class]]) {
         HBDNavigationController *nav = (HBDNavigationController *)self.navigationController;

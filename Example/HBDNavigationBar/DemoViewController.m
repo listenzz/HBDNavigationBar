@@ -9,6 +9,7 @@
 #import "DemoViewController.h"
 #import <HBDNavigationBar/UIViewController+HBD.h>
 #import <HBDNavigationBar/HBDNavigationController.h>
+#import "YPGradientDemoViewController.h"
 
 @interface DemoViewController ()
 
@@ -38,6 +39,11 @@
 
 - (IBAction)pushToNext:(UIButton *)sender {
     UIViewController *vc = [self createDemoViewController];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+}
+- (IBAction)dynamicGradient:(UIButton *)sender {
+    UIViewController *vc = [[YPGradientDemoViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
