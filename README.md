@@ -11,6 +11,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
+iOS 8+
+
 ## Installation
 
 HBDNavigationBar is available through [CocoaPods](http://cocoapods.org). To install
@@ -19,10 +21,6 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod 'HBDNavigationBar'
 ```
-
-## Author
-
-listenzz@163.com, listenzz@163.com
 
 ## License
 

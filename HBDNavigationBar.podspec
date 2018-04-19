@@ -8,8 +8,8 @@
 
 Pod::Spec.new do |s|
   s.name             = 'HBDNavigationBar'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of HBDNavigationBar.'
+  s.version          = '1.0.0'
+  s.summary          = 'An aspiring UINavigationBar.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/listenzz@163.com/HBDNavigationBar'
+  s.homepage         = 'https://github.com/listenzz/HBDNavigationBar'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'listenzz@163.com' => 'listenzz@163.com' }
-  s.source           = { :git => 'https://github.com/listenzz@163.com/HBDNavigationBar.git', :tag => s.version.to_s }
+  s.author           = { 'listen' => 'listenzz@163.com' }
+  s.source           = { :git => 'https://github.com/listenzz/HBDNavigationBar.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
@@ -36,6 +36,6 @@ TODO: Add long description of the pod here.
   #   'HBDNavigationBar' => ['HBDNavigationBar/Assets/*.png']
   # }
 
-  s.public_header_files = 'Pod/Classes/**/*.h'
+  s.public_header_files = 'HBDNavigationBar/Classes/**/*.h'
   s.frameworks = 'UIKit'
 end
