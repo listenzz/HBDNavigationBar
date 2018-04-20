@@ -29,6 +29,12 @@
     // Do any additional setup after loading the view.
     
     self.title = [NSString stringWithFormat:@"%lu", self.navigationController.childViewControllers.count];
+//    if (self.navigationController.childViewControllers.count == 1) {
+//        self.title = @"我";
+//        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:NULL];
+//    } else {
+//        self.title = @"收藏";
+//    }
 }
 
 - (IBAction)sliderValueChanged:(UISlider *)sender {
