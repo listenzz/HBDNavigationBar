@@ -96,6 +96,10 @@ self.hbd_barHidden = YES;
 @end
 ```
 
+如果你使用 storyboard, 除了设置 HBDNavigationController， 也别忘了设置 HBDNavigationBar
+
+![storyboard](./screenshot/storyboard.jpg)
+
 ### 注意事项以及限制
 
 `hbd_barHidden` 并不真正隐藏导航栏，只是把它变透明了，当然事件是可以穿透的，也正因为并不真正隐藏导航栏，才可以在导航栏有无之间平滑而优雅地切换
