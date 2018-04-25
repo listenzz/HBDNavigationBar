@@ -30,6 +30,15 @@
     return self;
 }
 
+- (instancetype)initWithNavigationBarClass:(Class)navigationBarClass toolbarClass:(Class)toolbarClass {
+    NSAssert([navigationBarClass isSubclassOfClass:[HBDNavigationBar class]], @"navigationBarClass Must be a subclass of HBDNavigationBar");
+    return [super initWithNavigationBarClass:navigationBarClass toolbarClass:toolbarClass];
+}
+
+- (instancetype)init {
+    return [super initWithNavigationBarClass:[HBDNavigationBar class] toolbarClass:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.interactivePopGestureRecognizer.delegate = self;
@@ -54,31 +63,30 @@
         [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
             BOOL shouldFake = to == viewController && (![from.hbd_barTintColor.description  isEqual:to.hbd_barTintColor.description] || ABS(from.hbd_barAlpha - to.hbd_barAlpha) > 0.1);
             if (shouldFake) {
-                [UIView setAnimationsEnabled:NO];
-                self.navigationBar.fakeView.alpha = 0;
-                self.navigationBar.shadowImageView.alpha = 0;
-                
-                // from
-                self.fromFakeBar.subviews[1].backgroundColor = from.hbd_barTintColor;
-                self.fromFakeBar.alpha = from.hbd_barAlpha == 0 ? 0.01:from.hbd_barAlpha;
-                if (from.hbd_barAlpha == 0) {
-                    self.fromFakeBar.subviews[1].alpha = 0.01;
-                }
-                self.fromFakeBar.frame = [self fakeBarFrameForViewController:from];
-                [from.view addSubview:self.fromFakeBar];
-                self.fromFakeShadow.alpha = from.hbd_barShadowAlpha;
-                self.fromFakeShadow.frame = [self fakeShadowFrameWithBarFrame:self.fromFakeBar.frame];
-                [from.view addSubview:self.fromFakeShadow];
-                // to
-                self.toFakeBar.subviews[1].backgroundColor = to.hbd_barTintColor;
-                self.toFakeBar.alpha = to.hbd_barAlpha;
-                self.toFakeBar.frame = [self fakeBarFrameForViewController:to];
-                [to.view addSubview:self.toFakeBar];
-                self.toFakeShadow.alpha = to.hbd_barShadowAlpha;
-                self.toFakeShadow.frame = [self fakeShadowFrameWithBarFrame:self.toFakeBar.frame];
-                [to.view addSubview:self.toFakeShadow];
-                
-                [UIView setAnimationsEnabled:YES];
+                [UIView performWithoutAnimation:^{
+                    self.navigationBar.fakeView.alpha = 0;
+                    self.navigationBar.shadowImageView.alpha = 0;
+                    
+                    // from
+                    self.fromFakeBar.subviews[1].backgroundColor = from.hbd_barTintColor;
+                    self.fromFakeBar.alpha = from.hbd_barAlpha == 0 ? 0.01:from.hbd_barAlpha;
+                    if (from.hbd_barAlpha == 0) {
+                        self.fromFakeBar.subviews[1].alpha = 0.01;
+                    }
+                    self.fromFakeBar.frame = [self fakeBarFrameForViewController:from];
+                    [from.view addSubview:self.fromFakeBar];
+                    self.fromFakeShadow.alpha = from.hbd_barShadowAlpha;
+                    self.fromFakeShadow.frame = [self fakeShadowFrameWithBarFrame:self.fromFakeBar.frame];
+                    [from.view addSubview:self.fromFakeShadow];
+                    // to
+                    self.toFakeBar.subviews[1].backgroundColor = to.hbd_barTintColor;
+                    self.toFakeBar.alpha = to.hbd_barAlpha;
+                    self.toFakeBar.frame = [self fakeBarFrameForViewController:to];
+                    [to.view addSubview:self.toFakeBar];
+                    self.toFakeShadow.alpha = to.hbd_barShadowAlpha;
+                    self.toFakeShadow.frame = [self fakeShadowFrameWithBarFrame:self.toFakeBar.frame];
+                    [to.view addSubview:self.toFakeShadow];
+                }];
             } else {
                 [self updateNavigationBarForController:viewController];
             }
