@@ -24,23 +24,19 @@
 }
 
 - (UIColor *)hbd_barTintColor {
-    if (self.hbd_barHidden) {
-        return UIColor.clearColor;
-    }
-    
-    id obj = objc_getAssociatedObject(self, _cmd);
-    if (obj) {
-        return obj;
-    }
-    
-    if ([UINavigationBar appearance].barTintColor) {
-        return [UINavigationBar appearance].barTintColor;
-    }
-    return [UINavigationBar appearance].barStyle == UIBarStyleDefault ? [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:0.8]: [UIColor colorWithRed:28/255.0 green:28/255.0 blue:28/255.0 alpha:0.729];
+    return objc_getAssociatedObject(self, _cmd);
 }
 
 - (void)setHbd_barTintColor:(UIColor *)tintColor {
      objc_setAssociatedObject(self, @selector(hbd_barTintColor), tintColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (UIImage *)hbd_barImage {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setHbd_barImage:(UIImage *)image {
+    objc_setAssociatedObject(self, @selector(hbd_barImage), image, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (float)hbd_barAlpha {
@@ -71,10 +67,6 @@
     objc_setAssociatedObject(self, @selector(hbd_barHidden), @(hidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (float)hbd_barShadowAlpha {
-    return  self.hbd_barShadowHidden ? 0 : self.hbd_barAlpha;
-}
-
 - (BOOL)hbd_barShadowHidden {
     id obj = objc_getAssociatedObject(self, _cmd);
     return  self.hbd_barHidden || obj ? [obj boolValue] : NO;
@@ -91,6 +83,39 @@
 
 -(void)setHbd_backInteractive:(BOOL)interactive {
     objc_setAssociatedObject(self, @selector(hbd_backInteractive), @(interactive), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (float)hbd_computedBarShadowAlpha {
+    return  self.hbd_barShadowHidden ? 0 : self.hbd_barAlpha;
+}
+
+- (UIImage *)hbd_computedBarImage {
+    UIImage *image = self.hbd_barImage;
+    if (!image) {
+        if (self.hbd_barTintColor) {
+            return nil;
+        }
+        return [[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault];
+    }
+    return image;
+}
+
+- (UIColor *)hbd_computedBarTintColor {
+    if (self.hbd_barImage) {
+        return nil;
+    }
+    UIColor *color = self.hbd_barTintColor;
+    if (!color) {
+        if ([[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault]) {
+            return nil;
+        }
+        if ([UINavigationBar appearance].barTintColor) {
+            color = [UINavigationBar appearance].barTintColor;
+        } else {
+            color = [UINavigationBar appearance].barStyle == UIBarStyleDefault ? [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:0.8]: [UIColor colorWithRed:28/255.0 green:28/255.0 blue:28/255.0 alpha:0.729];
+        }
+    }
+    return color;
 }
 
 - (void)hbd_setNeedsUpdateNavigationBar {

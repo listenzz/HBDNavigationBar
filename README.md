@@ -67,9 +67,9 @@ UIViewController(HBD) 是个分类，里面有一些可配置属性
 ```objc
 @property (nonatomic, assign) UIBarStyle hbd_barStyle;   // 导航栏样式
 @property (nonatomic, strong) UIColor *hbd_barTintColor; // 导航栏背景颜色
+@property (nonatomic, strong) UIImage *hbd_barImage;     // 导航栏背景图片
 @property (nonatomic, assign) float hbd_barAlpha;        // 导航栏背景透明度
 @property (nonatomic, assign) BOOL hbd_barHidden;        // 是否隐藏导航栏
-@property (nonatomic, assign, readonly) float hbd_barShadowAlpha; // 只读，通过其它属性计算出来
 @property (nonatomic, assign) BOOL hbd_barShadowHidden;  // 是否隐藏导航栏下面的阴影
 @property (nonatomic, assign) BOOL hbd_backInteractive;  // 当前页面是否响应右滑返回，默认是 YES
 ```
@@ -88,10 +88,10 @@ self.window.rootViewController = [[HBDNavigationController alloc] initWithRootVi
 ```objc
 @implementation DemoViewController
 - (void)viewDidLoad {
-[super viewDidLoad];
-// 隐藏导航栏，就这样，不需要调用 setNavigationBarHidden:animated:
-// 也不需要担心其它页面会受到影响
-self.hbd_barHidden = YES; 
+    [super viewDidLoad];
+    // 隐藏导航栏，就这样，不需要调用 setNavigationBarHidden:animated:
+    // 也不需要担心其它页面会受到影响
+    self.hbd_barHidden = YES; 
 }
 @end
 ```
@@ -104,14 +104,34 @@ self.hbd_barHidden = YES;
 
 `hbd_barHidden` 并不真正隐藏导航栏，只是把它变透明了，当然事件是可以穿透的，也正因为并不真正隐藏导航栏，才可以在导航栏有无之间平滑而优雅地切换
 
-只支持通过 `hbd_barTintColor` 设置背景颜色，不支持设置背景图片，也就是说，调用 `setBackgroundImage:forBarMetrics:` 是无效的
+一旦通过 `hbd_barImage` 设置背景图片，`hbd_barTintColor` 就会失效
+
+背景的计算规则如下：
+
+1. hbd_barImage 是否有值，如果有，将其设置为背景，否则下一步
+2. hbd_barTintColor 是否有值，如果有，将其设置为背景，否则下一步
+3. [[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault] 是否有返回值，如果有，将其设置为背景，否则下一步
+4. [UINavigationBar appearance].barTintColor 是否有值，如果有，将其设置为背景，否则下一步
+5. 根据 barStyle 计算出默认的背景颜色，并将其设置为背景
+
+如果使用图片来设置背景，并且希望带有透明度，使用带有透明度的图片即可。
 
 如果需要毛玻璃效果，那么设置给 `hbd_barTintColor` 的值应该带有透明度，具体数值根据色值的不同而不同。不要通过 `hbd_barAlpha` 来调整毛玻璃效果，它是用来动态控制导航栏背景的透与暗的，就像掘金收藏页面那个效果一样。
 
+图片是没有毛玻璃效果的
+
 `isTranslucent` 的值总是 YES，你也不应该去改变它，这意味着，controller 的 view 总是位于导航栏底下
 
-支持通过 [UINavigationBar appearance] 设置其余导航栏相关属性
+一个比较好的实践是通过 `[UINavigationBar appearance]` 来设置全局样式，然后在每个页面的 `viewDidLoad` 进行微调，如果有必要的话
 
+```objc
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [[UINavigationBar appearance] setBarTintColor:...];
+    // ...
+    return YES;
+}
+```
 
 ## 感谢
 

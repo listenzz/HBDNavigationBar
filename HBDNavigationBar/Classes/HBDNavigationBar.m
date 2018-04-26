@@ -11,6 +11,7 @@
 
 @property (nonatomic, strong, readwrite) UIImageView *shadowImageView;
 @property (nonatomic, strong, readwrite) UIVisualEffectView *fakeView;
+@property (nonatomic, strong, readwrite) UIImageView *backgroundImageView;
 
 @end
 
@@ -43,7 +44,11 @@
     
     NSArray *array = @[ @"UINavigationBarContentView", @"HBDNavigationBar" ];
     if ([array containsObject:viewName]) {
-        if (self.fakeView.alpha < 0.01) {
+        if (self.backgroundImageView.image) {
+            if (self.backgroundImageView.alpha < 0.01) {
+                return nil;
+            }
+        } else if (self.fakeView.alpha < 0.01) {
             return nil;
         }
     }
@@ -58,6 +63,7 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.fakeView.frame = self.fakeView.superview.bounds;
+    self.backgroundImageView.frame = self.backgroundImageView.superview.bounds;
     self.shadowImageView.frame = CGRectMake(0, CGRectGetHeight(self.shadowImageView.superview.bounds), CGRectGetWidth(self.shadowImageView.superview.bounds), 0.5);
 }
 
@@ -77,8 +83,20 @@
     return _fakeView;
 }
 
+- (UIImageView *)backgroundImageView {
+    if (!_backgroundImageView) {
+        _backgroundImageView = [[UIImageView alloc] init];
+        _backgroundImageView.userInteractionEnabled = NO;
+        _backgroundImageView.contentScaleFactor = 1;
+        _backgroundImageView.contentMode = UIViewContentModeScaleToFill;
+        _backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        [[self.subviews firstObject] insertSubview:_backgroundImageView aboveSubview:self.fakeView];
+    }
+    return _backgroundImageView;
+}
+
 - (void)setBackgroundImage:(UIImage *)backgroundImage forBarMetrics:(UIBarMetrics)barMetrics {
-    
+    self.backgroundImageView.image = backgroundImage;
 }
 
 - (void)setShadowImage:(UIImage *)shadowImage {
@@ -96,7 +114,7 @@
         _shadowImageView = [[UIImageView alloc] init];
         _shadowImageView.userInteractionEnabled = NO;
         _shadowImageView.contentScaleFactor = 1;
-        [[self.subviews firstObject] insertSubview:_shadowImageView aboveSubview:self.fakeView];
+        [[self.subviews firstObject] insertSubview:_shadowImageView aboveSubview:self.backgroundImageView];
     }
     return _shadowImageView;
 }
