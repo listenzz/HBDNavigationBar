@@ -120,9 +120,9 @@ self.window.rootViewController = [[HBDNavigationController alloc] initWithRootVi
 
 图片是没有毛玻璃效果的
 
-`isTranslucent` 的值总是 YES，你也不应该去改变它，这意味着，controller 的 view 总是位于导航栏底下
+`isTranslucent` 的值总是 YES，这意味着，controller 的 view 总是位于导航栏底下
 
-一个比较好的实践是通过 `[UINavigationBar appearance]` 来设置全局样式，然后在每个页面的 `viewDidLoad` 进行微调，如果有必要的话
+一个比较好的实践是通过 `[UINavigationBar appearance]` 来设置全局样式，然后在每个页面的 `viewDidLoad` 进行微调，如果有必要的话。
 
 ```objc
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions

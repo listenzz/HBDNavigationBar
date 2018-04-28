@@ -99,6 +99,10 @@
     self.backgroundImageView.image = backgroundImage;
 }
 
+- (void)setTranslucent:(BOOL)translucent {
+    // prevent default behavior
+}
+
 - (void)setShadowImage:(UIImage *)shadowImage {
     self.shadowImageView.image = shadowImage;
     if (shadowImage) {

@@ -46,7 +46,7 @@
     self.interactivePopGestureRecognizer.delegate = self;
     self.delegate = self;
     [self.navigationBar setShadowImage:[UINavigationBar appearance].shadowImage];
-    [self.navigationBar setTranslucent:YES]; // make sure translucent
+    // [self.navigationBar setTranslucent:YES]; // make sure translucent
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
