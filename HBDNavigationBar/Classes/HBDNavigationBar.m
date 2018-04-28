@@ -69,7 +69,9 @@
 
 - (void)setBarTintColor:(UIColor *)barTintColor {
     [super setBarTintColor:barTintColor];
-    self.fakeView.subviews[1].backgroundColor =  barTintColor;
+    if (self.fakeView.subviews.count > 1) {
+        self.fakeView.subviews[1].backgroundColor =  barTintColor;
+    }
 }
 
 - (UIView *)fakeView {
