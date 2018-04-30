@@ -29,11 +29,13 @@
     // Do any additional setup after loading the view.
     
     self.title = [NSString stringWithFormat:@"%lu", self.navigationController.childViewControllers.count];
-//    if (self.navigationController.childViewControllers.count == 1) {
+//    if (self.navigationController.childViewControllers.count <= 2) {
 //        self.title = @"我";
-//        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:NULL];
+//       // self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:NULL];
 //    } else {
 //        self.title = @"收藏";
+//        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:nil action:NULL];        
+//        self.hbd_tintColor = UIColor.blueColor;
 //    }
 }
 

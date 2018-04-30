@@ -56,7 +56,7 @@ UINavigationBar 是每一个 iOS 工程师都会遇到的坎，它令人抓狂�
 
 ## Usage
 
-上面这些效果是三个类共同协作的结果，总共约 400 行代码
+上面这些效果是三个类共同协作的结果：
 
 HBDNavigationBar 继承 UINavigationBar
 

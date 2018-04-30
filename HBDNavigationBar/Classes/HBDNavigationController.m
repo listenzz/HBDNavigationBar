@@ -46,7 +46,6 @@
     self.interactivePopGestureRecognizer.delegate = self;
     self.delegate = self;
     [self.navigationBar setShadowImage:[UINavigationBar appearance].shadowImage];
-    // [self.navigationBar setTranslucent:YES]; // make sure translucent
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -63,6 +62,7 @@
         UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
         UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
         [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+            self.navigationBar.tintColor = viewController.hbd_tintColor;
             if (shouldShowFake(viewController, from, to)) {
                 [UIView performWithoutAnimation:^{
                     self.navigationBar.fakeView.alpha = 0;
@@ -121,18 +121,21 @@
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {
     UIViewController *vc = [super popViewControllerAnimated:animated];
     self.navigationBar.barStyle = self.topViewController.hbd_barStyle;
+    self.navigationBar.titleTextAttributes = self.topViewController.hbd_titleTextAttributes;
     return vc;
 }
 
 - (NSArray<UIViewController *> *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
     NSArray *array = [super popToViewController:viewController animated:animated];
     self.navigationBar.barStyle = self.topViewController.hbd_barStyle;
+    self.navigationBar.titleTextAttributes = self.topViewController.hbd_titleTextAttributes;
     return array;
 }
 
 - (NSArray<UIViewController *> *)popToRootViewControllerAnimated:(BOOL)animated {
     NSArray *array = [super popToRootViewControllerAnimated:animated];
     self.navigationBar.barStyle = self.topViewController.hbd_barStyle;
+    self.navigationBar.titleTextAttributes = self.topViewController.hbd_titleTextAttributes;
     return array;
 }
 
@@ -248,6 +251,8 @@ BOOL isImageEqual(UIImage *image1, UIImage *image2) {
     [self updateNavigationBarColorForViewController:vc];
     [self updateNavigationBarShadowImageAlphaForViewController:vc];
     self.navigationBar.barStyle = vc.hbd_barStyle;
+    self.navigationBar.tintColor = vc.hbd_tintColor;
+    self.navigationBar.titleTextAttributes = vc.hbd_titleTextAttributes;
 }
 
 - (void)updateNavigationBarAlphaForViewController:(UIViewController *)vc {

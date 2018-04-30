@@ -13,7 +13,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
+    
+    // [[UINavigationBar appearance] setBarTintColor:UIColor.redColor];
+    // [[UINavigationBar appearance] setTintColor:UIColor.redColor];
+    // [UIBarButtonItem appearance].tintColor = UIColor.redColor;
+    
     return YES;
 }
 

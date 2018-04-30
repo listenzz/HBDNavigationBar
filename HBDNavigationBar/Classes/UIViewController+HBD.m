@@ -39,6 +39,24 @@
     objc_setAssociatedObject(self, @selector(hbd_barImage), image, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (UIColor *)hbd_tintColor {
+    id obj = objc_getAssociatedObject(self, _cmd);
+    return obj ?: [UINavigationBar appearance].tintColor;
+}
+
+- (void)setHbd_tintColor:(UIColor *)tintColor {
+    objc_setAssociatedObject(self, @selector(hbd_tintColor), tintColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (NSDictionary *)hbd_titleTextAttributes {
+    id obj = objc_getAssociatedObject(self, _cmd);
+    return obj ?: [UINavigationBar appearance].titleTextAttributes;
+}
+
+- (void)setHbd_titleTextAttributes:(NSDictionary *)attributes {
+    objc_setAssociatedObject(self, @selector(hbd_titleTextAttributes), attributes, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 - (float)hbd_barAlpha {
     id obj = objc_getAssociatedObject(self, _cmd);
     if (self.hbd_barHidden) {
