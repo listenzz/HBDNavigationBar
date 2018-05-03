@@ -26,7 +26,7 @@
 
 - (void)hbd_setNeedsUpdateNavigationBar;
 - (void)hbd_setNeedsUpdateNavigationBarAlpha;
-- (void)hbd_setNeedsUpdateNavigationBarColor;
-- (void)hbd_setNeedsUpdateNavigationBarShadowImageAlpha;
+- (void)hbd_setNeedsUpdateNavigationBarColorOrImage;
+- (void)hbd_setNeedsUpdateNavigationBarShadowAlpha;
 
 @end

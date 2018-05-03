@@ -7,13 +7,11 @@
 //
 
 #import "YPGradientDemoViewController.h"
-#import "YPNavigationTitleLabel.h"
 #import <HBDNavigationBar/UIViewController+HBD.h>
 #import "DemoViewController.h"
 
 @interface YPGradientDemoViewController ()<UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, strong) YPNavigationTitleLabel *titleLabel;
 @property (nonatomic, strong) UIImageView *headerView;
 @property (nonatomic, strong) UITableView *tableView;
 
@@ -27,11 +25,6 @@
     [super viewDidLoad];
     self.title = @"Dynamic Gradient Bar";
     
-    _titleLabel = [YPNavigationTitleLabel new];
-    _titleLabel.textColor = [UIColor clearColor];
-    _titleLabel.text = self.title;
-    self.navigationItem.titleView = _titleLabel;
-
     UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
@@ -54,6 +47,8 @@
     
     self.hbd_barAlpha = 0.0;
     self.hbd_barStyle = UIBarStyleBlack;
+    self.hbd_tintColor = UIColor.whiteColor;
+    self.hbd_titleTextAttributes = @{ NSForegroundColorAttributeName: [UIColor.whiteColor colorWithAlphaComponent:0.0] };
 }
 
 - (void) viewDidLayoutSubviews {
@@ -145,12 +140,14 @@
     gradientProgress = gradientProgress * gradientProgress * gradientProgress * gradientProgress;
     if (gradientProgress != _gradientProgress) {
         _gradientProgress = gradientProgress;
-        self.titleLabel.textColor = [UIColor.blackColor colorWithAlphaComponent:_gradientProgress];
-        
         if (_gradientProgress < 0.1) {
             self.hbd_barStyle = UIBarStyleBlack;
+            self.hbd_tintColor = UIColor.whiteColor;
+            self.hbd_titleTextAttributes = @{ NSForegroundColorAttributeName: [UIColor.blackColor colorWithAlphaComponent:0] };
         } else {
             self.hbd_barStyle = UIBarStyleDefault;
+            self.hbd_tintColor = UIColor.blackColor;
+            self.hbd_titleTextAttributes = @{ NSForegroundColorAttributeName: [UIColor.blackColor colorWithAlphaComponent:_gradientProgress] };
         }
         
         self.hbd_barAlpha = _gradientProgress;
