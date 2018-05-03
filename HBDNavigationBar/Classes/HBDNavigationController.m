@@ -45,6 +45,7 @@
     [super viewDidLoad];
     self.interactivePopGestureRecognizer.delegate = self;
     self.delegate = self;
+    [self.navigationBar setTranslucent:YES];
     [self.navigationBar setShadowImage:[UINavigationBar appearance].shadowImage];
 }
 
@@ -74,10 +75,10 @@
                     self.fromFakeImageView.alpha = from.hbd_barAlpha;
                     self.fromFakeImageView.frame = [self fakeBarFrameForViewController:from];
                     [from.view addSubview:self.fromFakeImageView];
-                    self.fromFakeBar.subviews[1].backgroundColor = from.hbd_computedBarTintColor;
+                    self.fromFakeBar.subviews.lastObject.backgroundColor = from.hbd_computedBarTintColor;
                     self.fromFakeBar.alpha = from.hbd_barAlpha == 0 || from.hbd_computedBarImage ? 0.01:from.hbd_barAlpha;
                     if (from.hbd_barAlpha == 0 || from.hbd_computedBarImage) {
-                        self.fromFakeBar.subviews[1].alpha = 0.01;
+                        self.fromFakeBar.subviews.lastObject.alpha = 0.01;
                     }
                     self.fromFakeBar.frame = [self fakeBarFrameForViewController:from];
                     [from.view addSubview:self.fromFakeBar];
@@ -91,7 +92,7 @@
                     self.toFakeImageView.alpha = to.hbd_barAlpha;
                     self.toFakeImageView.frame = [self fakeBarFrameForViewController:to];
                     [to.view addSubview:self.toFakeImageView];
-                    self.toFakeBar.subviews[1].backgroundColor = to.hbd_computedBarTintColor;
+                    self.toFakeBar.subviews.lastObject.backgroundColor = to.hbd_computedBarTintColor;
                     self.toFakeBar.alpha = to.hbd_computedBarImage ? 0 : to.hbd_barAlpha;
                     self.toFakeBar.frame = [self fakeBarFrameForViewController:to];
                     [to.view addSubview:self.toFakeBar];
