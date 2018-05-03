@@ -16,7 +16,7 @@
     
     // [[UINavigationBar appearance] setBarTintColor:UIColor.redColor];
      [[UINavigationBar appearance] setTintColor:UIColor.blackColor];
-    // [UIBarButtonItem appearance].tintColor = UIColor.redColor;
+     //   [UIBarButtonItem appearance].tintColor = UIColor.redColor;
     
     return YES;
 }

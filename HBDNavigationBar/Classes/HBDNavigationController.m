@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UIImageView *toFakeShadow;
 @property (nonatomic, strong) UIImageView *fromFakeImageView;
 @property (nonatomic, strong) UIImageView *toFakeImageView;
+@property (nonatomic, assign) BOOL inGesture;
 
 @end
 
@@ -44,9 +45,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.interactivePopGestureRecognizer.delegate = self;
+    [self.interactivePopGestureRecognizer addTarget:self action:@selector(handlePopGesture:)];
     self.delegate = self;
     [self.navigationBar setTranslucent:YES];
     [self.navigationBar setShadowImage:[UINavigationBar appearance].shadowImage];
+}
+
+- (void)handlePopGesture:(UIScreenEdgePanGestureRecognizer *)recognizer {
+    id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
+    UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
+    if (recognizer.state == UIGestureRecognizerStateBegan || recognizer.state == UIGestureRecognizerStateChanged) {
+        self.inGesture = YES;
+        self.navigationBar.tintColor = blendColor(from.hbd_tintColor, to.hbd_tintColor, coordinator.percentComplete);
+    } else {
+        self.inGesture = NO;
+    }
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -63,7 +77,12 @@
         UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
         [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
             if (shouldShowFake(viewController, from, to)) {
-                [self updateNavigationBarAnimatedForController:viewController];
+                if (self.inGesture) {
+                    self.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
+                    self.navigationBar.barStyle = viewController.hbd_barStyle;
+                } else {
+                    [self updateNavigationBarAnimatedForController:viewController];
+                }
                 [UIView performWithoutAnimation:^{
                     self.navigationBar.fakeView.alpha = 0;
                     self.navigationBar.shadowImageView.alpha = 0;
@@ -112,6 +131,20 @@
                 [self clearFake];
             }
         }];
+        
+        if (@available(iOS 10.0, *)) {
+            [coordinator notifyWhenInteractionChangesUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+                if (!context.isCancelled && self.inGesture) {
+                    [self updateNavigationBarAnimatedForController:viewController];
+                }
+            }];
+        } else {
+            [coordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+                if (!context.isCancelled && self.inGesture) {
+                    [self updateNavigationBarAnimatedForController:viewController];
+                }
+            }];
+        }
     } else {
         [self updateNavigationBarForViewController:viewController];
     }
@@ -232,6 +265,26 @@ BOOL isImageEqual(UIImage *image1, UIImage *image2) {
         return result;
     }
     return NO;
+}
+
+UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
+    CGFloat fromRed = 0;
+    CGFloat fromGreen = 0;
+    CGFloat fromBlue = 0;
+    CGFloat fromAlpha = 0;
+    [from getRed:&fromRed green:&fromGreen blue:&fromBlue alpha:&fromAlpha];
+    
+    CGFloat toRed = 0;
+    CGFloat toGreen = 0;
+    CGFloat toBlue = 0;
+    CGFloat toAlpha = 0;
+    [to getRed:&toRed green:&toGreen blue:&toBlue alpha:&toAlpha];
+    
+    CGFloat newRed = fromRed + (toRed - fromRed) * percent;
+    CGFloat newGreen = fromGreen + (toGreen - fromGreen) * percent;
+    CGFloat newBlue = fromBlue + (toBlue - fromBlue) * percent;
+    CGFloat newAlpha = fromAlpha + (toAlpha - fromAlpha) * percent;
+    return [UIColor colorWithRed:newRed green:newGreen blue:newBlue alpha:newAlpha];
 }
 
 - (CGRect)fakeBarFrameForViewController:(UIViewController *)vc {

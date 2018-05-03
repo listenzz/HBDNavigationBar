@@ -68,6 +68,8 @@ UIViewController(HBD) 是个分类，里面有一些可配置属性
 @property (nonatomic, assign) UIBarStyle hbd_barStyle;   // 导航栏样式
 @property (nonatomic, strong) UIColor *hbd_barTintColor; // 导航栏背景颜色
 @property (nonatomic, strong) UIImage *hbd_barImage;     // 导航栏背景图片
+@property (nonatomic, strong) UIColor *hbd_tintColor;    // 导航栏按钮颜色
+@property (nonatomic, strong) NSDictionary *hbd_titleTextAttributes; // 导航栏标题属性
 @property (nonatomic, assign) float hbd_barAlpha;        // 导航栏背景透明度
 @property (nonatomic, assign) BOOL hbd_barHidden;        // 是否隐藏导航栏
 @property (nonatomic, assign) BOOL hbd_barShadowHidden;  // 是否隐藏导航栏下面的阴影
@@ -148,7 +150,7 @@ HBDNavigationBar is available through [CocoaPods](http://cocoapods.org). To inst
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'HBDNavigationBar'
+pod 'HBDNavigationBar', '~> 1.2.1'
 ```
 
 ## License
