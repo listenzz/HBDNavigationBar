@@ -1,8 +1,8 @@
 # HBDNavigationBar
 
-
-
 An aspiring UINavigationBar. 
+
+[中文文档](https://github.com/listenzz/HBDNavigationBar/blob/master/README_CN.md)
 
 ##  Introduction
 
