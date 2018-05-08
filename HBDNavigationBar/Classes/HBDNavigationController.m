@@ -93,6 +93,7 @@
                     self.fromFakeImageView.alpha = from.hbd_barAlpha;
                     self.fromFakeImageView.frame = [self fakeBarFrameForViewController:from];
                     [from.view addSubview:self.fromFakeImageView];
+                    
                     self.fromFakeBar.subviews.lastObject.backgroundColor = from.hbd_computedBarTintColor;
                     self.fromFakeBar.alpha = from.hbd_barAlpha == 0 || from.hbd_computedBarImage ? 0.01:from.hbd_barAlpha;
                     if (from.hbd_barAlpha == 0 || from.hbd_computedBarImage) {
@@ -100,6 +101,7 @@
                     }
                     self.fromFakeBar.frame = [self fakeBarFrameForViewController:from];
                     [from.view addSubview:self.fromFakeBar];
+                    
                     self.fromFakeShadow.alpha = from.hbd_computedBarShadowAlpha;
                     self.fromFakeShadow.frame = [self fakeShadowFrameWithBarFrame:self.fromFakeBar.frame];
                     [from.view addSubview:self.fromFakeShadow];
@@ -109,10 +111,12 @@
                     self.toFakeImageView.alpha = to.hbd_barAlpha;
                     self.toFakeImageView.frame = [self fakeBarFrameForViewController:to];
                     [to.view addSubview:self.toFakeImageView];
+                    
                     self.toFakeBar.subviews.lastObject.backgroundColor = to.hbd_computedBarTintColor;
                     self.toFakeBar.alpha = to.hbd_computedBarImage ? 0 : to.hbd_barAlpha;
                     self.toFakeBar.frame = [self fakeBarFrameForViewController:to];
                     [to.view addSubview:self.toFakeBar];
+                    
                     self.toFakeShadow.alpha = to.hbd_computedBarShadowAlpha;
                     self.toFakeShadow.frame = [self fakeShadowFrameWithBarFrame:self.toFakeBar.frame];
                     [to.view addSubview:self.toFakeShadow];
@@ -216,12 +220,12 @@
 }
 
 - (void)clearFake {
-    [self.fromFakeBar removeFromSuperview];
-    [self.toFakeBar removeFromSuperview];
-    [self.fromFakeShadow removeFromSuperview];
-    [self.toFakeShadow removeFromSuperview];
-    [self.fromFakeImageView removeFromSuperview];
-    [self.toFakeImageView removeFromSuperview];
+    [_fromFakeBar removeFromSuperview];
+    [_toFakeBar removeFromSuperview];
+    [_fromFakeShadow removeFromSuperview];
+    [_toFakeShadow removeFromSuperview];
+    [_fromFakeImageView removeFromSuperview];
+    [_toFakeImageView removeFromSuperview];
     _fromFakeBar = nil;
     _toFakeBar = nil;
     _fromFakeShadow = nil;
@@ -295,7 +299,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 }
 
 - (CGRect)fakeShadowFrameWithBarFrame:(CGRect)frame {
-    return CGRectMake(frame.origin.x, frame.size.height + frame.origin.y, frame.size.width, 0.5);
+    return CGRectMake(frame.origin.x, frame.size.height + frame.origin.y - 0.5, frame.size.width, 0.5);
 }
 
 - (void)updateNavigationBarForViewController:(UIViewController *)vc {

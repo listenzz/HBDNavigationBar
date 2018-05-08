@@ -64,7 +64,7 @@
     [super layoutSubviews];
     self.fakeView.frame = self.fakeView.superview.bounds;
     self.backgroundImageView.frame = self.backgroundImageView.superview.bounds;
-    self.shadowImageView.frame = CGRectMake(0, CGRectGetHeight(self.shadowImageView.superview.bounds), CGRectGetWidth(self.shadowImageView.superview.bounds), 0.5);
+    self.shadowImageView.frame = CGRectMake(0, CGRectGetHeight(self.shadowImageView.superview.bounds) - 0.5, CGRectGetWidth(self.shadowImageView.superview.bounds), 0.5);
 }
 
 - (void)setBarTintColor:(UIColor *)barTintColor {

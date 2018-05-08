@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7nt-Vi-Ocd">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1400"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cA0-BZ-ItB">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="16"/>
@@ -149,7 +149,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6YV-OK-z0H">
-                                                <rect key="frame" x="0.0" y="400" width="375" height="400"/>
+                                                <rect key="frame" x="0.0" y="400" width="375" height="1000"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nLe-Hm-xp7">
                                                         <rect key="frame" x="32" y="16" width="311" height="44"/>
@@ -179,7 +179,7 @@
                                                     <constraint firstItem="f1s-Nl-k8t" firstAttribute="trailing" secondItem="nLe-Hm-xp7" secondAttribute="trailing" id="6nL-WU-XY6"/>
                                                     <constraint firstItem="f1s-Nl-k8t" firstAttribute="leading" secondItem="nLe-Hm-xp7" secondAttribute="leading" id="6wr-K5-qyh"/>
                                                     <constraint firstItem="nLe-Hm-xp7" firstAttribute="top" secondItem="6YV-OK-z0H" secondAttribute="top" constant="16" id="AGI-Qk-beY"/>
-                                                    <constraint firstAttribute="height" constant="400" id="EdW-37-GFb"/>
+                                                    <constraint firstAttribute="height" constant="1000" id="EdW-37-GFb"/>
                                                     <constraint firstItem="f1s-Nl-k8t" firstAttribute="top" secondItem="nLe-Hm-xp7" secondAttribute="bottom" constant="8" id="Rsi-YQ-tHa"/>
                                                     <constraint firstItem="f1s-Nl-k8t" firstAttribute="height" secondItem="nLe-Hm-xp7" secondAttribute="height" id="SVd-VX-pUO"/>
                                                     <constraint firstItem="nLe-Hm-xp7" firstAttribute="leading" secondItem="6YV-OK-z0H" secondAttribute="leading" constant="32" id="coa-EP-v4d"/>
