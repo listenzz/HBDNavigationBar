@@ -295,6 +295,11 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     UIView *back = self.navigationBar.subviews[0];
     CGRect frame = [self.navigationBar convertRect:back.frame toView:vc.view];
     frame.origin.x = vc.view.frame.origin.x;
+    //  解决根视图为scrollView的时候，Push不正常
+    if ([vc.view isKindOfClass:[UIScrollView class]]) {
+        //  适配iPhoneX
+        frame.origin.y = -([UIScreen mainScreen].bounds.size.height == 812.0 ? 88 : 64);
+    }
     return frame;
 }
 
