@@ -20,7 +20,7 @@
 }
 
 - (void)setHbd_barStyle:(UIBarStyle)hbd_barStyle {
-    objc_setAssociatedObject(self, @selector(hbd_barStyle), @(hbd_barStyle), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(hbd_barStyle), @(hbd_barStyle), OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (UIColor *)hbd_barTintColor {
@@ -54,7 +54,7 @@
 }
 
 - (void)setHbd_titleTextAttributes:(NSDictionary *)attributes {
-    objc_setAssociatedObject(self, @selector(hbd_titleTextAttributes), attributes, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(hbd_titleTextAttributes), attributes, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (float)hbd_barAlpha {
@@ -66,7 +66,7 @@
 }
 
 - (void)setHbd_barAlpha:(float)alpha {
-    objc_setAssociatedObject(self, @selector(hbd_barAlpha), @(alpha), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(hbd_barAlpha), @(alpha), OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (BOOL)hbd_barHidden {
@@ -82,7 +82,7 @@
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.titleView = nil;
     }
-    objc_setAssociatedObject(self, @selector(hbd_barHidden), @(hidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(hbd_barHidden), @(hidden), OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (BOOL)hbd_barShadowHidden {
@@ -91,7 +91,7 @@
 }
 
 - (void)setHbd_barShadowHidden:(BOOL)hidden {
-    objc_setAssociatedObject(self, @selector(hbd_barShadowHidden), @(hidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(hbd_barShadowHidden), @(hidden), OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (BOOL)hbd_backInteractive {
@@ -101,6 +101,15 @@
 
 -(void)setHbd_backInteractive:(BOOL)interactive {
     objc_setAssociatedObject(self, @selector(hbd_backInteractive), @(interactive), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)hbd_swipeBackEnabled {
+    id obj = objc_getAssociatedObject(self, _cmd);
+    return obj ? [obj boolValue] : YES;
+}
+
+- (void)setHbd_swipeBackEnabled:(BOOL)enabled {
+    objc_setAssociatedObject(self, @selector(hbd_swipeBackEnabled), @(enabled), OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (float)hbd_computedBarShadowAlpha {

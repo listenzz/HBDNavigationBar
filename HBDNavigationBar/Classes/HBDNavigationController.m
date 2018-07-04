@@ -65,9 +65,18 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (self.viewControllers.count > 1) {
-        return self.topViewController.hbd_backInteractive;
+        return self.topViewController.hbd_backInteractive && self.topViewController.hbd_swipeBackEnabled;
     }
     return NO;
+}
+
+- (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
+    if (self.viewControllers.count > 1 && self.topViewController.navigationItem == item ) {
+        if (!self.topViewController.hbd_backInteractive) {
+            return NO;
+        }
+    }
+    return [super navigationBar:navigationBar shouldPopItem:item];
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
@@ -234,6 +243,55 @@
     _toFakeImageView = nil;
 }
 
+- (CGRect)fakeBarFrameForViewController:(UIViewController *)vc {
+    UIView *back = self.navigationBar.subviews[0];
+    CGRect frame = [self.navigationBar convertRect:back.frame toView:vc.view];
+    frame.origin.x = vc.view.frame.origin.x;
+    //  解决根视图为scrollView的时候，Push不正常
+    if ([vc.view isKindOfClass:[UIScrollView class]]) {
+        //  适配iPhoneX
+        frame.origin.y = -([UIScreen mainScreen].bounds.size.height == 812.0 ? 88 : 64);
+    }
+    return frame;
+}
+
+- (CGRect)fakeShadowFrameWithBarFrame:(CGRect)frame {
+    return CGRectMake(frame.origin.x, frame.size.height + frame.origin.y - 0.5, frame.size.width, 0.5);
+}
+
+- (void)updateNavigationBarForViewController:(UIViewController *)vc {
+    [self updateNavigationBarAlphaForViewController:vc];
+    [self updateNavigationBarColorOrImageForViewController:vc];
+    [self updateNavigationBarShadowIAlphaForViewController:vc];
+    [self updateNavigationBarAnimatedForController:vc];
+}
+
+- (void)updateNavigationBarAnimatedForController:(UIViewController *)vc {
+    self.navigationBar.barStyle = vc.hbd_barStyle;
+    self.navigationBar.titleTextAttributes = vc.hbd_titleTextAttributes;
+    self.navigationBar.tintColor = vc.hbd_tintColor;
+}
+
+- (void)updateNavigationBarAlphaForViewController:(UIViewController *)vc {
+    if (vc.hbd_computedBarImage) {
+        self.navigationBar.fakeView.alpha = 0;
+        self.navigationBar.backgroundImageView.alpha = vc.hbd_barAlpha;
+    } else {
+        self.navigationBar.fakeView.alpha = vc.hbd_barAlpha;
+        self.navigationBar.backgroundImageView.alpha = 0;
+    }
+    self.navigationBar.shadowImageView.alpha = vc.hbd_computedBarShadowAlpha;
+}
+
+- (void)updateNavigationBarColorOrImageForViewController:(UIViewController *)vc {
+    self.navigationBar.barTintColor = vc.hbd_computedBarTintColor;
+    self.navigationBar.backgroundImageView.image = vc.hbd_computedBarImage;
+}
+
+- (void)updateNavigationBarShadowIAlphaForViewController:(UIViewController *)vc {
+    self.navigationBar.shadowImageView.alpha = vc.hbd_computedBarShadowAlpha;
+}
+
 BOOL shouldShowFake(UIViewController *vc,UIViewController *from, UIViewController *to) {
     if (vc != to ) {
         return NO;
@@ -289,55 +347,6 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     CGFloat newBlue = fromBlue + (toBlue - fromBlue) * percent;
     CGFloat newAlpha = fromAlpha + (toAlpha - fromAlpha) * percent;
     return [UIColor colorWithRed:newRed green:newGreen blue:newBlue alpha:newAlpha];
-}
-
-- (CGRect)fakeBarFrameForViewController:(UIViewController *)vc {
-    UIView *back = self.navigationBar.subviews[0];
-    CGRect frame = [self.navigationBar convertRect:back.frame toView:vc.view];
-    frame.origin.x = vc.view.frame.origin.x;
-    //  解决根视图为scrollView的时候，Push不正常
-    if ([vc.view isKindOfClass:[UIScrollView class]]) {
-        //  适配iPhoneX
-        frame.origin.y = -([UIScreen mainScreen].bounds.size.height == 812.0 ? 88 : 64);
-    }
-    return frame;
-}
-
-- (CGRect)fakeShadowFrameWithBarFrame:(CGRect)frame {
-    return CGRectMake(frame.origin.x, frame.size.height + frame.origin.y - 0.5, frame.size.width, 0.5);
-}
-
-- (void)updateNavigationBarForViewController:(UIViewController *)vc {
-    [self updateNavigationBarAlphaForViewController:vc];
-    [self updateNavigationBarColorOrImageForViewController:vc];
-    [self updateNavigationBarShadowIAlphaForViewController:vc];
-    [self updateNavigationBarAnimatedForController:vc];
-}
-
-- (void)updateNavigationBarAnimatedForController:(UIViewController *)vc {
-    self.navigationBar.barStyle = vc.hbd_barStyle;
-    self.navigationBar.titleTextAttributes = vc.hbd_titleTextAttributes;
-    self.navigationBar.tintColor = vc.hbd_tintColor;
-}
-
-- (void)updateNavigationBarAlphaForViewController:(UIViewController *)vc {
-    if (vc.hbd_computedBarImage) {
-        self.navigationBar.fakeView.alpha = 0;
-        self.navigationBar.backgroundImageView.alpha = vc.hbd_barAlpha;
-    } else {
-        self.navigationBar.fakeView.alpha = vc.hbd_barAlpha;
-        self.navigationBar.backgroundImageView.alpha = 0;
-    }
-    self.navigationBar.shadowImageView.alpha = vc.hbd_computedBarShadowAlpha;
-}
-
-- (void)updateNavigationBarColorOrImageForViewController:(UIViewController *)vc {
-    self.navigationBar.barTintColor = vc.hbd_computedBarTintColor;
-    self.navigationBar.backgroundImageView.image = vc.hbd_computedBarImage;
-}
-
-- (void)updateNavigationBarShadowIAlphaForViewController:(UIViewController *)vc {
-    self.navigationBar.shadowImageView.alpha = vc.hbd_computedBarShadowAlpha;
 }
 
 @end
