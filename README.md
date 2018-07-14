@@ -136,6 +136,46 @@ return YES;
 }
 ```
 
+#### 处理 isTranslucent 总是 YES 的问题
+
+`isTranslucent` 总是 YES 会导致页面的内容总是位于 NavigationBar 底下，这可能会给某些同学带来困扰。我们目前解决这个问题的办法是定义一个基类：
+
+```objc
+@interface HBDViewController : UIViewController
+
+@property (nonatomic, assign) BOOL hbd_extendedLayoutIncludesTopBar;
+
+@end
+
+BOOL hasAlpha(UIColor *color) {
+    if (!color) {
+        return YES;
+    }
+    CGFloat red = 0;
+    CGFloat green= 0;
+    CGFloat blue = 0;
+    CGFloat alpha = 0;
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+    return alpha < 1.0;
+}
+
+@implementation HBDViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+ 
+    if (!(self.hbd_extendedLayoutIncludesTopBar || hasAlpha(self.hbd_barTintColor))) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
+}    
+
+@end
+```
+
+基本原则就是如果我们设置的背景是含有透明度的，那么页面就应该位于 NavigationBar 底下(under)，否则位于 NavigationBar 下面(below).
+
+如果我们的 NavigationBar 一开始是不透明的，但有可能因为用户操作而变透明，那么设置 `hbd_extendedLayoutIncludesTopBar` 的值为 YES，记得在 `[super viewDidLoad]` 之前设置好。
+
 ## 感谢
 
 在完善导航栏相关功能时，查看了 GitHub 上十多个相关项目，其中给我帮助最大的是 [YPNavigationBarTransition](https://github.com/yiplee/YPNavigationBarTransition)，它为我解决不同背景之间如何平滑切换提供了非常有价值的参考。
