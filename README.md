@@ -176,6 +176,19 @@ BOOL hasAlpha(UIColor *color) {
 
 如果我们的 NavigationBar 一开始是不透明的，但有可能因为用户操作而变透明，那么设置 `hbd_extendedLayoutIncludesTopBar` 的值为 YES，记得在 `[super viewDidLoad]` 之前设置好。
 
+#### 拦截返回事件
+
+有时，我们需要在用户点击返回按钮或者侧滑返回时提醒用户，此时，可以重写以下方法，返回 NO
+
+```objc
+
+- (BOOL)hbd_backInteractive {
+    // show alert
+    return NO;
+}
+
+```
+
 ## 感谢
 
 在完善导航栏相关功能时，查看了 GitHub 上十多个相关项目，其中给我帮助最大的是 [YPNavigationBarTransition](https://github.com/yiplee/YPNavigationBarTransition)，它为我解决不同背景之间如何平滑切换提供了非常有价值的参考。
