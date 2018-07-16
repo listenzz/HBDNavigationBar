@@ -73,10 +73,25 @@
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
     if (self.viewControllers.count > 1 && self.topViewController.navigationItem == item ) {
         if (!self.topViewController.hbd_backInteractive) {
+            [self resetSubviewsInNavBar:self.navigationBar];
             return NO;
         }
     }
     return [super navigationBar:navigationBar shouldPopItem:item];
+}
+
+- (void)resetSubviewsInNavBar:(UINavigationBar *)navBar {
+    if (@available(iOS 11, *)) {
+    } else {
+        // Workaround for >= iOS7.1. Thanks to @boliva - http://stackoverflow.com/posts/comments/34452906
+        [navBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subview, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (subview.alpha < 1.0) {
+                [UIView animateWithDuration:.25 animations:^{
+                    subview.alpha = 1.0;
+                }];
+            }
+        }];
+    }
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
