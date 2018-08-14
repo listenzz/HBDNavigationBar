@@ -69,6 +69,7 @@
 
 - (void)setBarTintColor:(UIColor *)barTintColor {
     self.fakeView.subviews.lastObject.backgroundColor =  barTintColor;
+    [self makeSureFakeView];
 }
 
 - (UIView *)fakeView {
@@ -96,6 +97,7 @@
 
 - (void)setBackgroundImage:(UIImage *)backgroundImage forBarMetrics:(UIBarMetrics)barMetrics {
     self.backgroundImageView.image = backgroundImage;
+    [self makeSureFakeView];
 }
 
 - (void)setTranslucent:(BOOL)translucent {
@@ -121,6 +123,24 @@
         [[self.subviews firstObject] insertSubview:_shadowImageView aboveSubview:self.backgroundImageView];
     }
     return _shadowImageView;
+}
+
+- (void)makeSureFakeView {
+    if (!self.fakeView.superview) {
+        [[self.subviews firstObject] insertSubview:_fakeView atIndex:0];
+        self.fakeView.frame = self.fakeView.superview.bounds;
+        
+    }
+    
+    if (!self.shadowImageView.superview) {
+        [[self.subviews firstObject] insertSubview:_shadowImageView aboveSubview:self.backgroundImageView];
+        self.shadowImageView.frame = CGRectMake(0, CGRectGetHeight(self.shadowImageView.superview.bounds) - 0.5, CGRectGetWidth(self.shadowImageView.superview.bounds), 0.5);
+    }
+    
+    if (!self.backgroundImageView.superview) {
+        [[self.subviews firstObject] insertSubview:_backgroundImageView aboveSubview:self.fakeView];
+        self.backgroundImageView.frame = self.backgroundImageView.superview.bounds;
+    }
 }
 
 @end

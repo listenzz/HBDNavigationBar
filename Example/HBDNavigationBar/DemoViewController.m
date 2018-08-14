@@ -72,7 +72,21 @@
                        ][self.colorSegment.selectedSegmentIndex];
     
     vc.hbd_barTintColor = color;
+    // vc.hbd_barImage = [DemoViewController imageWithColor:color];
     return vc;
+}
+
+
++ (UIImage*)imageWithColor:(UIColor*)color
+{
+    CGRect rect = CGRectMake(0.0f, 0.0f, 8.0f, 8.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage*theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return theImage;
 }
 
 @end

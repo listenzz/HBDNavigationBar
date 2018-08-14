@@ -15,10 +15,23 @@
 {
     
     // [[UINavigationBar appearance] setBarTintColor:UIColor.redColor];
-     [[UINavigationBar appearance] setTintColor:UIColor.blackColor];
+    [[UINavigationBar appearance] setTintColor:UIColor.blackColor];
+    //[[UINavigationBar appearance] setBackgroundImage:[HBDAppDelegate imageWithColor:UIColor.blueColor] forBarMetrics:UIBarMetricsDefault];
      //   [UIBarButtonItem appearance].tintColor = UIColor.redColor;
     
     return YES;
+}
+
++ (UIImage*)imageWithColor:(UIColor*)color
+{
+    CGRect rect = CGRectMake(0.0f, 0.0f, 8.0f, 8.0f);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage*theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return theImage;
 }
 
 @end
