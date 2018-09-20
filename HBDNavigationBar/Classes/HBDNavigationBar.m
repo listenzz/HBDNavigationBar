@@ -126,6 +126,7 @@
 }
 
 - (void)makeSureFakeView {
+    [UIView setAnimationsEnabled:NO];
     if (!self.fakeView.superview) {
         [[self.subviews firstObject] insertSubview:_fakeView atIndex:0];
         self.fakeView.frame = self.fakeView.superview.bounds;
@@ -141,6 +142,7 @@
         [[self.subviews firstObject] insertSubview:_backgroundImageView aboveSubview:self.fakeView];
         self.backgroundImageView.frame = self.backgroundImageView.superview.bounds;
     }
+    [UIView setAnimationsEnabled:YES];
 }
 
 @end
