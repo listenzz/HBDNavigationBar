@@ -156,7 +156,7 @@
     UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
     
-    if ([to isKindOfClass:[HBDNavigationController class]]) {
+    if (self == to) { // to == self
         [self updateNavigationBarForViewController:viewController];
     }
     
