@@ -51,6 +51,12 @@
     [self.navigationBar setShadowImage:[UINavigationBar appearance].shadowImage];
 }
 
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+    // 修复一个神奇的 BUG https://github.com/listenzz/HBDNavigationBar/issues/29
+    self.topViewController.view.frame = self.topViewController.view.frame;
+}
+
 - (void)handlePopGesture:(UIScreenEdgePanGestureRecognizer *)recognizer {
     id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
     UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
