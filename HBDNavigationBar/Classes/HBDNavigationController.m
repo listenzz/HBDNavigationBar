@@ -151,6 +151,10 @@
     UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
     
+    if ([to isKindOfClass:[HBDNavigationController class]]) {
+        [self updateNavigationBarForViewController:viewController];
+    }
+    
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         if (shouldShowFake(viewController, from, to)) {
             [self transitionNavigationBarStyle:from to:to viewController:viewController];
