@@ -65,6 +65,9 @@
         self.inGesture = YES;
         self.navigationBar.tintColor = blendColor(from.hbd_tintColor, to.hbd_tintColor, coordinator.percentComplete);
     } else {
+        if (coordinator.isCancelled) {
+            self.navigationBar.tintColor = from.hbd_tintColor;
+        }
         self.inGesture = NO;
     }
 }
@@ -104,6 +107,8 @@
     if (self.inGesture) {
         self.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
         self.navigationBar.barStyle = viewController.hbd_barStyle;
+        // 手势处理 tintColor
+        //self.navigationBar.tintColor = viewController.hbd_tintColor;
     } else {
         [self updateNavigationBarAnimatedForController:viewController];
     }
@@ -159,7 +164,17 @@
         if (shouldShowFake(viewController, from, to)) {
             [self transitionNavigationBarStyle:from to:to viewController:viewController];
         } else {
-            [self updateNavigationBarForViewController:viewController];
+            if (self.inGesture) {
+                self.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
+                self.navigationBar.barStyle = viewController.hbd_barStyle;
+                // 手势处理 tintColor
+                //self.navigationBar.tintColor = viewController.hbd_tintColor;
+                [self updateNavigationBarAlphaForViewController:viewController];
+                [self updateNavigationBarColorOrImageForViewController:viewController];
+                [self updateNavigationBarShadowIAlphaForViewController:viewController];
+            } else {
+                [self updateNavigationBarForViewController:viewController];
+            }
         }
     } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         if (context.isCancelled) {
@@ -376,10 +391,10 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     CGFloat toAlpha = 0;
     [to getRed:&toRed green:&toGreen blue:&toBlue alpha:&toAlpha];
     
-    CGFloat newRed = fromRed + (toRed - fromRed) * percent;
-    CGFloat newGreen = fromGreen + (toGreen - fromGreen) * percent;
-    CGFloat newBlue = fromBlue + (toBlue - fromBlue) * percent;
-    CGFloat newAlpha = fromAlpha + (toAlpha - fromAlpha) * percent;
+    CGFloat newRed =  fromRed + (toRed - fromRed) * fminf(1, percent * 4) ;
+    CGFloat newGreen = fromGreen + (toGreen - fromGreen) * fminf(1, percent * 4);
+    CGFloat newBlue = fromBlue + (toBlue - fromBlue) * fminf(1, percent * 4);
+    CGFloat newAlpha = fromAlpha + (toAlpha - fromAlpha) * fminf(1, percent * 4);
     return [UIColor colorWithRed:newRed green:newGreen blue:newBlue alpha:newAlpha];
 }
 
