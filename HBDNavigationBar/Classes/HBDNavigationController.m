@@ -55,6 +55,8 @@
     [super viewWillLayoutSubviews];
     // 修复一个神奇的 BUG https://github.com/listenzz/HBDNavigationBar/issues/29
     self.topViewController.view.frame = self.topViewController.view.frame;
+    // 又一个神奇的 BUG https://github.com/listenzz/HBDNavigationBar/issues/31
+    [self updateNavigationBarForViewController:self.topViewController];
 }
 
 - (void)handlePopGesture:(UIScreenEdgePanGestureRecognizer *)recognizer {
