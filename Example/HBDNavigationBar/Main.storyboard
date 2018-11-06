@@ -428,11 +428,21 @@
                                     <segue destination="COE-0e-7xl" kind="push" id="X3a-7U-4Ax"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ta-dz-pud">
+                                <rect key="frame" x="126" y="374" width="123" height="39"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <state key="normal" title="push to table"/>
+                                <connections>
+                                    <segue destination="gLf-ny-hgF" kind="push" id="sP1-Rs-Gor"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fAf-A2-grh" firstAttribute="centerY" secondItem="8o4-X0-h4u" secondAttribute="centerY" id="7nq-bz-u1T"/>
+                            <constraint firstItem="7ta-dz-pud" firstAttribute="top" secondItem="fAf-A2-grh" secondAttribute="bottom" constant="20" id="d7R-dd-4bW"/>
                             <constraint firstItem="fAf-A2-grh" firstAttribute="centerX" secondItem="8o4-X0-h4u" secondAttribute="centerX" id="qP7-rE-Tq1"/>
+                            <constraint firstItem="7ta-dz-pud" firstAttribute="centerX" secondItem="8o4-X0-h4u" secondAttribute="centerX" id="qqM-fp-4Uq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kYz-Vw-JoY"/>
                     </view>
@@ -440,7 +450,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hkR-I6-ZQl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1132" y="-538"/>
+            <point key="canvasLocation" x="-1132" y="-538.38080959520244"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="1xK-b1-r2D">
@@ -489,4 +499,7 @@
             <point key="canvasLocation" x="-2031" y="343"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="sP1-Rs-Gor"/>
+    </inferredMetricsTieBreakers>
 </document>
