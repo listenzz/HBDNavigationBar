@@ -105,15 +105,16 @@
     }
 }
 
-- (void)transitionNavigationBarStyle:(UIViewController *)from to:(UIViewController *)to viewController:(UIViewController * _Nonnull)viewController {
+- (void)showViewControllerAlongsideTransition:(UIViewController * _Nonnull)viewController from:(UIViewController *)from to: (UIViewController *)to {
     if (self.inGesture) {
         self.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
         self.navigationBar.barStyle = viewController.hbd_barStyle;
         // 手势处理 tintColor
         //self.navigationBar.tintColor = viewController.hbd_tintColor;
     } else {
-        [self updateNavigationBarAnimatedForController:viewController];
+        [self updateNavigationBarAnimatedForViewController:viewController];
     }
+    
     [UIView performWithoutAnimation:^{
         self.navigationBar.fakeView.alpha = 0;
         self.navigationBar.shadowImageView.alpha = 0;
@@ -154,7 +155,21 @@
     }];
 }
 
-- (void)transitionNavigationBarStyleWithCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator viewController:(UIViewController * _Nonnull)viewController {
+- (void)showViewControllerAlongsideTransition:(UIViewController * _Nonnull)viewController {
+    if (self.inGesture) {
+        self.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
+        self.navigationBar.barStyle = viewController.hbd_barStyle;
+        // 手势处理 tintColor
+        //self.navigationBar.tintColor = viewController.hbd_tintColor;
+        [self updateNavigationBarAlphaForViewController:viewController];
+        [self updateNavigationBarColorOrImageForViewController:viewController];
+        [self updateNavigationBarShadowIAlphaForViewController:viewController];
+    } else {
+        [self updateNavigationBarForViewController:viewController];
+    }
+}
+
+- (void)showViewController:(UIViewController * _Nonnull)viewController withCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
     
@@ -164,19 +179,9 @@
     
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         if (shouldShowFake(viewController, from, to)) {
-            [self transitionNavigationBarStyle:from to:to viewController:viewController];
+            [self showViewControllerAlongsideTransition:viewController from:from to:to];
         } else {
-            if (self.inGesture) {
-                self.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
-                self.navigationBar.barStyle = viewController.hbd_barStyle;
-                // 手势处理 tintColor
-                //self.navigationBar.tintColor = viewController.hbd_tintColor;
-                [self updateNavigationBarAlphaForViewController:viewController];
-                [self updateNavigationBarColorOrImageForViewController:viewController];
-                [self updateNavigationBarShadowIAlphaForViewController:viewController];
-            } else {
-                [self updateNavigationBarForViewController:viewController];
-            }
+            [self showViewControllerAlongsideTransition:viewController];
         }
     } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         if (context.isCancelled) {
@@ -193,13 +198,13 @@
     if (@available(iOS 10.0, *)) {
         [coordinator notifyWhenInteractionChangesUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
             if (!context.isCancelled && self.inGesture) {
-                [self updateNavigationBarAnimatedForController:viewController];
+                [self updateNavigationBarAnimatedForViewController:viewController];
             }
         }];
     } else {
         [coordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
             if (!context.isCancelled && self.inGesture) {
-                [self updateNavigationBarAnimatedForController:viewController];
+                [self updateNavigationBarAnimatedForViewController:viewController];
             }
         }];
     }
@@ -208,7 +213,7 @@
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
     if (coordinator) {
-        [self transitionNavigationBarStyleWithCoordinator:coordinator viewController:viewController];
+        [self showViewController:viewController withCoordinator:coordinator];
     } else {
         [self updateNavigationBarForViewController:viewController];
     }
@@ -314,10 +319,10 @@
     [self updateNavigationBarAlphaForViewController:vc];
     [self updateNavigationBarColorOrImageForViewController:vc];
     [self updateNavigationBarShadowIAlphaForViewController:vc];
-    [self updateNavigationBarAnimatedForController:vc];
+    [self updateNavigationBarAnimatedForViewController:vc];
 }
 
-- (void)updateNavigationBarAnimatedForController:(UIViewController *)vc {
+- (void)updateNavigationBarAnimatedForViewController:(UIViewController *)vc {
     self.navigationBar.barStyle = vc.hbd_barStyle;
     self.navigationBar.titleTextAttributes = vc.hbd_titleTextAttributes;
     self.navigationBar.tintColor = vc.hbd_tintColor;
