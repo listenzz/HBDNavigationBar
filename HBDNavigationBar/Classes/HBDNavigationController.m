@@ -54,8 +54,15 @@
     [super viewWillLayoutSubviews];
     // 修复一个神奇的 BUG https://github.com/listenzz/HBDNavigationBar/issues/29
     self.topViewController.view.frame = self.topViewController.view.frame;
-    // 又一个神奇的 BUG https://github.com/listenzz/HBDNavigationBar/issues/31
-    [self updateNavigationBarForViewController:self.topViewController];
+    // issue: https://github.com/listenzz/HBDNavigationBar/issues/31
+    id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
+    UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
+    if (coordinator && self != to) {
+        [self updateNavigationBarForViewController:from];
+    } else {
+        [self updateNavigationBarForViewController:self.topViewController];
+    }
 }
 
 - (void)handlePopGesture:(UIScreenEdgePanGestureRecognizer *)recognizer {
@@ -242,6 +249,10 @@
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
+    
+    self.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
+    self.navigationBar.barStyle = viewController.hbd_barStyle;
+    
     if (coordinator) {
         [self showViewController:viewController withCoordinator:coordinator];
     } else {
