@@ -98,6 +98,39 @@
     }
 }
 
+- (void)resetButtonLabelInNavBar:(UINavigationBar *)navBar {
+    if (@available(iOS 12.0, *)) {
+        for (UIView *view in navBar.subviews) {
+            NSString *viewName = [[[view classForCoder] description] stringByReplacingOccurrencesOfString:@"_" withString:@""];
+            if ([viewName isEqualToString:@"UINavigationBarContentView"]) {
+                [self resetButtonLabelInView:view];
+                break;
+            }
+        }
+    }
+}
+
+- (void)resetButtonLabelInView:(UIView *)view {
+    NSString *viewName = [[[view classForCoder] description] stringByReplacingOccurrencesOfString:@"_" withString:@""];
+    if ([viewName isEqualToString:@"UIButtonLabel"]) {
+        view.alpha = 1.0;
+    } else if (view.subviews.count > 0) {
+        for (UIView *sub in view.subviews) {
+            [self resetButtonLabelInView:sub];
+        }
+    }
+}
+
+- (void)printSubViews:(UIView *)view prefix:(NSString *)prefix {
+    NSString *viewName = [[[view classForCoder] description] stringByReplacingOccurrencesOfString:@"_" withString:@""];
+    NSLog(@"%@%@", prefix, viewName);
+    if (view.subviews.count > 0) {
+        for (UIView *sub in view.subviews) {
+            [self printSubViews:sub prefix:[NSString stringWithFormat:@"--%@", prefix]];
+        }
+    }
+}
+
 - (void)showViewController:(UIViewController * _Nonnull)viewController from:(UIViewController *)from to: (UIViewController *)to interactive:(BOOL)interactive {
     self.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
     self.navigationBar.barStyle = viewController.hbd_barStyle;
@@ -165,6 +198,8 @@
         return;
     }
     
+    // fix issue https://github.com/listenzz/HBDNavigationBar/issues/35
+    [self resetButtonLabelInNavBar:self.navigationBar];
     
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
         if (shouldShowFake(viewController, from, to)) {

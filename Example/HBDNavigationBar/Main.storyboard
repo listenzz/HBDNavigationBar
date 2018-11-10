@@ -356,7 +356,7 @@
         <!--View Controller-->
         <scene sceneID="E46-5G-Gat">
             <objects>
-                <viewController id="rVy-Gh-hmi" customClass="AViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="a" id="rVy-Gh-hmi" customClass="AViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YnK-ci-5ob">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -17,7 +17,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hbd_barHidden = YES;
+    // self.hbd_barHidden = YES;
+    if (self.navigationController.childViewControllers.count == 1) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"next" style:(UIBarButtonItemStylePlain) target:self action:@selector(pushToNext:)];
+    }
+}
+
+- (void)pushToNext:(UIButton *)button {
+    AViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"a"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end
