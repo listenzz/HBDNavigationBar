@@ -204,7 +204,7 @@ HBDNavigationBar is available through [CocoaPods](http://cocoapods.org). To inst
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'HBDNavigationBar', '~> 1.4.1'
+pod 'HBDNavigationBar', '~> 1.4.2'
 ```
 
 ## License
