@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UIImageView *toFakeShadow;
 @property (nonatomic, strong) UIImageView *fromFakeImageView;
 @property (nonatomic, strong) UIImageView *toFakeImageView;
+@property (nonatomic, strong) UIViewController *poppingViewController;
 
 @end
 
@@ -57,8 +58,7 @@
     // issue: https://github.com/listenzz/HBDNavigationBar/issues/31
     id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
     UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
-    if (coordinator && self != to) {
+    if (coordinator && from == self.poppingViewController) {
         [self updateNavigationBarForViewController:from];
     } else {
         [self updateNavigationBarForViewController:self.topViewController];
@@ -261,7 +261,16 @@
     }
 }
 
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    if (!animated) {
+        [self updateNavigationBarForViewController:viewController];
+        [self clearFake];
+    }
+    self.poppingViewController = nil;
+}
+
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {
+    self.poppingViewController = self.topViewController;
     UIViewController *vc = [super popViewControllerAnimated:animated];
     // vc != self.topViewController
     // 修复：ios 11 当前后两个页面的 barStyle 不一样时，点击返回按钮返回，前一个页面的标题颜色响应迟缓或不响应
@@ -271,6 +280,7 @@
 }
 
 - (NSArray<UIViewController *> *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    self.poppingViewController = self.topViewController;
     NSArray *array = [super popToViewController:viewController animated:animated];
     self.navigationBar.barStyle = self.topViewController.hbd_barStyle;
     self.navigationBar.titleTextAttributes = self.topViewController.hbd_titleTextAttributes;
@@ -278,6 +288,7 @@
 }
 
 - (NSArray<UIViewController *> *)popToRootViewControllerAnimated:(BOOL)animated {
+    self.poppingViewController = self.topViewController;
     NSArray *array = [super popToRootViewControllerAnimated:animated];
     self.navigationBar.barStyle = self.topViewController.hbd_barStyle;
     self.navigationBar.titleTextAttributes = self.topViewController.hbd_titleTextAttributes;
