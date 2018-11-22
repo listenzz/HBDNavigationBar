@@ -55,10 +55,11 @@
     [super viewWillLayoutSubviews];
     // 修复一个神奇的 BUG https://github.com/listenzz/HBDNavigationBar/issues/29
     self.topViewController.view.frame = self.topViewController.view.frame;
-    // issue: https://github.com/listenzz/HBDNavigationBar/issues/31
+    // 再修复一个神奇的 BUG: https://github.com/listenzz/HBDNavigationBar/issues/31
     id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
     UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
     if (coordinator && from == self.poppingViewController) {
+        // 解决神奇的 BUG 修复后阴影过渡不正常的问题
         [self updateNavigationBarForViewController:from];
     } else {
         [self updateNavigationBarForViewController:self.topViewController];
