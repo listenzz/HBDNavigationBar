@@ -9,6 +9,7 @@
 #import "BViewController.h"
 #import "CViewController.h"
 #import <HBDNavigationBar/HBDNavigationController.h>
+#import <HBDNavigationBar/UIViewController+HBD.h>
 
 @interface BViewController ()
 
@@ -20,6 +21,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.hbd_barTintColor = UIColor.redColor;
+    self.hbd_barStyle = UIBarStyleBlack;
+    self.hbd_tintColor = UIColor.whiteColor;
+    
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toRoot) name:@"pop-to-root" object:nil];
 }

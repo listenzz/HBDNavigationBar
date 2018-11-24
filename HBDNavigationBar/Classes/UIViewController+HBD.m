@@ -177,7 +177,7 @@
 - (void)hbd_setNeedsUpdateNavigationBarShadowAlpha {
     if (self.navigationController && [self.navigationController isKindOfClass:[HBDNavigationController class]]) {
         HBDNavigationController *nav = (HBDNavigationController *)self.navigationController;
-        [nav updateNavigationBarShadowIAlphaForViewController:self];
+        [nav updateNavigationBarShadowImageIAlphaForViewController:self];
     }
 }
 

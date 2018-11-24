@@ -12,7 +12,7 @@
 - (void)updateNavigationBarForViewController:(UIViewController *)vc;
 - (void)updateNavigationBarAlphaForViewController:(UIViewController *)vc;
 - (void)updateNavigationBarColorOrImageForViewController:(UIViewController *)vc;
-- (void)updateNavigationBarShadowIAlphaForViewController:(UIViewController *)vc;
+- (void)updateNavigationBarShadowImageIAlphaForViewController:(UIViewController *)vc;
 
 @end
 
