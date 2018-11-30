@@ -112,6 +112,15 @@
     objc_setAssociatedObject(self, @selector(hbd_swipeBackEnabled), @(enabled), OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
+- (BOOL)hbd_clickBackEnabled {
+    id obj = objc_getAssociatedObject(self, _cmd);
+    return obj ? [obj boolValue] : YES;
+}
+
+- (void)setHbd_clickBackEnabled:(BOOL)enabled {
+    objc_setAssociatedObject(self, @selector(hbd_clickBackEnabled), @(enabled), OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
 - (float)hbd_computedBarShadowAlpha {
     return  self.hbd_barShadowHidden ? 0 : self.hbd_barAlpha;
 }
