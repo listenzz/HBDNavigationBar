@@ -11,6 +11,14 @@
 
 @implementation UIViewController (HBD)
 
+- (BOOL)hbd_blackBarStyle{
+    return self.hbd_barStyle == UIBarStyleBlack;
+}
+
+- (void)setHbd_blackBarStyle:(BOOL)hbd_blackBarStyle{
+    self.hbd_barStyle = hbd_blackBarStyle ? UIBarStyleBlack : UIBarStyleDefault;
+}
+
 - (UIBarStyle)hbd_barStyle {
     id obj = objc_getAssociatedObject(self, _cmd);
     if (obj) {
@@ -178,7 +186,7 @@
 - (void)hbd_setNeedsUpdateNavigationBarShadowAlpha {
     if (self.navigationController && [self.navigationController isKindOfClass:[HBDNavigationController class]]) {
         HBDNavigationController *nav = (HBDNavigationController *)self.navigationController;
-        [nav updateNavigationBarShadowIAlphaForViewController:self];
+        [nav updateNavigationBarShadowImageIAlphaForViewController:self];
     }
 }
 

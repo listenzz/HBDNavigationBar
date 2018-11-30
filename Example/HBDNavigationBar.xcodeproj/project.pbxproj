@@ -25,6 +25,11 @@
 		91245721208780AB0094CAFE /* YPGradientDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9124571F208780AB0094CAFE /* YPGradientDemoViewController.m */; };
 		91245726208792F40094CAFE /* lakeside_sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 91245725208792F40094CAFE /* lakeside_sunset.png */; };
 		91508EEB2064F3FB00316FA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91508EEA2064F3FB00316FA0 /* Main.storyboard */; };
+		9182FBC2218056F700D6BE8F /* AViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9182FBC1218056F700D6BE8F /* AViewController.m */; };
+		9182FBC52180570900D6BE8F /* BViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9182FBC42180570900D6BE8F /* BViewController.m */; };
+		9182FBCC218059D200D6BE8F /* CViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9182FBCA218059D200D6BE8F /* CViewController.m */; };
+		9182FBCD218059D200D6BE8F /* CViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9182FBCB218059D200D6BE8F /* CViewController.xib */; };
+		91DBF5C5219183800019F7A0 /* DViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DBF5C4219183800019F7A0 /* DViewController.m */; };
 		CD671FD8AE21609722E04CF8 /* libPods-HBDNavigationBar_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A13908942A92DA17B0E2C267 /* libPods-HBDNavigationBar_Example.a */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +71,16 @@
 		91245720208780AB0094CAFE /* YPGradientDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPGradientDemoViewController.h; sourceTree = "<group>"; };
 		91245725208792F40094CAFE /* lakeside_sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lakeside_sunset.png; sourceTree = "<group>"; };
 		91508EEA2064F3FB00316FA0 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		9182FBC0218056F700D6BE8F /* AViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AViewController.h; sourceTree = "<group>"; };
+		9182FBC1218056F700D6BE8F /* AViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AViewController.m; sourceTree = "<group>"; };
+		9182FBC32180570900D6BE8F /* BViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BViewController.h; sourceTree = "<group>"; };
+		9182FBC42180570900D6BE8F /* BViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BViewController.m; sourceTree = "<group>"; };
+		9182FBC9218059D200D6BE8F /* CViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CViewController.h; sourceTree = "<group>"; };
+		9182FBCA218059D200D6BE8F /* CViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CViewController.m; sourceTree = "<group>"; };
+		9182FBCB218059D200D6BE8F /* CViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CViewController.xib; sourceTree = "<group>"; };
 		91D77696FC9CE1A013393325 /* Pods-HBDNavigationBar_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HBDNavigationBar_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HBDNavigationBar_Tests/Pods-HBDNavigationBar_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		91DBF5C3219183800019F7A0 /* DViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DViewController.h; sourceTree = "<group>"; };
+		91DBF5C4219183800019F7A0 /* DViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DViewController.m; sourceTree = "<group>"; };
 		A12383705CD9091B97E204F7 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		A13908942A92DA17B0E2C267 /* libPods-HBDNavigationBar_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HBDNavigationBar_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4CB778013B4106CEE199CD0 /* Pods-HBDNavigationBar_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HBDNavigationBar_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HBDNavigationBar_Example/Pods-HBDNavigationBar_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -143,11 +157,20 @@
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 				91508EEA2064F3FB00316FA0 /* Main.storyboard */,
+				91DBF5C3219183800019F7A0 /* DViewController.h */,
+				91DBF5C4219183800019F7A0 /* DViewController.m */,
 				9115292620872CA50061A797 /* DemoViewController.h */,
 				9115292720872CA50061A797 /* DemoViewController.m */,
 				91245720208780AB0094CAFE /* YPGradientDemoViewController.h */,
 				9124571F208780AB0094CAFE /* YPGradientDemoViewController.m */,
 				91245725208792F40094CAFE /* lakeside_sunset.png */,
+				9182FBC0218056F700D6BE8F /* AViewController.h */,
+				9182FBC1218056F700D6BE8F /* AViewController.m */,
+				9182FBC32180570900D6BE8F /* BViewController.h */,
+				9182FBC42180570900D6BE8F /* BViewController.m */,
+				9182FBC9218059D200D6BE8F /* CViewController.h */,
+				9182FBCA218059D200D6BE8F /* CViewController.m */,
+				9182FBCB218059D200D6BE8F /* CViewController.xib */,
 			);
 			name = "Example for HBDNavigationBar";
 			path = HBDNavigationBar;
@@ -290,6 +313,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9182FBCD218059D200D6BE8F /* CViewController.xib in Resources */,
 				71719F9F1E33DC2100824A3D /* LaunchScreen.storyboard in Resources */,
 				91245726208792F40094CAFE /* lakeside_sunset.png in Resources */,
 				91508EEB2064F3FB00316FA0 /* Main.storyboard in Resources */,
@@ -416,9 +440,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				91245721208780AB0094CAFE /* YPGradientDemoViewController.m in Sources */,
+				9182FBC52180570900D6BE8F /* BViewController.m in Sources */,
+				9182FBC2218056F700D6BE8F /* AViewController.m in Sources */,
 				6003F59E195388D20070C39A /* HBDAppDelegate.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				9115292820872CA50061A797 /* DemoViewController.m in Sources */,
+				9182FBCC218059D200D6BE8F /* CViewController.m in Sources */,
+				91DBF5C5219183800019F7A0 /* DViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

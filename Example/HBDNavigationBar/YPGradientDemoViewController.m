@@ -21,17 +21,21 @@
     CGFloat _gradientProgress;
 }
 
+- (void)loadView {
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.view = tableView;
+    self.tableView = tableView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Dynamic Gradient Bar";
     
-    UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    UITableView *tableView = self.tableView;
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     
     tableView.delegate = self;
     tableView.dataSource = self;
-    self.tableView = tableView;
-    [self.view addSubview:tableView];
     if (@available(iOS 11,*)) {
         tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     } else {

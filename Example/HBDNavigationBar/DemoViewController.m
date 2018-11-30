@@ -39,6 +39,20 @@
         // self.hbd_barStyle = UIBarStyleBlack;
         // self.hbd_titleTextAttributes = @{ NSForegroundColorAttributeName: UIColor.whiteColor };
     }
+    
+    if (self.navigationController.childViewControllers.count == 1) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"test" style:(UIBarButtonItemStylePlain) target:self action:@selector(pushToNext:)];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSLog(@"viewWillAppear:%@", self);
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    NSLog(@"viewWillDisappear:%@", self);
 }
 
 - (IBAction)sliderValueChanged:(UISlider *)sender {
@@ -52,6 +66,7 @@
     [self.navigationController pushViewController:vc animated:YES];
     
 }
+
 - (IBAction)dynamicGradient:(UIButton *)sender {
     UIViewController *vc = [[YPGradientDemoViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
