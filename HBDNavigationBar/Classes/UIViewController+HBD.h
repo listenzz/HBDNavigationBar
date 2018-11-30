@@ -15,11 +15,13 @@
 @property (nonatomic, strong) IBInspectable UIImage *hbd_barImage;
 @property (nonatomic, strong) IBInspectable UIColor *hbd_tintColor;
 @property (nonatomic, strong) NSDictionary *hbd_titleTextAttributes;
+
 @property (nonatomic, assign) IBInspectable float hbd_barAlpha;
 @property (nonatomic, assign) IBInspectable BOOL hbd_barHidden;
 @property (nonatomic, assign) IBInspectable BOOL hbd_barShadowHidden;
 @property (nonatomic, assign) IBInspectable BOOL hbd_backInteractive;
 @property (nonatomic, assign) IBInspectable BOOL hbd_swipeBackEnabled;
+@property (nonatomic, assign) IBInspectable BOOL hbd_clickBackEnabled;
 
 // computed
 @property (nonatomic, assign, readonly) float hbd_computedBarShadowAlpha;

@@ -76,15 +76,17 @@
     return NO;
 }
 
+
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
     if (self.viewControllers.count > 1 && self.topViewController.navigationItem == item ) {
-        if (!self.topViewController.hbd_backInteractive) {
+        if (!(self.topViewController.hbd_backInteractive && self.topViewController.hbd_clickBackEnabled)) {
             [self resetSubviewsInNavBar:self.navigationBar];
             return NO;
         }
     }
     return [super navigationBar:navigationBar shouldPopItem:item];
 }
+
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     self.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
