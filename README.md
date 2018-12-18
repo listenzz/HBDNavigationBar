@@ -86,7 +86,7 @@ DemoViewController *vc = [[DemoViewController alloc] init];
 self.window.rootViewController = [[HBDNavigationController alloc] initWithRootViewController:vc];
 ```
 
-在 viewDidLoad 中通过分类配置想要的效果即可
+在 viewDidLoad 中通过分类配置想要的效果即可。这是声明式 API，你只需要设置当前页面的那些与众不同的特性即可，不需要还原，也不需要清理。
 
 ```objc
 @implementation DemoViewController
@@ -189,6 +189,10 @@ BOOL hasAlpha(UIColor *color) {
 
 ```
 
+#### 隐藏状态栏
+
+如果你需要隐藏状态栏，请配合 [HBDStatusBar](https://github.com/listenzz/HBDStatusBar) 一起使用
+
 ## 感谢
 
 在完善导航栏相关功能时，查看了 GitHub 上十多个相关项目，其中给我帮助最大的是 [YPNavigationBarTransition](https://github.com/yiplee/YPNavigationBarTransition)，它为我解决不同背景之间如何平滑切换提供了非常有价值的参考。
@@ -204,7 +208,7 @@ HBDNavigationBar is available through [CocoaPods](http://cocoapods.org). To inst
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'HBDNavigationBar', '~> 1.4.4'
+pod 'HBDNavigationBar', '~> 1.5.0'
 ```
 
 ## License
