@@ -42,6 +42,10 @@
     return [super initWithNavigationBarClass:[HBDNavigationBar class] toolbarClass:nil];
 }
 
+- (UIViewController *)childViewControllerForStatusBarHidden {
+    return self.topViewController;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.interactivePopGestureRecognizer.delegate = self;
