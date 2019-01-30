@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UIImageView *fromFakeImageView;
 @property (nonatomic, strong) UIImageView *toFakeImageView;
 @property (nonatomic, weak) UIViewController *poppingViewController;
+@property (nonatomic, assign) BOOL transitional;
 
 @end
 
@@ -64,7 +65,7 @@
     if (coordinator) {
         // 解决 ios 11 手势反弹的问题
         UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
-        if (from == self.poppingViewController) {
+        if (from == self.poppingViewController && !self.transitional) {
             [self updateNavigationBarForViewController:from];
         }
     } else {
@@ -80,7 +81,6 @@
     return NO;
 }
 
-
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
     if (self.viewControllers.count > 1 && self.topViewController.navigationItem == item ) {
         if (!(self.topViewController.hbd_backInteractive && self.topViewController.hbd_clickBackEnabled)) {
@@ -93,6 +93,7 @@
 
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    self.transitional = YES;
     self.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
     self.navigationBar.barStyle = viewController.hbd_barStyle;
     
@@ -112,13 +113,13 @@
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    self.transitional = NO;
     if (!animated) {
         [self updateNavigationBarForViewController:viewController];
         [self clearFake];
     }
     self.poppingViewController = nil;
 }
-
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {
     self.poppingViewController = self.topViewController;
@@ -145,7 +146,6 @@
     self.navigationBar.titleTextAttributes = self.topViewController.hbd_titleTextAttributes;
     return array;
 }
-
 
 - (void)handlePopGesture:(UIScreenEdgePanGestureRecognizer *)recognizer {
     id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
@@ -253,6 +253,7 @@
             [self showViewControllerAlongsideTransition:viewController interactive:context.interactive];
         }
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+        self.transitional = NO;
         if (context.isCancelled) {
             [self updateNavigationBarForViewController:from];
         } else {
