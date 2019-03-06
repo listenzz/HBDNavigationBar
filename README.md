@@ -1,10 +1,10 @@
 # HBDNavigationBar
 
-
+[English Document](./README_EN.md)
 
 UINavigationBar 是每一个 iOS 工程师都会遇到的坎，它令人抓狂的地方在于是否能随着页面切换而平滑地过渡到目的状态。想要把这件事情做好，不需要高深的算法，不需要深刻的底层原理，只需要一颗执着的内心。
 
-##  介绍
+## 介绍
 
 我们来看微信是如何平滑切换导航栏的状态的
 
@@ -23,7 +23,6 @@ UINavigationBar 是每一个 iOS 工程师都会遇到的坎，它令人抓狂�
 下面，我们来看一个反例，这是掘金 app 收藏页面的效果，当右滑返回上一个页面时，导航栏那反应实在是突兀，尖锐。
 
 > 特别说明，本人举掘金这个例子，纯粹是因为掘金是本人常用 app 之一
-
 
 ![juejin](./screenshot/juejin.gif)
 
@@ -52,7 +51,6 @@ UINavigationBar 是每一个 iOS 工程师都会遇到的坎，它令人抓狂�
 看下面效果，导航栏背景的表现是不是和微信一样
 
 ![background](./screenshot/background.gif)
-
 
 ## Usage
 
@@ -94,7 +92,7 @@ self.window.rootViewController = [[HBDNavigationController alloc] initWithRootVi
 [super viewDidLoad];
 // 隐藏导航栏，就这样，不需要调用 setNavigationBarHidden:animated:
 // 也不需要担心其它页面会受到影响
-self.hbd_barHidden = YES; 
+self.hbd_barHidden = YES;
 }
 @end
 ```
@@ -163,11 +161,11 @@ BOOL hasAlpha(UIColor *color) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
+
     if (!(self.hbd_extendedLayoutIncludesTopBar || hasAlpha(self.hbd_barTintColor))) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-}    
+}
 
 @end
 ```
@@ -197,7 +195,6 @@ BOOL hasAlpha(UIColor *color) {
 
 在完善导航栏相关功能时，查看了 GitHub 上十多个相关项目，其中给我帮助最大的是 [YPNavigationBarTransition](https://github.com/yiplee/YPNavigationBarTransition)，它为我解决不同背景之间如何平滑切换提供了非常有价值的参考。
 
-
 ## Requirements
 
 iOS 8+
@@ -214,4 +211,3 @@ pod 'HBDNavigationBar', '~> 1.5.0'
 ## License
 
 HBDNavigationBar is available under the MIT license. See the LICENSE file for more info.
-

@@ -58,18 +58,18 @@
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    // 修复一个神奇的 BUG https://github.com/listenzz/HBDNavigationBar/issues/29
+    // https://github.com/listenzz/HBDNavigationBar/issues/29
     self.topViewController.view.frame = self.topViewController.view.frame;
     
     id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
     if (coordinator) {
-        // 解决 ios 11 手势反弹的问题
+        // Fix the issue that the button bounces when the back gesture is released @iOS 11
         UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
         if (from == self.poppingViewController && !self.transitional) {
             [self updateNavigationBarForViewController:from];
         }
     } else {
-        // 再修复一个神奇的 BUG: https://github.com/listenzz/HBDNavigationBar/issues/31
+        // https://github.com/listenzz/HBDNavigationBar/issues/31
         [self updateNavigationBarForViewController:self.topViewController];
     }
 }
@@ -125,7 +125,7 @@
     self.poppingViewController = self.topViewController;
     UIViewController *vc = [super popViewControllerAnimated:animated];
     // vc != self.topViewController
-    // 修复：ios 11 以上，当前后两个页面的 barStyle 不一样时，点击返回按钮返回，前一个页面的标题颜色响应迟缓或不响应
+    // fix：ios 11 and above，当前后两个页面的 barStyle 不一样时，点击返回按钮返回，前一个页面的标题颜色响应迟缓或不响应
     self.navigationBar.barStyle = self.topViewController.hbd_barStyle;
     self.navigationBar.titleTextAttributes = self.topViewController.hbd_titleTextAttributes;
     return vc;
@@ -242,7 +242,7 @@
     UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
     
-    // 修复一个系统 BUG https://github.com/listenzz/HBDNavigationBar/issues/35
+    // Fix a system bug https://github.com/listenzz/HBDNavigationBar/issues/35
     [self resetButtonLabelInNavBar:self.navigationBar];
     
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
@@ -257,7 +257,7 @@
         if (context.isCancelled) {
             [self updateNavigationBarForViewController:from];
         } else {
-            // 当 present 时 to 不等于 viewController
+            // `to` != `viewController` when present
             [self updateNavigationBarForViewController:viewController];
         }
         if (to == viewController) {
@@ -299,13 +299,13 @@
 }
 
 - (void)showViewControllerAlongsideTransition:(UIViewController *)viewController from:(UIViewController *)from to:(UIViewController * _Nonnull)to interactive:(BOOL)interactive {
-    // 标题样式，按钮颜色，barStyle
+    // title attributes, button tint colo, barStyle
     self.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
     self.navigationBar.barStyle = viewController.hbd_barStyle;
     if (!interactive) {
         self.navigationBar.tintColor = viewController.hbd_tintColor;
     }
-    // 背景透明度，背景颜色，阴影透明度
+    // background alpha, background color, shadow image alpha
     [self showFakeBarFrom:from to:to];
 }
 
@@ -417,10 +417,10 @@
     UIView *back = self.navigationBar.subviews[0];
     CGRect frame = [self.navigationBar convertRect:back.frame toView:vc.view];
     frame.origin.x = vc.view.frame.origin.x;
-    //  解决根视图为scrollView的时候，Push不正常
+    // fix issue for pushed to UIViewController whose root view is UIScrollView.
     if ([vc.view isKindOfClass:[UIScrollView class]]) {
         UIScrollView *scrollview = (UIScrollView *)vc.view;
-        //  适配iPhoneX iPhoneXR
+        // Adapt iPhoneX iPhoneXR
         NSArray *xrs =@[ @812, @896 ];
         BOOL isIPhoneX = [xrs containsObject:@([UIScreen mainScreen].bounds.size.height)];
         if (scrollview.contentOffset.y == 0) {
@@ -440,7 +440,7 @@ BOOL shouldShowFake(UIViewController *vc,UIViewController *from, UIViewControlle
     }
     
     if (from.hbd_computedBarImage && to.hbd_computedBarImage && isImageEqual(from.hbd_computedBarImage, to.hbd_computedBarImage)) {
-        // 都有图片，并且是同一张图片
+        // have the same image
         if (ABS(from.hbd_barAlpha - to.hbd_barAlpha) > 0.1) {
             return YES;
         }
@@ -448,7 +448,7 @@ BOOL shouldShowFake(UIViewController *vc,UIViewController *from, UIViewControlle
     }
     
     if (!from.hbd_computedBarImage && !to.hbd_computedBarImage && [from.hbd_computedBarTintColor.description isEqual:to.hbd_computedBarTintColor.description]) {
-        // 都没图片，并且颜色相同
+        // no images, and the colors are the same
         if (ABS(from.hbd_barAlpha - to.hbd_barAlpha) > 0.1) {
             return YES;
         }
