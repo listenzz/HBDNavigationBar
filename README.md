@@ -195,6 +195,34 @@ BOOL hasAlpha(UIColor *color) {
 
 如果你需要隐藏状态栏，请配合 [HBDStatusBar](https://github.com/listenzz/HBDStatusBar) 一起使用
 
+#### 全屏返回
+
+建议和 [FDFullscreenPopGesture](https://github.com/forkingdog/FDFullscreenPopGesture) 一起使用，像下面那为 `fd_fullscreenPopGestureRecognizer` 添加 target 和 action：
+
+```objc
+#import "BaseNavigationController.h"
+#import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
+
+@interface BaseNavigationController ()
+
+@end
+
+@implementation BaseNavigationController
+
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    [super pushViewController:viewController animated:animated];
+    NSArray *internalTargets = [self.fd_fullscreenPopGestureRecognizer valueForKey:@"targets"];
+    if (![internalTargets containsObject:self]) {
+        [self.fd_fullscreenPopGestureRecognizer addTarget:self action:NSSelectorFromString(@"handlePopGesture:")];
+    }
+}
+
+@end
+
+```
+
+一旦使用了 FDFullscreenPopGesture，`hbd_backInteractive`  和  `hbd_swipeBackEnabled` 将失效，此时使用 `fd_interactivePopDisabled` 代替。
+
 ## 感谢
 
 在完善导航栏相关功能时，查看了 GitHub 上十多个相关项目，其中给我帮助最大的是 [YPNavigationBarTransition](https://github.com/yiplee/YPNavigationBarTransition)，它为我解决不同背景之间如何平滑切换提供了非常有价值的参考。
@@ -209,7 +237,7 @@ HBDNavigationBar is available through [CocoaPods](http://cocoapods.org). To inst
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'HBDNavigationBar', '~> 1.5.0'
+pod 'HBDNavigationBar', '~> 1.5.2'
 ```
 
 ## License
