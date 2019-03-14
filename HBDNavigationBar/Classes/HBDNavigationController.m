@@ -9,7 +9,33 @@
 #import "UIViewController+HBD.h"
 #import "HBDNavigationBar.h"
 
-@interface HBDNavigationController () <UIGestureRecognizerDelegate, UINavigationControllerDelegate>
+@interface HBDGestureRecognizerDelegate : NSObject <UIGestureRecognizerDelegate>
+
+@property (nonatomic, weak) HBDNavigationController *navigationController;
+
+- (instancetype)initWithNavigationController:(HBDNavigationController *)navigationController;
+
+@end
+
+@implementation HBDGestureRecognizerDelegate
+
+- (instancetype)initWithNavigationController:(HBDNavigationController *)navigationController {
+    if (self = [super init]) {
+        self.navigationController = navigationController;
+    }
+    return self;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if (self.navigationController.viewControllers.count > 1) {
+        return self.navigationController.topViewController.hbd_backInteractive && self.navigationController.topViewController.hbd_swipeBackEnabled;
+    }
+    return NO;
+}
+
+@end
+
+@interface HBDNavigationController () <UINavigationControllerDelegate>
 
 @property (nonatomic, readonly) HBDNavigationBar *navigationBar;
 @property (nonatomic, strong) UIVisualEffectView *fromFakeBar;
@@ -20,6 +46,7 @@
 @property (nonatomic, strong) UIImageView *toFakeImageView;
 @property (nonatomic, weak) UIViewController *poppingViewController;
 @property (nonatomic, assign) BOOL transitional;
+@property (nonatomic, strong) HBDGestureRecognizerDelegate *gestureRecognizerDelegate;
 
 @end
 
@@ -49,7 +76,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.interactivePopGestureRecognizer.delegate = self;
+    self.gestureRecognizerDelegate = [[HBDGestureRecognizerDelegate alloc] initWithNavigationController:self];
+    self.interactivePopGestureRecognizer.delegate = self.gestureRecognizerDelegate;
     [self.interactivePopGestureRecognizer addTarget:self action:@selector(handlePopGesture:)];
     self.delegate = self;
     [self.navigationBar setTranslucent:YES];
@@ -73,14 +101,6 @@
         [self updateNavigationBarForViewController:self.topViewController];
     }
 }
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    if (self.viewControllers.count > 1) {
-        return self.topViewController.hbd_backInteractive && self.topViewController.hbd_swipeBackEnabled;
-    }
-    return NO;
-}
-
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
     if (self.viewControllers.count > 1 && self.topViewController.navigationItem == item ) {
         if (!(self.topViewController.hbd_backInteractive && self.topViewController.hbd_clickBackEnabled)) {
@@ -90,7 +110,6 @@
     }
     return [super navigationBar:navigationBar shouldPopItem:item];
 }
-
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     self.transitional = YES;
