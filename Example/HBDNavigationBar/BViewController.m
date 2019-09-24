@@ -40,7 +40,8 @@
 - (IBAction)present:(UIButton *)sender {
     UIViewController *vc = [[CViewController alloc] init];
     HBDNavigationController *nav = [[HBDNavigationController alloc] initWithRootViewController:vc];
-    
+    nav.modalPresentationStyle = UIModalPresentationCurrentContext;
+    self.navigationController.definesPresentationContext = NO;
     [self presentViewController:nav animated:YES completion:^{
         
     }];
