@@ -78,7 +78,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 
 @interface HBDNavigationControllerDelegate : NSObject <UINavigationControllerDelegate>
 
-@property (nonatomic, strong) id<UINavigationControllerDelegate> proxiedDelegate;
+@property (nonatomic, weak) id<UINavigationControllerDelegate> proxiedDelegate;
 @property (nonatomic, weak, readonly) HBDNavigationController *nav;
 
 - (instancetype)initWithNavigationController:(HBDNavigationController *)navigationController;
@@ -157,7 +157,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
         if (!animated && nav.childViewControllers.count > 1) {
             UIViewController *lastButOne = nav.childViewControllers[nav.childViewControllers.count - 2];
             if (shouldShowFake(viewController, lastButOne, viewController)) {
-                [self.nav showFakeBarFrom:lastButOne to:viewController];
+                [nav showFakeBarFrom:lastButOne to:viewController];
                 return;
             }
         }
@@ -169,8 +169,8 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)]) {
         [self.proxiedDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
     }
-    HBDNavigationController *nav = self.nav;
     
+    HBDNavigationController *nav = self.nav;
     nav.transitional = NO;
     if (!animated) {
        [nav updateNavigationBarForViewController:viewController];
@@ -226,16 +226,15 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
             [self showViewControllerAlongsideTransition:viewController interactive:context.interactive];
         }
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
-        HBDNavigationController *nav = self.nav;
-        nav.transitional = NO;
+        self.nav.transitional = NO;
         if (context.isCancelled) {
-            [nav updateNavigationBarForViewController:from];
+            [self.nav updateNavigationBarForViewController:from];
         } else {
             // `to` != `viewController` when present
-            [nav updateNavigationBarForViewController:viewController];
+            [self.nav updateNavigationBarForViewController:viewController];
         }
         if (to == viewController) {
-            [nav clearFake];
+            [self.nav clearFake];
         }
     }];
     
@@ -277,6 +276,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 
 - (void)showViewControllerAlongsideTransition:(UIViewController *)viewController from:(UIViewController *)from to:(UIViewController * _Nonnull)to interactive:(BOOL)interactive {
     HBDNavigationController *nav = self.nav;
+    
     // title attributes, button tint colo, barStyle
     nav.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
     nav.navigationBar.barStyle = viewController.hbd_barStyle;
@@ -337,7 +337,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 }
 
 - (void)setDelegate:(id<UINavigationControllerDelegate>)delegate {
-    if ([delegate isKindOfClass:[HBDNavigationControllerDelegate class]]) {
+    if ([delegate isKindOfClass:[HBDNavigationControllerDelegate class]] || !self.navigationDelegate) {
         [super setDelegate:delegate];
     } else {
         self.navigationDelegate.proxiedDelegate = delegate;
@@ -350,6 +350,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     self.interactivePopGestureRecognizer.delegate = self.gestureRecognizerDelegate;
     [self.interactivePopGestureRecognizer addTarget:self action:@selector(handlePopGesture:)];
     self.navigationDelegate = [[HBDNavigationControllerDelegate alloc] initWithNavigationController:self];
+    self.navigationDelegate.proxiedDelegate = self.delegate;
     self.delegate = self.navigationDelegate;
     [self.navigationBar setTranslucent:YES];
     [self.navigationBar setShadowImage:[UINavigationBar appearance].shadowImage];
