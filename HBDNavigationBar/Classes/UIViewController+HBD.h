@@ -29,8 +29,5 @@
 @property (nonatomic, strong, readonly) UIImage *hbd_computedBarImage;
 
 - (void)hbd_setNeedsUpdateNavigationBar;
-- (void)hbd_setNeedsUpdateNavigationBarAlpha;
-- (void)hbd_setNeedsUpdateNavigationBarColorOrImage;
-- (void)hbd_setNeedsUpdateNavigationBarShadowAlpha;
 
 @end

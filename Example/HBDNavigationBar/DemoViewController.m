@@ -58,7 +58,7 @@
 - (IBAction)sliderValueChanged:(UISlider *)sender {
     self.alphaComponent.text = [NSString stringWithFormat:@"%.2f", sender.value];
     self.hbd_barAlpha = sender.value;
-    [self hbd_setNeedsUpdateNavigationBarAlpha];
+    [self hbd_setNeedsUpdateNavigationBar];
 }
 
 - (IBAction)pushToNext:(UIButton *)sender {

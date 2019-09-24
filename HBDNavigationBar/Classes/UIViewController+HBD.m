@@ -169,25 +169,4 @@
     }
 }
 
--(void)hbd_setNeedsUpdateNavigationBarAlpha {
-    if (self.navigationController && [self.navigationController isKindOfClass:[HBDNavigationController class]]) {
-        HBDNavigationController *nav = (HBDNavigationController *)self.navigationController;
-        [nav updateNavigationBarAlphaForViewController:self];
-    }
-}
-
-- (void)hbd_setNeedsUpdateNavigationBarColorOrImage {
-    if (self.navigationController && [self.navigationController isKindOfClass:[HBDNavigationController class]]) {
-        HBDNavigationController *nav = (HBDNavigationController *)self.navigationController;
-        [nav updateNavigationBarColorOrImageForViewController:self];
-    }
-}
-
-- (void)hbd_setNeedsUpdateNavigationBarShadowAlpha {
-    if (self.navigationController && [self.navigationController isKindOfClass:[HBDNavigationController class]]) {
-        HBDNavigationController *nav = (HBDNavigationController *)self.navigationController;
-        [nav updateNavigationBarShadowImageIAlphaForViewController:self];
-    }
-}
-
 @end
