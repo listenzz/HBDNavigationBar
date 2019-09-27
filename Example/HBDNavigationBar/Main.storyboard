@@ -308,7 +308,7 @@
         <!--Navigation Controller-->
         <scene sceneID="ZSn-0c-aZL">
             <objects>
-                <navigationController id="2Wz-d3-NxO" customClass="HBDNavigationController" sceneMemberID="viewController">
+                <navigationController id="2Wz-d3-NxO" customClass="FSPNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YlK-uc-X6z" customClass="HBDNavigationBar">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
