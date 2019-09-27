@@ -229,7 +229,7 @@ BOOL hasAlpha(UIColor *color) {
 
 ## Requirements
 
-iOS 8+
+iOS 9+
 
 ## Installation
 
