@@ -66,17 +66,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     return [UIColor colorWithRed:newRed green:newGreen blue:newBlue alpha:newAlpha];
 }
 
-
-@interface HBDGestureRecognizerDelegate : NSObject <UIGestureRecognizerDelegate>
-
-@property (nonatomic, weak, readonly) HBDNavigationController *navigationController;
-
-- (instancetype)initWithNavigationController:(HBDNavigationController *)navigationController;
-
-@end
-
-
-@interface HBDNavigationControllerDelegate : NSObject <UINavigationControllerDelegate>
+@interface HBDNavigationControllerDelegate : UIScreenEdgePanGestureRecognizer <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) id<UINavigationControllerDelegate> proxiedDelegate;
 @property (nonatomic, weak, readonly) HBDNavigationController *nav;
@@ -96,7 +86,6 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 @property (nonatomic, strong) UIImageView *toFakeImageView;
 @property (nonatomic, weak) UIViewController *poppingViewController;
 @property (nonatomic, assign) BOOL transitional;
-@property (nonatomic, strong) HBDGestureRecognizerDelegate *gestureRecognizerDelegate;
 @property (nonatomic, strong) HBDNavigationControllerDelegate *navigationDelegate;
 
 - (void)updateNavigationBarAlphaForViewController:(UIViewController *)vc;
@@ -110,34 +99,50 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 
 - (void)resetSubviewsInNavBar:(UINavigationBar *)navBar;
 
-@end
-
-@implementation HBDGestureRecognizerDelegate
-
-- (instancetype)initWithNavigationController:(HBDNavigationController *)navigationController {
-    if (self = [super init]) {
-        _navigationController = navigationController;
-    }
-    return self;
-}
-
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    if (self.navigationController.viewControllers.count > 1) {
-        return self.navigationController.topViewController.hbd_backInteractive && self.navigationController.topViewController.hbd_swipeBackEnabled;
-    }
-    return NO;
-}
+- (UIGestureRecognizer *)superInteractivePopGestureRecognizer;
 
 @end
 
 @implementation HBDNavigationControllerDelegate
 
-- (instancetype)initWithNavigationController:(HBDNavigationController *)navigationController {
+- (instancetype)initWithNavigationController:(HBDNavigationController *)nav {
     if (self = [super init]) {
-        _nav = navigationController;
+        _nav = nav;
+        self.edges = UIRectEdgeLeft;
+        self.delegate = self;
+        [self addTarget:self action:@selector(handleNavigationTransition:)];
+        [nav.view addGestureRecognizer:self];
+        [nav superInteractivePopGestureRecognizer].enabled = NO;
     }
     return self;
 }
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if (self.nav.viewControllers.count > 1) {
+        return self.nav.topViewController.hbd_backInteractive && self.nav.topViewController.hbd_swipeBackEnabled;
+    }
+    return NO;
+}
+
+- (void)handleNavigationTransition:(UIScreenEdgePanGestureRecognizer *)pan {
+    HBDNavigationController *nav = self.nav;
+    
+    id<HBDNavigationTransitionProtocol> target = (id<HBDNavigationTransitionProtocol>)[nav superInteractivePopGestureRecognizer].delegate;
+    if ([target respondsToSelector:@selector(handleNavigationTransition:)]) {
+        [target handleNavigationTransition:pan];
+    }
+    
+    id<UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
+    
+    if (coordinator) {
+        UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
+        UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
+        if (pan.state == UIGestureRecognizerStateBegan || pan.state == UIGestureRecognizerStateChanged) {
+            nav.navigationBar.tintColor = blendColor(from.hbd_tintColor, to.hbd_tintColor, coordinator.percentComplete);
+        }
+    }
+}
+
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)]) {
@@ -319,39 +324,67 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController {
     if (self = [super initWithNavigationBarClass:[HBDNavigationBar class] toolbarClass:nil]) {
         self.viewControllers = @[ rootViewController ];
+        self.navigationDelegate = [[HBDNavigationControllerDelegate alloc] initWithNavigationController:self];
+        self.delegate = self.navigationDelegate;
     }
     return self;
 }
 
 - (instancetype)initWithNavigationBarClass:(Class)navigationBarClass toolbarClass:(Class)toolbarClass {
     NSAssert([navigationBarClass isSubclassOfClass:[HBDNavigationBar class]], @"navigationBarClass Must be a subclass of HBDNavigationBar");
-    return [super initWithNavigationBarClass:navigationBarClass toolbarClass:toolbarClass];
+    if (self = [super initWithNavigationBarClass:navigationBarClass toolbarClass:toolbarClass]) {
+        self.navigationDelegate = [[HBDNavigationControllerDelegate alloc] initWithNavigationController:self];
+        self.delegate = self.navigationDelegate;
+    }
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if (self = [super initWithCoder:aDecoder]) {
+        self.navigationDelegate = [[HBDNavigationControllerDelegate alloc] initWithNavigationController:self];
+        self.delegate = self.navigationDelegate;
+    }
+    return self;
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        self.navigationDelegate = [[HBDNavigationControllerDelegate alloc] initWithNavigationController:self];
+        self.delegate = self.navigationDelegate;
+    }
+    return self;
 }
 
 - (instancetype)init {
-    return [super initWithNavigationBarClass:[HBDNavigationBar class] toolbarClass:nil];
-}
-
-- (UIViewController *)childViewControllerForStatusBarHidden {
-    return self.topViewController;
+    if (self = [super initWithNavigationBarClass:[HBDNavigationBar class] toolbarClass:nil]) {
+        self.navigationDelegate = [[HBDNavigationControllerDelegate alloc] initWithNavigationController:self];
+        self.delegate = self.navigationDelegate;
+    }
+    return self;
 }
 
 - (void)setDelegate:(id<UINavigationControllerDelegate>)delegate {
-    if ([delegate isKindOfClass:[HBDNavigationControllerDelegate class]] || !self.navigationDelegate) {
+    if ([delegate isKindOfClass:[HBDNavigationControllerDelegate class]]) {
         [super setDelegate:delegate];
     } else {
         self.navigationDelegate.proxiedDelegate = delegate;
     }
 }
 
+- (UIGestureRecognizer *)interactivePopGestureRecognizer {
+    return self.navigationDelegate;
+}
+
+- (UIGestureRecognizer *)superInteractivePopGestureRecognizer {
+    return [super interactivePopGestureRecognizer];
+}
+
+- (UIViewController *)childViewControllerForStatusBarHidden {
+    return self.topViewController;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.gestureRecognizerDelegate = [[HBDGestureRecognizerDelegate alloc] initWithNavigationController:self];
-    self.interactivePopGestureRecognizer.delegate = self.gestureRecognizerDelegate;
-    [self.interactivePopGestureRecognizer addTarget:self action:@selector(handlePopGesture:)];
-    self.navigationDelegate = [[HBDNavigationControllerDelegate alloc] initWithNavigationController:self];
-    self.navigationDelegate.proxiedDelegate = self.delegate;
-    self.delegate = self.navigationDelegate;
     [self.navigationBar setTranslucent:YES];
     [self.navigationBar setShadowImage:[UINavigationBar appearance].shadowImage];
 }
@@ -410,15 +443,6 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     return array;
 }
 
-- (void)handlePopGesture:(UIScreenEdgePanGestureRecognizer *)recognizer {
-    id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
-    UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
-    if (recognizer.state == UIGestureRecognizerStateBegan || recognizer.state == UIGestureRecognizerStateChanged) {
-        self.navigationBar.tintColor = blendColor(from.hbd_tintColor, to.hbd_tintColor, coordinator.percentComplete);
-    }
-}
-
 - (void)resetSubviewsInNavBar:(UINavigationBar *)navBar {
     if (@available(iOS 11, *)) {
     } else {
@@ -468,7 +492,6 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     }
     self.navigationBar.shadowImageView.alpha = vc.hbd_computedBarShadowAlpha;
 }
-
 - (void)updateNavigationBarColorOrImageForViewController:(UIViewController *)vc {
     self.navigationBar.barTintColor = vc.hbd_computedBarTintColor;
     self.navigationBar.backgroundImageView.image = vc.hbd_computedBarImage;
@@ -479,7 +502,6 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 }
 
 - (void)showFakeBarFrom:(UIViewController *)from to:(UIViewController * _Nonnull)to {
-   
     [UIView setAnimationsEnabled:NO];
     self.navigationBar.fakeView.alpha = 0;
     self.navigationBar.shadowImageView.alpha = 0;

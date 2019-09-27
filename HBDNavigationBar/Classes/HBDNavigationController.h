@@ -16,3 +16,9 @@
 @interface UINavigationController(UINavigationBar) <UINavigationBarDelegate>
 
 @end
+
+@protocol HBDNavigationTransitionProtocol <NSObject>
+
+- (void)handleNavigationTransition:(UIScreenEdgePanGestureRecognizer *)pan;
+
+@end
