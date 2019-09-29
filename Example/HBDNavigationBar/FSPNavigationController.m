@@ -55,7 +55,7 @@
     self.interactivePopGestureRecognizer.enabled = NO;
 }
 
-// 自定义转场动画，自定义转场交互，默认测滑返回
+// 自定义转场动画，自定义转场交互，默认侧滑返回
 //- (void)viewDidLoad {
 //    [super viewDidLoad];
 //    // 自定义转场动画

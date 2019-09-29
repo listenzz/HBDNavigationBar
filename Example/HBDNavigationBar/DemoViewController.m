@@ -29,7 +29,14 @@
     // Do any additional setup after loading the view.
     
     self.title = [NSString stringWithFormat:@"%lu", self.navigationController.childViewControllers.count];
-    if (self.navigationController.childViewControllers.count <= 2) {
+    
+    if (self.navigationController.childViewControllers.count == 3) {
+        self.title = @"测试";
+        UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] init];
+        buttonItem.title = @"返回";
+        buttonItem.tintColor = UIColor.redColor;
+        self.navigationItem.backBarButtonItem = buttonItem;
+    } else if (self.navigationController.childViewControllers.count <= 2) {
         self.title = @"我";
         // self.hbd_tintColor = UIColor.whiteColor;
     } else {
