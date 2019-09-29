@@ -35,47 +35,34 @@
 //     self.interactivePopGestureRecognizer.enabled = NO;
 // }
 
-// 自定义转场动画，自定义转场交互，自定义全屏返回，
+// 自定义转场动画，自定义转场交互，自定义全屏返回
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // 自定义转场动画
+    self.delegate = self;
 
+    // 自定义转场交互，自定义全屏返回
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handleFullScreenGesture:)];
+    // 获取系统自带滑动手势的 target 对象
+    id target = self.interactivePopGestureRecognizer.delegate;
+    // 给全屏手势添加默认的 action
+    [pan addTarget:target action:@selector(handleNavigationTransition:)];
     // 设置手势代理，拦截手势触发
     pan.delegate = self.interactivePopGestureRecognizer.delegate;
     // 给导航控制器的view添加全屏滑动手势
     [self.view addGestureRecognizer:pan];
     // 禁止使用系统自带的滑动手势
     self.interactivePopGestureRecognizer.enabled = NO;
-
-    // 自定义转场动画
-    self.delegate = self;
 }
 
-// 自定义转场动画，默认转场交互，默认测滑返回
-// 此时需要注释掉 `(nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController`
+// 自定义转场动画，自定义转场交互，默认测滑返回
 //- (void)viewDidLoad {
 //    [super viewDidLoad];
 //    // 自定义转场动画
 //    self.delegate = self;
-//}
-
-// 自定义转场动画，默认转场交互，自定义全屏返回
-// 此时需要注释掉 `(nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController`
-//- (void)viewDidLoad {
-//    [super viewDidLoad];
-//    // 获取系统自带滑动手势的target对象
-//    id target = self.interactivePopGestureRecognizer.delegate;
-//    // 创建全屏滑动手势，调用系统自带滑动手势的target的action方法
-//    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:target action:@selector(handleNavigationTransition:)];
-//    // 设置手势代理，拦截手势触发
-//    pan.delegate = self.interactivePopGestureRecognizer.delegate;
-//    // 给导航控制器的view添加全屏滑动手势
-//    [self.view addGestureRecognizer:pan];
-//    // 禁止使用系统自带的滑动手势
-//    self.interactivePopGestureRecognizer.enabled = NO;
 //
-//    // 自定义转场动画
-//    self.delegate = self;
+//    // 自定义转场交互
+//    [self.interactivePopGestureRecognizer addTarget:self action:@selector(handleFullScreenGesture:)];
 //}
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
@@ -109,10 +96,6 @@ animationControllerForOperation:(UINavigationControllerOperation)operation
 }
 
 - (void)handleFullScreenGesture:(UIPanGestureRecognizer *)pan {
-    // 下面这两行代码确保转场时返回按钮颜色可以渐变
-    id target = self.interactivePopGestureRecognizer.delegate;
-    [target performSelector:@selector(handleNavigationTransition:) withObject:pan];
-    
     CGFloat process = [pan translationInView:self.view].x / self.view.bounds.size.width;
     process = MIN(1.0,(MAX(0.0, process)));
     if (pan.state == UIGestureRecognizerStateBegan) {
