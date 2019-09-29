@@ -20,7 +20,7 @@
     
     [[transitionContext containerView] insertSubview:toView belowSubview:fromView];
   
-    toView.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -transitionContext.containerView.bounds.size.width, 0);
+    toView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.93, 0.93);
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
         toView.transform = CGAffineTransformIdentity;

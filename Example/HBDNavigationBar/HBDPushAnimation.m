@@ -18,13 +18,12 @@
     UIView *toView = [transitionContext viewForKey:UITransitionContextToViewKey];
     toView.frame = transitionContext.containerView.bounds;
     [transitionContext.containerView addSubview:toView];
+    UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
     
     toView.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, transitionContext.containerView.bounds.size.width, 0);
-
-    UIView *fromView = [transitionContext viewForKey:UITransitionContextFromViewKey];
-   
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-        fromView.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -transitionContext.containerView.bounds.size.width, 0);
+        //fromView.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -transitionContext.containerView.bounds.size.width, 0);
+        fromView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.93, 0.93);
         toView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
         fromView.transform = CGAffineTransformIdentity;

@@ -13,7 +13,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window.backgroundColor = UIColor.whiteColor;
+    self.window.backgroundColor = UIColor.blackColor;
     // [[UINavigationBar appearance] setBarTintColor:UIColor.redColor];
     [[UINavigationBar appearance] setTintColor:UIColor.blackColor];
     //[[UINavigationBar appearance] setBackgroundImage:[HBDAppDelegate imageWithColor:UIColor.blueColor] forBarMetrics:UIBarMetricsDefault];
