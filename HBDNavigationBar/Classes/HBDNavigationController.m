@@ -195,7 +195,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationControllerPreferredInterfaceOrientationForPresentation:)]) {
         return [self.proxiedDelegate navigationControllerPreferredInterfaceOrientationForPresentation:navigationController];
     }
-    return UIInterfaceOrientationUnknown;
+    return UIInterfaceOrientationPortrait;
 }
 
 - (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
