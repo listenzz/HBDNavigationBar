@@ -58,7 +58,30 @@
 
 - (NSDictionary *)hbd_titleTextAttributes {
     id obj = objc_getAssociatedObject(self, _cmd);
-    return obj ?: [UINavigationBar appearance].titleTextAttributes;
+    if (obj) {
+        return obj;
+    }
+    
+    UIBarStyle barStyle = self.hbd_barStyle;
+    NSDictionary *attributes = [UINavigationBar appearance].titleTextAttributes;
+    if (attributes) {
+        if (![attributes objectForKey:NSForegroundColorAttributeName]) {
+            NSMutableDictionary *mutableAttributes = [attributes mutableCopy];
+            if (barStyle == UIBarStyleBlack) {
+                [mutableAttributes addEntriesFromDictionary:@{ NSForegroundColorAttributeName: UIColor.whiteColor }];
+            } else {
+                [mutableAttributes addEntriesFromDictionary:@{ NSForegroundColorAttributeName: UIColor.blackColor }];
+            }
+            return mutableAttributes;
+        }
+        return attributes;
+    }
+    
+    if (barStyle == UIBarStyleBlack) {
+        return @{ NSForegroundColorAttributeName: UIColor.whiteColor };
+    } else {
+        return @{ NSForegroundColorAttributeName: UIColor.blackColor };
+    }
 }
 
 - (void)setHbd_titleTextAttributes:(NSDictionary *)attributes {
