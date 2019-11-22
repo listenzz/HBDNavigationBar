@@ -93,7 +93,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 - (void)updateNavigationBarShadowImageIAlphaForViewController:(UIViewController *)vc;
 - (void)updateNavigationBarAnimatedForViewController:(UIViewController *)vc;
 
-- (void)showFakeBarFrom:(UIViewController *)from to:(UIViewController * _Nonnull)to;
+- (void)showFakeBarFrom:(UIViewController *)from to:(UIViewController *)to;
 
 - (void)clearFake;
 
@@ -151,19 +151,17 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)]) {
         [self.proxiedDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
     }
-    
+    NSLog(@"%s", __FUNCTION__);
     HBDNavigationController *nav = self.nav;
     nav.transitional = YES;
     
     id<UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
     if (coordinator) {
-        if (@available(iOS 13.0, *)) {
-            // empty
-        } else if (@available(iOS 11.0, *)) {
+        if (@available(iOS 11.0, *)) {
             if (coordinator.interactive) {
                // fix：ios 11，12 当前后两个页面的 barStyle 不一样时，侧滑返回，导航栏左右两眉样式过渡不一致的问题
-                nav.navigationBar.barStyle = viewController.hbd_barStyle;
-                nav.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
+               nav.navigationBar.barStyle = viewController.hbd_barStyle;
+               nav.navigationBar.titleTextAttributes = viewController.hbd_titleTextAttributes;
             }
         }
         [self showViewController:viewController withCoordinator:coordinator];
@@ -183,7 +181,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)]) {
         [self.proxiedDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
     }
-    
+    NSLog(@"%s", __FUNCTION__);
     HBDNavigationController *nav = self.nav;
     nav.transitional = NO;
     if (!animated) {
@@ -232,7 +230,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 - (void)showViewController:(UIViewController * _Nonnull)viewController withCoordinator: (id<UIViewControllerTransitionCoordinator>)coordinator {
     UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
-    
+    NSLog(@"%s", __FUNCTION__);
     // Fix a system bug https://github.com/listenzz/HBDNavigationBar/issues/35
     if (@available(iOS 12.0, *)) {
         [self resetButtonLabelInNavBar:self.nav.navigationBar];
@@ -250,6 +248,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
             [self.nav updateNavigationBarForViewController:viewController];
         }
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+        NSLog(@"%s", __FUNCTION__);
         self.nav.transitional = NO;
         self.nav.poppingViewController = nil;
         if (context.isCancelled) {
@@ -262,27 +261,6 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
             [self.nav clearFake];
         }
     }];
-    
-    if (coordinator.interactive) {
-        if (@available(iOS 10.0, *)) {
-            [coordinator notifyWhenInteractionChangesUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-                
-                if (context.isCancelled) {
-                    [self.nav updateNavigationBarAnimatedForViewController:from];
-                } else {
-                    [self.nav updateNavigationBarAnimatedForViewController:viewController];
-                }
-            }];
-        } else {
-            [coordinator notifyWhenInteractionEndsUsingBlock:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-                if (context.isCancelled) {
-                    [self.nav updateNavigationBarAnimatedForViewController:from];
-                } else {
-                    [self.nav updateNavigationBarAnimatedForViewController:viewController];
-                }
-            }];
-        }
-    }
 }
 
 - (void)resetButtonLabelInNavBar:(UINavigationBar *)navBar {
@@ -362,19 +340,17 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    // https://github.com/listenzz/HBDNavigationBar/issues/29
+    NSLog(@"%s", __FUNCTION__);
+    
     UIViewController *top = self.topViewController;
-    top.view.frame = top.view.frame;
-
+    id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
+    
     if (@available(iOS 11.0, *)) {
         if (top.navigationItem.backBarButtonItem && !self.poppingViewController) {
             top.hbd_backBarButtonItem = top.navigationItem.backBarButtonItem;
         }
-    }
-    
-    id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
-    if (coordinator) {
-       if (@available(iOS 11.0, *)) {
+        
+        if (coordinator) {
             UIViewController *fromVC = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
             UIViewController *toVC = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
             
@@ -396,16 +372,12 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
                     backItem.tintColor = toVC.hbd_tintColor;
                 }
             }
-            
-            // 解决 ios 11 手势反弹的问题
-            if (fromVC == self.poppingViewController && !self.transitional) {
-                [self updateNavigationBarForViewController:fromVC];
-            }
         }
-    } else {
-        // https://github.com/listenzz/HBDNavigationBar/issues/31
-        [self updateNavigationBarForViewController:self.topViewController];
     }
+    
+   if (!coordinator) {
+       [self updateNavigationBarForViewController:top];
+   }
 }
 
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
@@ -441,9 +413,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 }
 
 - (void)fixClickBackIssue {
-    if (@available(iOS 13.0, *)) {
-        // empty
-    } else if (@available(iOS 11.0, *)){
+    if (@available(iOS 11.0, *)){
         // fix：ios 11，12，当前后两个页面的 barStyle 不一样时，点击返回按钮返回，前一个页面的标题颜色响应迟缓或不响应
         id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
         if (!(coordinator && coordinator.interactive)) {
@@ -648,14 +618,15 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     UIView *back = self.navigationBar.subviews[0];
     CGRect frame = [self.navigationBar convertRect:back.frame toView:vc.view];
     frame.origin.x = 0;
+    if ((vc.edgesForExtendedLayout & UIRectEdgeTop) == 0) {
+        frame.origin.y = -frame.size.height;
+    }
+
     // fix issue for pushed to UIViewController whose root view is UIScrollView.
     if ([vc.view isKindOfClass:[UIScrollView class]]) {
         UIScrollView *scrollview = (UIScrollView *)vc.view;
-        // Adapt iPhoneX iPhoneXR
-        NSArray *xrs =@[ @812, @896 ];
-        BOOL isIPhoneX = [xrs containsObject:@([UIScreen mainScreen].bounds.size.height)];
         if (scrollview.contentOffset.y == 0) {
-            frame.origin.y = -(isIPhoneX ? 88 : 64);
+            frame.origin.y = -frame.size.height;
         }
     }
     return frame;

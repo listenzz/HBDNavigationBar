@@ -24,11 +24,19 @@
     self.hbd_barTintColor = UIColor.redColor;
     self.hbd_barStyle = UIBarStyleBlack;
     self.hbd_tintColor = UIColor.whiteColor;
+    self.edgesForExtendedLayout &= ~UIRectEdgeTop;
     
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toRoot) name:@"pop-to-root" object:nil];
     
     self.view.backgroundColor = [UIColor colorWithRed:((float)arc4random_uniform(256) / 255.0) green:((float)arc4random_uniform(256) / 255.0) blue:((float)arc4random_uniform(256) / 255.0) alpha:1.0];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"%s", __FUNCTION__);
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    NSLog(@"%s", __FUNCTION__);
 }
 
 - (void)dealloc {
