@@ -32,6 +32,7 @@
 		9182FBC52180570900D6BE8F /* BViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9182FBC42180570900D6BE8F /* BViewController.m */; };
 		9182FBCC218059D200D6BE8F /* CViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9182FBCA218059D200D6BE8F /* CViewController.m */; };
 		9182FBCD218059D200D6BE8F /* CViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9182FBCB218059D200D6BE8F /* CViewController.xib */; };
+		91BFA14D2388F4AE00A9623E /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BFA14C2388F4AE00A9623E /* TableViewController.m */; };
 		91DBF5C5219183800019F7A0 /* DViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DBF5C4219183800019F7A0 /* DViewController.m */; };
 		CD671FD8AE21609722E04CF8 /* libPods-HBDNavigationBar_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A13908942A92DA17B0E2C267 /* libPods-HBDNavigationBar_Example.a */; };
 /* End PBXBuildFile section */
@@ -87,6 +88,8 @@
 		9182FBC9218059D200D6BE8F /* CViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CViewController.h; sourceTree = "<group>"; };
 		9182FBCA218059D200D6BE8F /* CViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CViewController.m; sourceTree = "<group>"; };
 		9182FBCB218059D200D6BE8F /* CViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CViewController.xib; sourceTree = "<group>"; };
+		91BFA14B2388F4AE00A9623E /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
+		91BFA14C2388F4AE00A9623E /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		91D77696FC9CE1A013393325 /* Pods-HBDNavigationBar_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HBDNavigationBar_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HBDNavigationBar_Tests/Pods-HBDNavigationBar_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		91DBF5C3219183800019F7A0 /* DViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DViewController.h; sourceTree = "<group>"; };
 		91DBF5C4219183800019F7A0 /* DViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DViewController.m; sourceTree = "<group>"; };
@@ -186,6 +189,8 @@
 				9114222E233F537700D8F6E6 /* HBDPopAnimation.m */,
 				91142230233F538D00D8F6E6 /* HBDPushAnimation.h */,
 				91142231233F538D00D8F6E6 /* HBDPushAnimation.m */,
+				91BFA14B2388F4AE00A9623E /* TableViewController.h */,
+				91BFA14C2388F4AE00A9623E /* TableViewController.m */,
 			);
 			name = "Example for HBDNavigationBar";
 			path = HBDNavigationBar;
@@ -462,6 +467,7 @@
 				6003F59E195388D20070C39A /* HBDAppDelegate.m in Sources */,
 				9114222C233E283200D8F6E6 /* FSPNavigationController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				91BFA14D2388F4AE00A9623E /* TableViewController.m in Sources */,
 				9115292820872CA50061A797 /* DemoViewController.m in Sources */,
 				9114222F233F537700D8F6E6 /* HBDPopAnimation.m in Sources */,
 				9182FBCC218059D200D6BE8F /* CViewController.m in Sources */,

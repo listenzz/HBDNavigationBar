@@ -151,7 +151,6 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)]) {
         [self.proxiedDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
     }
-    NSLog(@"%s", __FUNCTION__);
     HBDNavigationController *nav = self.nav;
     nav.transitional = YES;
     
@@ -181,7 +180,6 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)]) {
         [self.proxiedDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
     }
-    NSLog(@"%s", __FUNCTION__);
     HBDNavigationController *nav = self.nav;
     nav.transitional = NO;
     if (!animated) {
@@ -230,7 +228,6 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 - (void)showViewController:(UIViewController * _Nonnull)viewController withCoordinator: (id<UIViewControllerTransitionCoordinator>)coordinator {
     UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
-    NSLog(@"%s", __FUNCTION__);
     // Fix a system bug https://github.com/listenzz/HBDNavigationBar/issues/35
     if (@available(iOS 12.0, *)) {
         [self resetButtonLabelInNavBar:self.nav.navigationBar];
@@ -248,7 +245,6 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
             [self.nav updateNavigationBarForViewController:viewController];
         }
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
-        NSLog(@"%s", __FUNCTION__);
         self.nav.transitional = NO;
         self.nav.poppingViewController = nil;
         if (context.isCancelled) {
@@ -340,7 +336,6 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    NSLog(@"%s", __FUNCTION__);
     
     UIViewController *top = self.topViewController;
     id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
@@ -625,6 +620,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     // fix issue for pushed to UIViewController whose root view is UIScrollView.
     if ([vc.view isKindOfClass:[UIScrollView class]]) {
         UIScrollView *scrollview = (UIScrollView *)vc.view;
+        scrollview.clipsToBounds = NO;
         if (scrollview.contentOffset.y == 0) {
             frame.origin.y = -frame.size.height;
         }
