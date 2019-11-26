@@ -157,6 +157,33 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     id<UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
     if (coordinator) {
         if (@available(iOS 11.0, *)) {
+            UIViewController *top = nav.topViewController;
+            if (top.navigationItem.backBarButtonItem && !nav.poppingViewController) {
+                top.hbd_backBarButtonItem = top.navigationItem.backBarButtonItem;
+            }
+            
+            UIViewController *fromVC = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
+            UIViewController *toVC = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
+            
+            if (fromVC == nav.poppingViewController && toVC.navigationController == nav) {
+                UIBarButtonItem *oldButtonItem = toVC.navigationItem.backBarButtonItem;
+                UIBarButtonItem *newButtonItem = [[UIBarButtonItem alloc] init];
+                if (oldButtonItem) {
+                    newButtonItem.title = oldButtonItem.title;
+                } else {
+                    newButtonItem.title = nav.navigationBar.backButtonLabel.text;
+                }
+                newButtonItem.tintColor = fromVC.hbd_tintColor;
+                toVC.navigationItem.backBarButtonItem = newButtonItem;
+            }
+            
+            if (toVC == top && fromVC.navigationController == nav) {
+                UIBarButtonItem *backItem = fromVC.navigationItem.backBarButtonItem;
+                if (backItem) {
+                    backItem.tintColor = toVC.hbd_tintColor;
+                }
+            }
+            
             if (coordinator.interactive) {
                // fix：ios 11，12 当前后两个页面的 barStyle 不一样时，侧滑返回，导航栏左右两眉样式过渡不一致的问题
                nav.navigationBar.barStyle = viewController.hbd_barStyle;
@@ -188,7 +215,9 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     }
     
     if (@available(iOS 11.0, *)) {
-        viewController.navigationItem.backBarButtonItem = viewController.hbd_backBarButtonItem;
+        if (viewController.hbd_backBarButtonItem) {
+            viewController.navigationItem.backBarButtonItem = viewController.hbd_backBarButtonItem;
+        }
     }
     nav.poppingViewController = nil;
 }
@@ -336,43 +365,10 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    
-    UIViewController *top = self.topViewController;
     id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
-    
-    if (@available(iOS 11.0, *)) {
-        if (top.navigationItem.backBarButtonItem && !self.poppingViewController) {
-            top.hbd_backBarButtonItem = top.navigationItem.backBarButtonItem;
-        }
-        
-        if (coordinator) {
-            UIViewController *fromVC = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
-            UIViewController *toVC = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
-            
-            if (fromVC == self.poppingViewController && toVC.navigationController == self) {
-                UIBarButtonItem *oldButtonItem = toVC.navigationItem.backBarButtonItem;
-                UIBarButtonItem *newButtonItem = [[UIBarButtonItem alloc] init];
-                if (oldButtonItem) {
-                    newButtonItem.title = oldButtonItem.title;
-                } else {
-                    newButtonItem.title = self.navigationBar.backButtonLabel.text;
-                }
-                newButtonItem.tintColor = fromVC.hbd_tintColor;
-                toVC.navigationItem.backBarButtonItem = newButtonItem;
-            }
-            
-            if (toVC == top && fromVC.navigationController == self) {
-                UIBarButtonItem *backItem = fromVC.navigationItem.backBarButtonItem;
-                if (backItem) {
-                    backItem.tintColor = toVC.hbd_tintColor;
-                }
-            }
-        }
+    if (!coordinator) {
+       [self updateNavigationBarForViewController:self.topViewController];
     }
-    
-   if (!coordinator) {
-       [self updateNavigationBarForViewController:top];
-   }
 }
 
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
