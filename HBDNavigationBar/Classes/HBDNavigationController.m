@@ -157,11 +157,6 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     id<UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
     if (coordinator) {
         if (@available(iOS 11.0, *)) {
-            UIViewController *top = nav.topViewController;
-            if (top.navigationItem.backBarButtonItem && !nav.poppingViewController) {
-                top.hbd_backBarButtonItem = top.navigationItem.backBarButtonItem;
-            }
-            
             UIViewController *fromVC = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
             UIViewController *toVC = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
             
@@ -175,6 +170,11 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
                 }
                 newButtonItem.tintColor = fromVC.hbd_tintColor;
                 toVC.navigationItem.backBarButtonItem = newButtonItem;
+            }
+            
+            UIViewController *top = nav.topViewController;
+            if (top.navigationItem.backBarButtonItem && !nav.poppingViewController) {
+                top.hbd_backBarButtonItem = top.navigationItem.backBarButtonItem;
             }
             
             if (toVC == top && fromVC.navigationController == nav) {

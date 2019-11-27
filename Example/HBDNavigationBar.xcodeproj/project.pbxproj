@@ -33,6 +33,8 @@
 		9182FBCC218059D200D6BE8F /* CViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9182FBCA218059D200D6BE8F /* CViewController.m */; };
 		9182FBCD218059D200D6BE8F /* CViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9182FBCB218059D200D6BE8F /* CViewController.xib */; };
 		91BFA14D2388F4AE00A9623E /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BFA14C2388F4AE00A9623E /* TableViewController.m */; };
+		91BFA158238E759200A9623E /* EViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BFA157238E759200A9623E /* EViewController.m */; };
+		91BFA15B238E75A900A9623E /* FViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91BFA15A238E75A900A9623E /* FViewController.m */; };
 		91DBF5C5219183800019F7A0 /* DViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 91DBF5C4219183800019F7A0 /* DViewController.m */; };
 		CD671FD8AE21609722E04CF8 /* libPods-HBDNavigationBar_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A13908942A92DA17B0E2C267 /* libPods-HBDNavigationBar_Example.a */; };
 /* End PBXBuildFile section */
@@ -90,6 +92,10 @@
 		9182FBCB218059D200D6BE8F /* CViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CViewController.xib; sourceTree = "<group>"; };
 		91BFA14B2388F4AE00A9623E /* TableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		91BFA14C2388F4AE00A9623E /* TableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
+		91BFA156238E759200A9623E /* EViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EViewController.h; sourceTree = "<group>"; };
+		91BFA157238E759200A9623E /* EViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EViewController.m; sourceTree = "<group>"; };
+		91BFA159238E75A900A9623E /* FViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FViewController.h; sourceTree = "<group>"; };
+		91BFA15A238E75A900A9623E /* FViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FViewController.m; sourceTree = "<group>"; };
 		91D77696FC9CE1A013393325 /* Pods-HBDNavigationBar_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HBDNavigationBar_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HBDNavigationBar_Tests/Pods-HBDNavigationBar_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		91DBF5C3219183800019F7A0 /* DViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DViewController.h; sourceTree = "<group>"; };
 		91DBF5C4219183800019F7A0 /* DViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DViewController.m; sourceTree = "<group>"; };
@@ -191,6 +197,10 @@
 				91142231233F538D00D8F6E6 /* HBDPushAnimation.m */,
 				91BFA14B2388F4AE00A9623E /* TableViewController.h */,
 				91BFA14C2388F4AE00A9623E /* TableViewController.m */,
+				91BFA156238E759200A9623E /* EViewController.h */,
+				91BFA157238E759200A9623E /* EViewController.m */,
+				91BFA159238E75A900A9623E /* FViewController.h */,
+				91BFA15A238E75A900A9623E /* FViewController.m */,
 			);
 			name = "Example for HBDNavigationBar";
 			path = HBDNavigationBar;
@@ -463,6 +473,7 @@
 				91245721208780AB0094CAFE /* YPGradientDemoViewController.m in Sources */,
 				9182FBC52180570900D6BE8F /* BViewController.m in Sources */,
 				91142232233F538D00D8F6E6 /* HBDPushAnimation.m in Sources */,
+				91BFA15B238E75A900A9623E /* FViewController.m in Sources */,
 				9182FBC2218056F700D6BE8F /* AViewController.m in Sources */,
 				6003F59E195388D20070C39A /* HBDAppDelegate.m in Sources */,
 				9114222C233E283200D8F6E6 /* FSPNavigationController.m in Sources */,
@@ -471,6 +482,7 @@
 				9115292820872CA50061A797 /* DemoViewController.m in Sources */,
 				9114222F233F537700D8F6E6 /* HBDPopAnimation.m in Sources */,
 				9182FBCC218059D200D6BE8F /* CViewController.m in Sources */,
+				91BFA158238E759200A9623E /* EViewController.m in Sources */,
 				91DBF5C5219183800019F7A0 /* DViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
