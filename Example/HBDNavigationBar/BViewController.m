@@ -44,7 +44,7 @@
 }
 
 - (void)toRoot {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (IBAction)present:(UIButton *)sender {

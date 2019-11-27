@@ -71,13 +71,32 @@
 - (IBAction)pushToNext:(UIButton *)sender {
     UIViewController *vc = [self createDemoViewController];
     [self.navigationController pushViewController:vc animated:YES];
-    
 }
 
 - (IBAction)dynamicGradient:(UIButton *)sender {
     UIViewController *vc = [[YPGradientDemoViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
+- (IBAction)present:(UIButton *)sender {
+   UIViewController *vc = [[YPGradientDemoViewController alloc] init];
+    HBDNavigationController *nav = [[HBDNavigationController alloc] initWithRootViewController:vc];
+    nav.modalPresentationStyle = UIModalPresentationCurrentContext;
+    self.navigationController.definesPresentationContext = NO;
+    [self presentViewController:nav animated:YES completion:^{
+        
+    }];
+}
+
+- (IBAction)dismiss:(UIButton *)sender {
+    if (self.presentingViewController) {
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+    }
+}
+
+
 
 - (UIViewController *)createDemoViewController {
     DemoViewController *vc = [self.storyboard instantiateViewControllerWithIdentifier:@"demo"];
