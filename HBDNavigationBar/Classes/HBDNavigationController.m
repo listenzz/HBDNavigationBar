@@ -329,7 +329,9 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
         self.nav.transitional = NO;
         self.nav.poppingViewController = nil;
         if (context.isCancelled) {
-            [self.nav updateNavigationBarForViewController:from];
+            if (from.navigationController == self.nav) {
+                [self.nav updateNavigationBarForViewController:from];
+            }
         } else {
             // `to` != `viewController` when present
             [self.nav updateNavigationBarForViewController:viewController];
