@@ -46,6 +46,45 @@ BOOL shouldShowFake(UIViewController *vc,UIViewController *from, UIViewControlle
     return YES;
 }
 
+BOOL colorHasAlphaComponent(UIColor *color) {
+    if (!color) {
+        return YES;
+    }
+    CGFloat red = 0;
+    CGFloat green= 0;
+    CGFloat blue = 0;
+    CGFloat alpha = 0;
+    [color getRed:&red green:&green blue:&blue alpha:&alpha];
+    return alpha < 1.0;
+}
+
+BOOL imageHasAlphaChannel(UIImage *image) {
+    CGImageAlphaInfo alpha = CGImageGetAlphaInfo(image.CGImage);
+    return (alpha == kCGImageAlphaFirst ||
+            alpha == kCGImageAlphaLast ||
+            alpha == kCGImageAlphaPremultipliedFirst ||
+            alpha == kCGImageAlphaPremultipliedLast);
+}
+
+void adjustLayout(UIViewController *vc) {
+    BOOL isTranslucent = vc.hbd_barHidden || vc.hbd_barAlpha < 1.0;
+    if (!isTranslucent) {
+        UIImage *image = vc.hbd_computedBarImage;
+        if (image) {
+            isTranslucent = imageHasAlphaChannel(image);
+        } else {
+            UIColor *color = vc.hbd_computedBarTintColor;
+            isTranslucent = colorHasAlphaComponent(color);
+        }
+    }
+    
+    if (isTranslucent || vc.extendedLayoutIncludesOpaqueBars) {
+        vc.edgesForExtendedLayout |= UIRectEdgeTop;
+    } else {
+        vc.edgesForExtendedLayout &= ~UIRectEdgeTop;
+    }
+}
+
 UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     CGFloat fromRed = 0;
     CGFloat fromGreen = 0;
@@ -153,6 +192,8 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     }
     HBDNavigationController *nav = self.nav;
     nav.transitional = YES;
+    
+    adjustLayout(viewController);
     
     id<UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
     if (coordinator) {
