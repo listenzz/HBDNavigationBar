@@ -19,8 +19,7 @@
     [super viewDidLoad];
     self.hbd_barStyle = UIBarStyleBlack;
     self.hbd_barTintColor = UIColor.redColor;
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     

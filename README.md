@@ -140,43 +140,32 @@ self.window.rootViewController = [[HBDNavigationController alloc] initWithRootVi
 
 #### Aways translucent
 
-NavigationBar 的 `translucent` 属性的值总是 YES，这意味着，controller 的 view 总是位于导航栏底下，这可能会给某些同学带来困扰。我们目前解决这个问题的办法是定义一个基类：
+本库重写了 UINavigationBar 的 `translucent` 属性，使得它的值总是 YES。
+
+本库根据导航栏的背景是否含有透明度，自动调整  `UIViewController#edgesForExtendedLayout`  这个属性。
+
+如果导航栏一开始是不透明的，由于后续操作而变透明，需要设置 `UIViewController#extendedLayoutIncludesOpaqueBars`  的值为 `YES`。
 
 ```objc
-@interface HBDViewController : UIViewController
-
-@property (nonatomic, assign) BOOL hbd_extendedLayoutIncludesTopBar;
-
-@end
-
-BOOL hasAlpha(UIColor *color) {
-    if (!color) {
-        return YES;
-    }
-    CGFloat red = 0;
-    CGFloat green= 0;
-    CGFloat blue = 0;
-    CGFloat alpha = 0;
-    [color getRed:&red green:&green blue:&blue alpha:&alpha];
-    return alpha < 1.0;
-}
-
-@implementation HBDViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    if (!(self.hbd_extendedLayoutIncludesTopBar || hasAlpha(self.hbd_barTintColor))) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
+    // 一开始导航栏为不透明
+    self.hbd_barTintColor = UIColor.whiteColor;
+    self.extendedLayoutIncludesOpaqueBars = YES;
 }
 
-@end
+- (void)handleScroll {
+    // 由于用户操作而变透明
+    self.hbd_barAlpha = 0.5;
+    [self hbd_setNeedsUpdateNavigationBar];
+}
+
 ```
 
 基本原则就是如果我们设置的背景是含有透明度的，那么页面就应该位于 NavigationBar 底下(under)，否则位于 NavigationBar 下面(below).
 
-如果我们的 NavigationBar 一开始是不透明的，但有可能因为用户操作而变透明，那么设置 `hbd_extendedLayoutIncludesTopBar` 的值为 YES，记得在 `[super viewDidLoad]` 之前设置好。
+如果我们的 NavigationBar 一开始是不透明的，但有可能因为用户操作而变透明，那么设置 `extendedLayoutIncludesOpaqueBars` 的值为 `YES`。
+
 
 #### 拦截返回事件
 

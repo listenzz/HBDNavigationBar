@@ -22,8 +22,7 @@
     self.hbd_barTintColor = UIColor.redColor;
     self.hbd_barStyle = UIBarStyleBlack;
     self.hbd_tintColor = UIColor.whiteColor;
-    self.edgesForExtendedLayout &= ~UIRectEdgeTop;
-    
+
 }
 
 /*

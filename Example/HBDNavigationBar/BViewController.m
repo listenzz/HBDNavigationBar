@@ -24,7 +24,6 @@
     self.hbd_barTintColor = UIColor.redColor;
     self.hbd_barStyle = UIBarStyleBlack;
     self.hbd_tintColor = UIColor.whiteColor;
-    self.edgesForExtendedLayout &= ~UIRectEdgeTop;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toRoot) name:@"pop-to-root" object:nil];
     
