@@ -96,6 +96,15 @@
     objc_setAssociatedObject(self, @selector(hbd_backBarButtonItem), backBarButtonItem, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (BOOL)hbd_extendedLayoutDidSet {
+    id obj = objc_getAssociatedObject(self, _cmd);
+    return obj ? [obj boolValue] : NO;
+}
+
+- (void)setHbd_extendedLayoutDidSet:(BOOL)didSet {
+    objc_setAssociatedObject(self, @selector(hbd_extendedLayoutDidSet), @(didSet), OBJC_ASSOCIATION_COPY_NONATOMIC);
+}
+
 - (float)hbd_barAlpha {
     id obj = objc_getAssociatedObject(self, _cmd);
     if (self.hbd_barHidden) {

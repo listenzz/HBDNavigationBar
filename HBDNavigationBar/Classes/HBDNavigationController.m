@@ -193,7 +193,10 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     HBDNavigationController *nav = self.nav;
     nav.transitional = YES;
     
-    adjustLayout(viewController);
+    if (!viewController.hbd_extendedLayoutDidSet) {
+        adjustLayout(viewController);
+        viewController.hbd_extendedLayoutDidSet = YES;
+    }
     
     id<UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
     if (coordinator) {
