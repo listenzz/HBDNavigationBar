@@ -22,7 +22,7 @@ BOOL isImageEqual(UIImage *image1, UIImage *image2) {
     return NO;
 }
 
-BOOL shouldShowFake(UIViewController *vc,UIViewController *from, UIViewController *to) {
+BOOL shouldShowFake(UIViewController *vc, UIViewController *from, UIViewController *to) {
     if (vc != to ) {
         return NO;
     }
@@ -329,7 +329,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
         self.nav.transitional = NO;
         self.nav.poppingViewController = nil;
         if (context.isCancelled) {
-            if (from.navigationController == self.nav) {
+            if (to == viewController) {
                 [self.nav updateNavigationBarForViewController:from];
             }
         } else {
