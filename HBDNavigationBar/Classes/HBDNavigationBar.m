@@ -25,7 +25,7 @@
     UIView *view = [super hitTest:point withEvent:event];
     NSString *viewName = [[[view classForCoder] description] stringByReplacingOccurrencesOfString:@"_" withString:@""];
     
-    if (view && [viewName isEqualToString:@"HBDNavigationBar"]) {
+    if ([view isKindOfClass:[self class]]) {
         for (UIView *subview in self.subviews) {
             NSString *viewName = [[[subview classForCoder] description] stringByReplacingOccurrencesOfString:@"_" withString:@""];
             NSArray *array = @[ @"UINavigationItemButtonView" ];
