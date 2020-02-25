@@ -42,7 +42,7 @@
         }
     }
     
-    NSArray *array = @[ @"UINavigationBarContentView", @"HBDNavigationBar" ];
+    NSArray *array = @[ @"UINavigationBarContentView", NSStringFromClass([self class]) ];
     if ([array containsObject:viewName]) {
         if (self.backgroundImageView.image) {
             if (self.backgroundImageView.alpha < 0.01) {
