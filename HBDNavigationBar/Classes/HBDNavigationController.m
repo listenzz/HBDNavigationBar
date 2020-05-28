@@ -166,7 +166,10 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (self.nav.viewControllers.count > 1) {
-        return self.nav.topViewController.hbd_backInteractive && self.nav.topViewController.hbd_swipeBackEnabled;
+        // 先判断hbd_swipeBackEnabled再判断hbd_backInteractive，
+        // 可以解决当用户已经将hbd_swipeBackEnabled设置为NO时，并且重写了hbd_backInteractive的getter方法，用手势返回时，先调用hbd_backInteractive的getter方法的问题
+        // 应该是已经将hbd_swipeBackEnabled设置为NO后，用户再进行侧滑手势时，不触发任何操作。
+        return self.nav.topViewController.hbd_swipeBackEnabled && self.nav.topViewController.hbd_backInteractive;
     }
     return NO;
 }
