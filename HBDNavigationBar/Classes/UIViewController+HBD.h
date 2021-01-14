@@ -28,7 +28,6 @@
 @property (nonatomic, strong, readonly) UIImage *hbd_computedBarImage;
 
 // 这个属性是内部使用的
-@property (nonatomic, strong) UIBarButtonItem *hbd_backBarButtonItem;
 @property (nonatomic, assign) BOOL hbd_extendedLayoutDidSet;
 
 - (void)hbd_setNeedsUpdateNavigationBar;

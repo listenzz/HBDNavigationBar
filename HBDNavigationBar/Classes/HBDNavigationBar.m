@@ -95,20 +95,6 @@
     return _backgroundImageView;
 }
 
-- (UILabel *)backButtonLabel {
-    if (@available(iOS 11, *)) ; else return nil;
-    UIView *navigationBarContentView = [self valueForKeyPath:@"visualProvider.contentView"];
-    __block UILabel *backButtonLabel = nil;
-    [navigationBarContentView.subviews enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIView * _Nonnull subview, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([subview isKindOfClass:NSClassFromString(@"_UIButtonBarButton")]) {
-            UIButton *titleButton = [subview valueForKeyPath:@"visualProvider.titleButton"];
-            backButtonLabel = titleButton.titleLabel;
-            *stop = YES;
-        }
-    }];
-    return backButtonLabel;
-}
-
 - (void)setBackgroundImage:(UIImage *)backgroundImage forBarMetrics:(UIBarMetrics)barMetrics {
     self.backgroundImageView.image = backgroundImage;
     [self makeSureFakeView];
