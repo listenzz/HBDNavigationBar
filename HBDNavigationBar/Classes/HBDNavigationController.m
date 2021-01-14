@@ -136,8 +136,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 
 - (void)updateNavigationBarTinitColorForViewController:(UIViewController *)vc;
 - (void)updateNavigationBarAlphaForViewController:(UIViewController *)vc;
-- (void)updateNavigationBarColorOrImageForViewController:(UIViewController *)vc;
-- (void)updateNavigationBarShadowImageAlphaForViewController:(UIViewController *)vc;
+- (void)updateNavigationBarBackgroundForViewController:(UIViewController *)vc;
 
 - (void)showFakeBarFrom:(UIViewController *)from to:(UIViewController *)to;
 
@@ -462,8 +461,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 
 - (void)updateNavigationBarForViewController:(UIViewController *)vc {
     [self updateNavigationBarAlphaForViewController:vc];
-    [self updateNavigationBarColorOrImageForViewController:vc];
-    [self updateNavigationBarShadowImageAlphaForViewController:vc];
+    [self updateNavigationBarBackgroundForViewController:vc];
     [self updateNavigationBarTinitColorForViewController:vc];
 }
 
@@ -483,13 +481,10 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     }
     self.navigationBar.shadowImageView.alpha = vc.hbd_computedBarShadowAlpha;
 }
-- (void)updateNavigationBarColorOrImageForViewController:(UIViewController *)vc {
+
+- (void)updateNavigationBarBackgroundForViewController:(UIViewController *)vc {
     self.navigationBar.barTintColor = vc.hbd_computedBarTintColor;
     self.navigationBar.backgroundImageView.image = vc.hbd_computedBarImage;
-}
-
-- (void)updateNavigationBarShadowImageAlphaForViewController:(UIViewController *)vc {
-    self.navigationBar.shadowImageView.alpha = vc.hbd_computedBarShadowAlpha;
 }
 
 - (void)showFakeBarFrom:(UIViewController *)from to:(UIViewController * _Nonnull)to {
