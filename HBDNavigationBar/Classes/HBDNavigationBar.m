@@ -6,6 +6,7 @@
 //
 
 #import "HBDNavigationBar.h"
+#import <objc/runtime.h>
 
 @interface HBDNavigationBar()
 
@@ -95,6 +96,20 @@
     return _backgroundImageView;
 }
 
+- (UILabel *)backButtonLabel {
+    if (@available(iOS 11, *)) ; else return nil;
+    UIView *navigationBarContentView = [self valueForKeyPath:@"visualProvider.contentView"];
+    __block UILabel *backButtonLabel = nil;
+    [navigationBarContentView.subviews enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIView * _Nonnull subview, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([subview isKindOfClass:NSClassFromString(@"_UIButtonBarButton")]) {
+            UIButton *titleButton = [subview valueForKeyPath:@"visualProvider.titleButton"];
+            backButtonLabel = titleButton.titleLabel;
+            *stop = YES;
+        }
+    }];
+    return backButtonLabel;
+}
+
 - (void)setBackgroundImage:(UIImage *)backgroundImage forBarMetrics:(UIBarMetrics)barMetrics {
     self.backgroundImageView.image = backgroundImage;
     [self makeSureFakeView];
@@ -147,3 +162,46 @@
 
 @end
 
+
+void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL swizzledSelector) {
+    Method originalMethod = class_getInstanceMethod(class, originalSelector);
+    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+    
+    BOOL success = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
+    if (success) {
+        class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+    } else {
+        method_exchangeImplementations(originalMethod, swizzledMethod);
+    }
+}
+
+@implementation UILabel (NavigationBarTransition)
+
+- (UIColor *)hbd_specifiedTextColor {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setHbd_specifiedTextColor:(UIColor *)color {
+    objc_setAssociatedObject(self, @selector(hbd_specifiedTextColor), color, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
++ (void)load {
+    if (@available(iOS 11, *)) ; else return;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class class = [self class];
+        hbd_exchangeImplementations(class, @selector(setAttributedText:), @selector(hbd_setAttributedText:));
+    });
+}
+
+- (void)hbd_setAttributedText:(NSAttributedString *)attributedText {
+    if (self.hbd_specifiedTextColor) {
+        NSMutableAttributedString *mutableAttributedText = [attributedText isKindOfClass:NSMutableAttributedString.class] ? attributedText : [attributedText mutableCopy];
+        [mutableAttributedText addAttributes:@{ NSForegroundColorAttributeName : self.hbd_specifiedTextColor} range:NSMakeRange(0, mutableAttributedText.length)];
+        attributedText = mutableAttributedText;
+    }
+    [self hbd_setAttributedText:attributedText];
+}
+
+
+@end

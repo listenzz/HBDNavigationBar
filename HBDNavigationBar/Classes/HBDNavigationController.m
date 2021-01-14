@@ -134,6 +134,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 @property (nonatomic, weak) UIViewController *poppingViewController;
 @property (nonatomic, strong) HBDNavigationControllerDelegate *navigationDelegate;
 
+- (void)updateNavigationBarStyleForViewController:(UIViewController *)vc;
 - (void)updateNavigationBarTinitColorForViewController:(UIViewController *)vc;
 - (void)updateNavigationBarAlphaForViewController:(UIViewController *)vc;
 - (void)updateNavigationBarBackgroundForViewController:(UIViewController *)vc;
@@ -181,31 +182,29 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
         }
     }
     
-    if (@available(iOS 11.0, *)) {
-        // empty
-    } else {
-        id<UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
-        if (coordinator) {
-            UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
-            UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
-            if (pan.state == UIGestureRecognizerStateBegan || pan.state == UIGestureRecognizerStateChanged) {
-                nav.navigationBar.tintColor = blendColor(from.hbd_tintColor, to.hbd_tintColor, coordinator.percentComplete);
-            }
+    if (@available(iOS 11.0, *)) ; else return;
+    id<UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
+    if (coordinator) {
+        UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
+        UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
+        if (pan.state == UIGestureRecognizerStateBegan || pan.state == UIGestureRecognizerStateChanged) {
+            nav.navigationBar.tintColor = blendColor(from.hbd_tintColor, to.hbd_tintColor, coordinator.percentComplete);
         }
     }
+    
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)]) {
         [self.proxiedDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
     }
-    HBDNavigationController *nav = self.nav;
-
+    
     if (!viewController.hbd_extendedLayoutDidSet) {
         adjustLayout(viewController);
         viewController.hbd_extendedLayoutDidSet = YES;
     }
     
+    HBDNavigationController *nav = self.nav;
     id<UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
     if (coordinator) {
         [self showViewController:viewController withCoordinator:coordinator];
@@ -276,8 +275,22 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
         [self resetButtonLabelInNavBar:self.nav.navigationBar];
     }
     
-    // [self.nav updateNavigationBarTinitColorForViewController:viewController];
-
+    if (self.nav.poppingViewController) {
+        // Inspired by QMUI
+        UILabel *backButtonLabel = self.nav.navigationBar.backButtonLabel;
+        if (backButtonLabel) {
+            backButtonLabel.hbd_specifiedTextColor = backButtonLabel.textColor;
+        }
+        
+        [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+            
+        } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+            backButtonLabel.hbd_specifiedTextColor = nil;
+        }];
+    }
+    
+    [self.nav updateNavigationBarStyleForViewController:viewController];
+    
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
         BOOL shouldFake = shouldShowFake(viewController, from, to);
         if (shouldFake) {
@@ -291,6 +304,7 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
         }
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
         self.nav.poppingViewController = nil;
+      
         if (context.isCancelled) {
             if (to == viewController) {
                 [self.nav updateNavigationBarForViewController:from];
@@ -460,14 +474,18 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
 }
 
 - (void)updateNavigationBarForViewController:(UIViewController *)vc {
+    [self updateNavigationBarStyleForViewController:vc];
     [self updateNavigationBarAlphaForViewController:vc];
     [self updateNavigationBarBackgroundForViewController:vc];
     [self updateNavigationBarTinitColorForViewController:vc];
 }
 
+- (void)updateNavigationBarStyleForViewController:(UIViewController *)vc {
+    self.navigationBar.barStyle = vc.hbd_barStyle;
+}
+
 - (void)updateNavigationBarTinitColorForViewController:(UIViewController *)vc {
     self.navigationBar.tintColor = vc.hbd_tintColor;
-    self.navigationBar.barStyle = vc.hbd_barStyle;
     self.navigationBar.titleTextAttributes = vc.hbd_titleTextAttributes;
 }
 
