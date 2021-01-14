@@ -205,7 +205,9 @@
 - (void)hbd_setNeedsUpdateNavigationBar {
     if (self.navigationController && [self.navigationController isKindOfClass:[HBDNavigationController class]]) {
         HBDNavigationController *nav = (HBDNavigationController *)self.navigationController;
-        [nav updateNavigationBarForViewController:self];
+        if (self == nav.topViewController) {
+            [nav updateNavigationBarForViewController:self];
+        }
     }
 }
 
