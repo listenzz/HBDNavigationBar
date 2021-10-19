@@ -49,7 +49,7 @@
 
 - (UIColor *)hbd_tintColor {
     id obj = objc_getAssociatedObject(self, _cmd);
-    return obj ?: [UINavigationBar appearance].tintColor;
+    return (obj ?: [UINavigationBar appearance].tintColor) ?: UIColor.blackColor;
 }
 
 - (void)setHbd_tintColor:(UIColor *)tintColor {

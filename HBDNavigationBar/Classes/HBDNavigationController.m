@@ -302,8 +302,10 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
         } else {
             [self.nav updateNavigationBarForViewController:viewController];
             if (@available(iOS 15.0, *)) {
-                self.nav.navigationBar.scrollEdgeAppearance.backgroundColor = viewController.hbd_barTintColor;
-                self.nav.navigationBar.standardAppearance.backgroundColor = viewController.hbd_barTintColor;
+                if (to == viewController) {
+                    self.nav.navigationBar.scrollEdgeAppearance.backgroundColor = viewController.hbd_computedBarTintColor;
+                    self.nav.navigationBar.standardAppearance.backgroundColor = viewController.hbd_computedBarTintColor;
+                }
             }
         }
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
