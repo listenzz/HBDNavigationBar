@@ -50,6 +50,11 @@
     if (self.navigationController.childViewControllers.count == 1) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"test" style:(UIBarButtonItemStylePlain) target:self action:@selector(pushToNext:)];
     }
+
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return self.hbd_barStyle == UIBarStyleBlack ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -81,8 +86,7 @@
 - (IBAction)present:(UIButton *)sender {
    UIViewController *vc = [[YPGradientDemoViewController alloc] init];
     HBDNavigationController *nav = [[HBDNavigationController alloc] initWithRootViewController:vc];
-    //nav.modalPresentationStyle = UIModalPresentationCurrentContext;
-    //self.navigationController.definesPresentationContext = NO;
+    nav.modalPresentationStyle = UIModalPresentationCurrentContext;
     [self presentViewController:nav animated:YES completion:^{
         
     }];
