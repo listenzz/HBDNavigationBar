@@ -177,6 +177,10 @@
 }
 
 - (UIColor *)hbd_computedBarTintColor {
+    if (self.hbd_barHidden) {
+        return UIColor.clearColor;
+    }
+    
     if (self.hbd_barImage) {
         return nil;
     }

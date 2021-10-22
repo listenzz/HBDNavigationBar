@@ -191,7 +191,6 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
             nav.navigationBar.tintColor = blendColor(from.hbd_tintColor, to.hbd_tintColor, coordinator.percentComplete);
         }
     }
-    
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
