@@ -27,10 +27,6 @@
     self.tableView = tableView;
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return self.hbd_barStyle == UIBarStyleBlack ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Dynamic Gradient Bar";
@@ -160,7 +156,6 @@
         
         self.hbd_barAlpha = _gradientProgress;
         [self hbd_setNeedsUpdateNavigationBar];
-        [self setNeedsStatusBarAppearanceUpdate];
     }
     self.headerView.frame = [self headerImageFrame];
 }

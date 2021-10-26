@@ -393,8 +393,8 @@ UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
     return self.topViewController;
 }
 
-- (UIViewController *)childViewControllerForStatusBarStyle {
-    return self.topViewController;
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return self.topViewController.hbd_barStyle == UIBarStyleBlack ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 - (UIViewController *)childViewControllerForHomeIndicatorAutoHidden {

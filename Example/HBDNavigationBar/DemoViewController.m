@@ -53,10 +53,6 @@
 
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return self.hbd_barStyle == UIBarStyleBlack ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSLog(@"viewWillAppear:%@", self);

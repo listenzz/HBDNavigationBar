@@ -203,6 +203,7 @@
         HBDNavigationController *nav = (HBDNavigationController *)self.navigationController;
         if (self == nav.topViewController) {
             [nav updateNavigationBarForViewController:self];
+            [nav setNeedsStatusBarAppearanceUpdate];
         }
     }
 }
