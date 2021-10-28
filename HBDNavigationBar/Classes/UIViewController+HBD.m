@@ -177,10 +177,10 @@
 - (UIImage *)hbd_computedBarImage {
     UIImage *image = self.hbd_barImage;
     if (!image) {
-        if (self.hbd_barTintColor) {
+        if (self.hbd_barTintColor != nil) {
             return nil;
         }
-        return [[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault];
+        image = [[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault];
     }
     return image;
 }
@@ -193,9 +193,10 @@
     if (self.hbd_barImage) {
         return nil;
     }
+    
     UIColor *color = self.hbd_barTintColor;
     if (!color) {
-        if ([[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault]) {
+        if ([[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault] != nil) {
             return nil;
         }
         if ([UINavigationBar appearance].barTintColor != nil) {

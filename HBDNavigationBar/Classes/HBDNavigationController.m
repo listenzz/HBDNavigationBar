@@ -303,12 +303,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
         if (shouldFake) {
             // title attributes, button tint color, barStyle
             [self.nav updateNavigationBarTinitColorForViewController:viewController];
-            
-            // 如果原生bar是半透明的，需要给containerView加个背景色，否则有可能会看到下面的默认黑色背景色
-//            if (self.nav.navigationBar.translucent && !context.containerView.backgroundColor) {
-//                context.containerView.backgroundColor = to.view.backgroundColor ?: UIColor.whiteColor;
-//            }
-
+        
             // background alpha, background color, shadow image alpha
             [self.nav showFakeBarFrom:from to:to];
         } else {
@@ -316,7 +311,9 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
             if (@available(iOS 15.0, *)) {
                 if (to == viewController) {
                     self.nav.navigationBar.scrollEdgeAppearance.backgroundColor = viewController.hbd_computedBarTintColor;
+                    self.nav.navigationBar.scrollEdgeAppearance.backgroundImage = viewController.hbd_computedBarImage;
                     self.nav.navigationBar.standardAppearance.backgroundColor = viewController.hbd_computedBarTintColor;
+                    self.nav.navigationBar.standardAppearance.backgroundImage = viewController.hbd_computedBarImage;
                 }
             }
         }
@@ -324,7 +321,9 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
         self.nav.poppingViewController = nil;
         if (@available(iOS 15.0, *)) {
             self.nav.navigationBar.scrollEdgeAppearance.backgroundColor = UIColor.clearColor;
+            self.nav.navigationBar.scrollEdgeAppearance.backgroundImage = nil;
             self.nav.navigationBar.standardAppearance.backgroundColor = UIColor.clearColor;
+            self.nav.navigationBar.standardAppearance.backgroundImage = nil;
         }
       
         if (context.isCancelled) {

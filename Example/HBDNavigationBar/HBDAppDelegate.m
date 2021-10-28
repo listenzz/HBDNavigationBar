@@ -14,11 +14,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window.backgroundColor = UIColor.blackColor;
-    [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:0.8]];
+    // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:0.8]];
 
+    // [[UINavigationBar appearance] setBackgroundImage:[HBDAppDelegate imageWithColor:[UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:0.8]] forBarMetrics:UIBarMetricsDefault];
+    //   [UIBarButtonItem appearance].tintColor = UIColor.redColor;
     // [[UINavigationBar appearance] setTintColor:UIColor.blackColor];
-    // [[UINavigationBar appearance] setBackgroundImage:[HBDAppDelegate imageWithColor:UIColor.blueColor] forBarMetrics:UIBarMetricsDefault];
-     //   [UIBarButtonItem appearance].tintColor = UIColor.redColor;
     
     return YES;
 }
