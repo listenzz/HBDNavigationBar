@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'HBDNavigationBar'
-  s.version          = '1.9.1'
+  s.version          = '1.9.2'
   s.summary          = 'An aspiring UINavigationBar.'
 
 # This description is used to generate tags and improve search results.
