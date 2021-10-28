@@ -21,6 +21,7 @@
 @property (nonatomic, assign) IBInspectable BOOL hbd_backInteractive;
 @property (nonatomic, assign) IBInspectable BOOL hbd_swipeBackEnabled;
 @property (nonatomic, assign) IBInspectable BOOL hbd_clickBackEnabled;
+@property (nonatomic, assign) IBInspectable BOOL hbd_splitNavigationBarTransition;
 
 // computed
 @property (nonatomic, assign, readonly) float hbd_computedBarShadowAlpha;

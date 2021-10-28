@@ -161,6 +161,15 @@
     objc_setAssociatedObject(self, @selector(hbd_clickBackEnabled), @(enabled), OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
+- (BOOL)hbd_splitNavigationBarTransition {
+    id obj = objc_getAssociatedObject(self, _cmd);
+    return obj ? [obj boolValue] : NO;
+}
+
+- (void)setHbd_splitNavigationBarTransition:(BOOL)splitNavigationBarTransition {
+    objc_setAssociatedObject(self, @selector(hbd_splitNavigationBarTransition), @(splitNavigationBarTransition), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 - (float)hbd_computedBarShadowAlpha {
     return  self.hbd_barShadowHidden ? 0 : self.hbd_barAlpha;
 }

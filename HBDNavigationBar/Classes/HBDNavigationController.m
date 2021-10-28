@@ -27,6 +27,10 @@ BOOL shouldShowFake(UIViewController *vc, UIViewController *from, UIViewControll
         return NO;
     }
     
+    if (from.hbd_splitNavigationBarTransition || to.hbd_splitNavigationBarTransition) {
+        return YES;
+    }
+    
     if (from.hbd_computedBarImage && to.hbd_computedBarImage && isImageEqual(from.hbd_computedBarImage, to.hbd_computedBarImage)) {
         // have the same image
         return from.hbd_barAlpha != to.hbd_barAlpha;
