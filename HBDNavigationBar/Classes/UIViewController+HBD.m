@@ -189,7 +189,7 @@
         if ([[UINavigationBar appearance] backgroundImageForBarMetrics:UIBarMetricsDefault]) {
             return nil;
         }
-        if ([UINavigationBar appearance].barTintColor) {
+        if ([UINavigationBar appearance].barTintColor != nil) {
             color = [UINavigationBar appearance].barTintColor;
         } else {
             color = [UINavigationBar appearance].barStyle == UIBarStyleDefault ? [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:0.8]: [UIColor colorWithRed:28/255.0 green:28/255.0 blue:28/255.0 alpha:0.729];

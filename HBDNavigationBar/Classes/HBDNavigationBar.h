@@ -13,6 +13,7 @@
 @property (nonatomic, strong, readonly) UIVisualEffectView *fakeView;
 @property (nonatomic, strong, readonly) UIImageView *backgroundImageView;
 @property (nonatomic, strong, readonly) UILabel *backButtonLabel;
+@property (nonatomic, strong, readonly) UIView *hbd_backgroundView;
 
 @end
 

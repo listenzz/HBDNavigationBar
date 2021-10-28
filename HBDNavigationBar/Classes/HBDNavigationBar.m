@@ -8,6 +8,38 @@
 #import "HBDNavigationBar.h"
 #import <objc/runtime.h>
 
+static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL swizzledSelector) {
+    Method originalMethod = class_getInstanceMethod(class, originalSelector);
+    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+    
+    BOOL success = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
+    if (success) {
+        class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+    } else {
+        method_exchangeImplementations(originalMethod, swizzledMethod);
+    }
+}
+
+//static UIView* findViewByName(UIView *view, NSString *name) {
+//    NSString *viewName = [[[view classForCoder] description] stringByReplacingOccurrencesOfString:@"_" withString:@""];
+//    if ([viewName isEqualToString:name]) {
+//        return view;
+//    }
+//
+//    UIView *v = nil;
+//
+//    if (view.subviews.count > 0) {
+//        for (UIView *sub in view.subviews) {
+//            v = findViewByName(sub, name);
+//            if (v != nil) {
+//                break;
+//            }
+//        }
+//    }
+//
+//    return v;
+//}
+
 @interface HBDNavigationBar()
 
 @property (nonatomic, strong, readwrite) UIImageView *shadowImageView;
@@ -115,6 +147,10 @@
     [self makeSureFakeView];
 }
 
+- (UIView *)hbd_backgroundView {
+    return [self valueForKey:@"_backgroundView"];
+}
+
 - (void)setTranslucent:(BOOL)translucent {
     // prevent default behavior
     [super setTranslucent:YES];
@@ -162,18 +198,6 @@
 
 @end
 
-
-void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL swizzledSelector) {
-    Method originalMethod = class_getInstanceMethod(class, originalSelector);
-    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-    
-    BOOL success = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
-    if (success) {
-        class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
-    } else {
-        method_exchangeImplementations(originalMethod, swizzledMethod);
-    }
-}
 
 @implementation UILabel (NavigationBarTransition)
 
