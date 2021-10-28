@@ -562,8 +562,8 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
     [from.view addSubview:self.fromFakeImageView];
     
     self.fromFakeBar.subviews.lastObject.backgroundColor = from.hbd_computedBarTintColor;
-    self.fromFakeBar.alpha = from.hbd_barAlpha;
-    
+    self.fromFakeBar.alpha = from.hbd_computedBarImage ? 0 : from.hbd_barAlpha;
+
     if (from.hbd_barAlpha == 0 || from.hbd_computedBarImage) {
         self.fromFakeBar.subviews.lastObject.layer.mask = [CALayer new];
     }
