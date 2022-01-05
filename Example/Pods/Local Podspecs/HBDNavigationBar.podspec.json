@@ -1,6 +1,6 @@
 {
   "name": "HBDNavigationBar",
-  "version": "1.9.3",
+  "version": "1.9.4",
   "summary": "An aspiring UINavigationBar.",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/listenzz/HBDNavigationBar",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/listenzz/HBDNavigationBar.git",
-    "tag": "1.9.3"
+    "tag": "1.9.4"
   },
   "platforms": {
     "ios": "9.0"

@@ -1,5 +1,5 @@
 PODS:
-  - HBDNavigationBar (1.9.3)
+  - HBDNavigationBar (1.9.4)
 
 DEPENDENCIES:
   - HBDNavigationBar (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  HBDNavigationBar: a96fb380ca52622caa6272665460e0f2ea6a8bfe
+  HBDNavigationBar: 6f2f5699c0d9f3e6087466c037b361d6f337ea22
 
 PODFILE CHECKSUM: dde7e6b55a5f954d962af30e3bb1e9a1b911127f
 
