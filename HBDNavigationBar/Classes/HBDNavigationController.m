@@ -312,7 +312,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
             [self.nav showFakeBarFrom:from to:to];
         } else {
             [self.nav updateNavigationBarForViewController:viewController];
-            if (@available(iOS 15.0, *)) {
+            if (@available(iOS 13.0, *)) {
                 if (to == viewController) {
                     self.nav.navigationBar.scrollEdgeAppearance.backgroundColor = viewController.hbd_computedBarTintColor;
                     self.nav.navigationBar.scrollEdgeAppearance.backgroundImage = viewController.hbd_computedBarImage;
@@ -323,7 +323,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
         }
     } completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
         self.nav.poppingViewController = nil;
-        if (@available(iOS 15.0, *)) {
+        if (@available(iOS 13.0, *)) {
             self.nav.navigationBar.scrollEdgeAppearance.backgroundColor = UIColor.clearColor;
             self.nav.navigationBar.scrollEdgeAppearance.backgroundImage = nil;
             self.nav.navigationBar.standardAppearance.backgroundColor = UIColor.clearColor;
@@ -422,11 +422,13 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
     [self.navigationBar setTranslucent:YES];
     [self.navigationBar setShadowImage:[UINavigationBar appearance].shadowImage];
     
-    if (@available(iOS 15.0, *)) {
+    if (@available(iOS 13.0, *)) {
         UINavigationBarAppearance *scrollEdgeAppearance = [[UINavigationBarAppearance alloc] init];
         [scrollEdgeAppearance configureWithTransparentBackground];
-        scrollEdgeAppearance.shadowColor = UIColor.clearColor;
+        // scrollEdgeAppearance.backgroundEffect = nil;
         scrollEdgeAppearance.backgroundColor = UIColor.clearColor;
+        scrollEdgeAppearance.shadowColor = UIColor.clearColor;
+        [scrollEdgeAppearance setBackIndicatorImage:[UINavigationBar appearance].backIndicatorImage transitionMaskImage:[UINavigationBar appearance].backIndicatorTransitionMaskImage];
         self.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance;
         self.navigationBar.standardAppearance = [scrollEdgeAppearance copy];
     }
@@ -519,7 +521,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 - (void)updateNavigationBarTinitColorForViewController:(UIViewController *)vc {
     self.navigationBar.tintColor = vc.hbd_tintColor;
     self.navigationBar.titleTextAttributes = vc.hbd_titleTextAttributes;
-    if (@available(iOS 15.0, *)) {
+    if (@available(iOS 13.0, *)) {
         self.navigationBar.scrollEdgeAppearance.titleTextAttributes = vc.hbd_titleTextAttributes;
         self.navigationBar.standardAppearance.titleTextAttributes = vc.hbd_titleTextAttributes;
     }

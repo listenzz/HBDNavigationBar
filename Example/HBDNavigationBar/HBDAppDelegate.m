@@ -14,6 +14,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window.backgroundColor = UIColor.blackColor;
+    [[UINavigationBar appearance] setBackIndicatorImage: [UIImage imageNamed:@"icon_back"]];
+    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"icon_back"]];
     // [[UINavigationBar appearance] setBarTintColor: [UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:0.8]];
 
     // [[UINavigationBar appearance] setBackgroundImage:[HBDAppDelegate imageWithColor:[UIColor colorWithRed:247/255.0 green:247/255.0 blue:247/255.0 alpha:0.8]] forBarMetrics:UIBarMetricsDefault];

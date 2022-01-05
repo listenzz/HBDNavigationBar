@@ -1,24 +1,24 @@
 {
   "name": "HBDNavigationBar",
-  "version": "0.1.0",
-  "summary": "A short description of HBDNavigationBar.",
+  "version": "1.9.3",
+  "summary": "An aspiring UINavigationBar.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/listenzz@163.com/HBDNavigationBar",
+  "homepage": "https://github.com/listenzz/HBDNavigationBar",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "listenzz@163.com": "listenzz@163.com"
+    "listen": "listenzz@163.com"
   },
   "source": {
-    "git": "https://github.com/listenzz@163.com/HBDNavigationBar.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/listenzz/HBDNavigationBar.git",
+    "tag": "1.9.3"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0"
   },
   "source_files": "HBDNavigationBar/Classes/**/*",
-  "public_header_files": "Pod/Classes/**/*.h",
+  "public_header_files": "HBDNavigationBar/Classes/**/*.h",
   "frameworks": "UIKit"
 }
