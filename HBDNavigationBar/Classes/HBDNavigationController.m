@@ -182,7 +182,10 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer API_AVAILABLE(ios(7.0)){
-    return YES;
+    if (gestureRecognizer == self.nav.interactivePopGestureRecognizer) {
+        return YES;
+    }
+    return NO;
 }
 
 - (void)handleNavigationTransition:(UIScreenEdgePanGestureRecognizer *)pan {
