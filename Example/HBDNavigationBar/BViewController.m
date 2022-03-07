@@ -24,10 +24,10 @@
     self.hbd_barTintColor = UIColor.redColor;
     self.hbd_barStyle = UIBarStyleBlack;
     self.hbd_tintColor = UIColor.whiteColor;
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toRoot) name:@"pop-to-root" object:nil];
-    
-    self.view.backgroundColor = [UIColor colorWithRed:((float)arc4random_uniform(256) / 255.0) green:((float)arc4random_uniform(256) / 255.0) blue:((float)arc4random_uniform(256) / 255.0) alpha:1.0];
+
+    self.view.backgroundColor = [UIColor colorWithRed:((float) arc4random_uniform(256) / 255.0) green:((float) arc4random_uniform(256) / 255.0) blue:((float) arc4random_uniform(256) / 255.0) alpha:1.0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -52,9 +52,9 @@
     nav.modalPresentationStyle = UIModalPresentationCurrentContext;
     self.navigationController.definesPresentationContext = NO;
     [self presentViewController:nav animated:YES completion:^{
-        
+
     }];
-    
+
 }
 
 @end

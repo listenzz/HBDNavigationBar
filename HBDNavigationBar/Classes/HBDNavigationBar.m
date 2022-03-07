@@ -11,7 +11,7 @@
 static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL swizzledSelector) {
     Method originalMethod = class_getInstanceMethod(class, originalSelector);
     Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
-    
+
     BOOL success = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
     if (success) {
         class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
@@ -40,11 +40,11 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
 //    return v;
 //}
 
-@interface HBDNavigationBar()
+@interface HBDNavigationBar ()
 
-@property (nonatomic, strong, readwrite) UIImageView *shadowImageView;
-@property (nonatomic, strong, readwrite) UIVisualEffectView *fakeView;
-@property (nonatomic, strong, readwrite) UIImageView *backgroundImageView;
+@property(nonatomic, strong, readwrite) UIImageView *shadowImageView;
+@property(nonatomic, strong, readwrite) UIVisualEffectView *fakeView;
+@property(nonatomic, strong, readwrite) UIImageView *backgroundImageView;
 
 @end
 
@@ -54,14 +54,14 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
     if (!self.isUserInteractionEnabled || self.isHidden || self.alpha <= 0.01) {
         return nil;
     }
-    
+
     UIView *view = [super hitTest:point withEvent:event];
     NSString *viewName = [[[view classForCoder] description] stringByReplacingOccurrencesOfString:@"_" withString:@""];
-    
+
     if ([view isKindOfClass:[self class]]) {
         for (UIView *subview in self.subviews) {
             NSString *viewName = [[[subview classForCoder] description] stringByReplacingOccurrencesOfString:@"_" withString:@""];
-            NSArray *array = @[ @"UINavigationItemButtonView" ];
+            NSArray *array = @[@"UINavigationItemButtonView"];
             if ([array containsObject:viewName]) {
                 CGPoint convertedPoint = [self convertPoint:point toView:subview];
                 CGRect bounds = subview.bounds;
@@ -74,8 +74,8 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
             }
         }
     }
-    
-    NSArray *array = @[ @"UINavigationBarContentView", @"UIButtonBarStackView", NSStringFromClass([self class]) ];
+
+    NSArray *array = @[@"UINavigationBarContentView", @"UIButtonBarStackView", NSStringFromClass([self class])];
     if ([array containsObject:viewName]) {
         if (self.backgroundImageView.image) {
             if (self.backgroundImageView.alpha < 0.01) {
@@ -85,11 +85,11 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
             return nil;
         }
     }
-    
+
     if (CGRectEqualToRect(view.bounds, CGRectZero)) {
         return nil;
     }
-    
+
     return view;
 }
 
@@ -101,17 +101,17 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
 }
 
 - (void)setBarTintColor:(UIColor *)barTintColor {
-    self.fakeView.subviews.lastObject.backgroundColor =  barTintColor;
+    self.fakeView.subviews.lastObject.backgroundColor = barTintColor;
     [self makeSureFakeView];
 }
 
-- (UIView *)fakeView {
+- (UIVisualEffectView *)fakeView {
     if (!_fakeView) {
         [super setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         _fakeView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleLight]];
         _fakeView.userInteractionEnabled = NO;
         _fakeView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-       [[self.subviews firstObject] insertSubview:_fakeView atIndex:0];
+        [[self.subviews firstObject] insertSubview:_fakeView atIndex:0];
     }
     return _fakeView;
 }
@@ -129,10 +129,10 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
 }
 
 - (UILabel *)backButtonLabel {
-    if (@available(iOS 11, *)) ; else return nil;
+    if (@available(iOS 11, *)); else return nil;
     UIView *navigationBarContentView = [self valueForKeyPath:@"visualProvider.contentView"];
     __block UILabel *backButtonLabel = nil;
-    [navigationBarContentView.subviews enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIView * _Nonnull subview, NSUInteger idx, BOOL * _Nonnull stop) {
+    [navigationBarContentView.subviews enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIView *_Nonnull subview, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([subview isKindOfClass:NSClassFromString(@"_UIButtonBarButton")]) {
             UIButton *titleButton = [subview valueForKeyPath:@"visualProvider.titleButton"];
             backButtonLabel = titleButton.titleLabel;
@@ -161,7 +161,7 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
     if (shadowImage) {
         self.shadowImageView.backgroundColor = nil;
     } else {
-        self.shadowImageView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:77.0/255];
+        self.shadowImageView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:77.0 / 255];
     }
 }
 
@@ -181,14 +181,14 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
     if (!self.fakeView.superview) {
         [[self.subviews firstObject] insertSubview:_fakeView atIndex:0];
         self.fakeView.frame = self.fakeView.superview.bounds;
-        
+
     }
-    
+
     if (!self.shadowImageView.superview) {
         [[self.subviews firstObject] insertSubview:_shadowImageView aboveSubview:self.backgroundImageView];
         self.shadowImageView.frame = CGRectMake(0, CGRectGetHeight(self.shadowImageView.superview.bounds) - 0.5, CGRectGetWidth(self.shadowImageView.superview.bounds), 0.5);
     }
-    
+
     if (!self.backgroundImageView.superview) {
         [[self.subviews firstObject] insertSubview:_backgroundImageView aboveSubview:self.fakeView];
         self.backgroundImageView.frame = self.backgroundImageView.superview.bounds;
@@ -210,7 +210,7 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
 }
 
 + (void)load {
-    if (@available(iOS 11, *)) ; else return;
+    if (@available(iOS 11, *)); else return;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         Class class = [self class];
@@ -221,7 +221,7 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
 - (void)hbd_setAttributedText:(NSAttributedString *)attributedText {
     if (self.hbd_specifiedTextColor) {
         NSMutableAttributedString *mutableAttributedText = [attributedText isKindOfClass:NSMutableAttributedString.class] ? attributedText : [attributedText mutableCopy];
-        [mutableAttributedText addAttributes:@{ NSForegroundColorAttributeName : self.hbd_specifiedTextColor} range:NSMakeRange(0, mutableAttributedText.length)];
+        [mutableAttributedText addAttributes:@{NSForegroundColorAttributeName: self.hbd_specifiedTextColor} range:NSMakeRange(0, mutableAttributedText.length)];
         attributedText = mutableAttributedText;
     }
     [self hbd_setAttributedText:attributedText];

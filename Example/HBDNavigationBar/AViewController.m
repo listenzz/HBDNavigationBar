@@ -20,7 +20,7 @@
     [super viewDidLoad];
     //self.hbd_barHidden = YES;
     self.hbd_barAlpha = 0;
-    self.view.backgroundColor = [UIColor colorWithRed:((float)arc4random_uniform(256) / 255.0) green:((float)arc4random_uniform(256) / 255.0) blue:((float)arc4random_uniform(256) / 255.0) alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithRed:((float) arc4random_uniform(256) / 255.0) green:((float) arc4random_uniform(256) / 255.0) blue:((float) arc4random_uniform(256) / 255.0) alpha:1.0];
 }
 
 - (void)pushToNext:(UIButton *)button {
@@ -34,7 +34,7 @@
     nav.modalPresentationStyle = UIModalPresentationCurrentContext;
     self.navigationController.definesPresentationContext = NO;
     [self presentViewController:nav animated:YES completion:^{
-        
+
     }];
 }
 

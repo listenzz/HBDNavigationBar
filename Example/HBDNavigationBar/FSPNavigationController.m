@@ -13,7 +13,7 @@
 @interface FSPNavigationController () <UINavigationControllerDelegate>
 
 // 不能命名为 interactiveTransition，因为 UINavigationController 内部已经有一个名为 interactiveTransition 的属性
-@property (nonatomic, strong) UIPercentDrivenInteractiveTransition *hbd_interactiveTransition;
+@property(nonatomic, strong) UIPercentDrivenInteractiveTransition *hbd_interactiveTransition;
 
 @end
 
@@ -74,11 +74,11 @@
 }
 
 - (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-animationControllerForOperation:(UINavigationControllerOperation)operation
-             fromViewController:(UIViewController *)fromVC
+                                            animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                         fromViewController:(UIViewController *)fromVC
                                                            toViewController:(UIViewController *)toVC {
     if (operation == UINavigationControllerOperationPush) {
-            return [HBDPushAnimation new];
+        return [HBDPushAnimation new];
     } else if (operation == UINavigationControllerOperationPop) {
         return [HBDPopAnimation new];
     }
@@ -88,32 +88,32 @@ animationControllerForOperation:(UINavigationControllerOperation)operation
 // 如果不重写这个方法，就采用默认的转场交互方式
 // 如果重写了这个方法，需要自己处理转场交互方式，参考下面的 `handleFullScreenGesture:` 方法
 - (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
-                                   interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController  {
+                                   interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>)animationController {
     if ([animationController isKindOfClass:[HBDPopAnimation class]]) {
-       return self.hbd_interactiveTransition;
+        return self.hbd_interactiveTransition;
     }
     return nil;
 }
 
 - (void)handleFullScreenGesture:(UIPanGestureRecognizer *)pan {
     CGFloat process = [pan translationInView:self.view].x / self.view.bounds.size.width;
-    process = MIN(1.0,(MAX(0.0, process)));
+    process = MIN(1.0, (MAX(0.0, process)));
     if (pan.state == UIGestureRecognizerStateBegan) {
         NSLog(@"%s UIGestureRecognizerStateBegan", __FUNCTION__);
         self.hbd_interactiveTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
         //触发pop转场动画
         [self popViewControllerAnimated:YES];
-    }else if (pan.state == UIGestureRecognizerStateChanged){
+    } else if (pan.state == UIGestureRecognizerStateChanged) {
         NSLog(@"%s UIGestureRecognizerStateChanged", __FUNCTION__);
         UIPercentDrivenInteractiveTransition *transition = self.hbd_interactiveTransition;
         [transition updateInteractiveTransition:process];
-    }else if (pan.state == UIGestureRecognizerStateEnded
-              || pan.state == UIGestureRecognizerStateCancelled){
+    } else if (pan.state == UIGestureRecognizerStateEnded
+            || pan.state == UIGestureRecognizerStateCancelled) {
         NSLog(@"%s UIGestureRecognizerStateEnded", __FUNCTION__);
         if (process > 0.33) {
-            [ self.hbd_interactiveTransition finishInteractiveTransition];
-        }else{
-            [ self.hbd_interactiveTransition cancelInteractiveTransition];
+            [self.hbd_interactiveTransition finishInteractiveTransition];
+        } else {
+            [self.hbd_interactiveTransition cancelInteractiveTransition];
         }
         self.hbd_interactiveTransition = nil;
     }

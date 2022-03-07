@@ -23,24 +23,24 @@ BOOL isImageEqual(UIImage *image1, UIImage *image2) {
 }
 
 BOOL shouldShowFake(UIViewController *vc, UIViewController *from, UIViewController *to) {
-    if (vc != to ) {
+    if (vc != to) {
         return NO;
     }
-    
+
     if (from.hbd_splitNavigationBarTransition || to.hbd_splitNavigationBarTransition) {
         return YES;
     }
-    
+
     if (from.hbd_computedBarImage && to.hbd_computedBarImage && isImageEqual(from.hbd_computedBarImage, to.hbd_computedBarImage)) {
         // have the same image
         return from.hbd_barAlpha != to.hbd_barAlpha;
     }
-    
+
     if (!from.hbd_computedBarImage && !to.hbd_computedBarImage && [from.hbd_computedBarTintColor.description isEqual:to.hbd_computedBarTintColor.description]) {
-        // no images, and the colors are the same
+        // no images and the colors are the same
         return from.hbd_barAlpha != to.hbd_barAlpha;
     }
-    
+
     return YES;
 }
 
@@ -49,7 +49,7 @@ BOOL colorHasAlphaComponent(UIColor *color) {
         return YES;
     }
     CGFloat red = 0;
-    CGFloat green= 0;
+    CGFloat green = 0;
     CGFloat blue = 0;
     CGFloat alpha = 0;
     [color getRed:&red green:&green blue:&blue alpha:&alpha];
@@ -75,39 +75,39 @@ void adjustLayout(UIViewController *vc) {
             isTranslucent = colorHasAlphaComponent(color);
         }
     }
-    
+
     if (isTranslucent || vc.extendedLayoutIncludesOpaqueBars) {
         vc.edgesForExtendedLayout |= UIRectEdgeTop;
     } else {
         vc.edgesForExtendedLayout &= ~UIRectEdgeTop;
     }
-    
+
     if (vc.hbd_barHidden) {
         if (@available(iOS 11.0, *)) {
             UIEdgeInsets insets = vc.additionalSafeAreaInsets;
-            float height = vc.navigationController.navigationBar.bounds.size.height;
+            CGFloat height = vc.navigationController.navigationBar.bounds.size.height;
             vc.additionalSafeAreaInsets = UIEdgeInsetsMake(-height + insets.top, insets.left, insets.bottom, insets.right);
         }
     }
 }
 
-UIColor* blendColor(UIColor *from, UIColor *to, float percent) {
+UIColor *blendColor(UIColor *from, UIColor *to, CGFloat percent) {
     CGFloat fromRed = 0;
     CGFloat fromGreen = 0;
     CGFloat fromBlue = 0;
     CGFloat fromAlpha = 0;
     [from getRed:&fromRed green:&fromGreen blue:&fromBlue alpha:&fromAlpha];
-    
+
     CGFloat toRed = 0;
     CGFloat toGreen = 0;
     CGFloat toBlue = 0;
     CGFloat toAlpha = 0;
     [to getRed:&toRed green:&toGreen blue:&toBlue alpha:&toAlpha];
-    
-    CGFloat newRed =  fromRed + (toRed - fromRed) * fminf(1, percent * 4) ;
-    CGFloat newGreen = fromGreen + (toGreen - fromGreen) * fminf(1, percent * 4);
-    CGFloat newBlue = fromBlue + (toBlue - fromBlue) * fminf(1, percent * 4);
-    CGFloat newAlpha = fromAlpha + (toAlpha - fromAlpha) * fminf(1, percent * 4);
+
+    CGFloat newRed = fromRed + (toRed - fromRed) * fminf(1, (float) (percent * 4));
+    CGFloat newGreen = fromGreen + (toGreen - fromGreen) * fminf(1, (float) (percent * 4));
+    CGFloat newBlue = fromBlue + (toBlue - fromBlue) * fminf(1, (float) (percent * 4));
+    CGFloat newAlpha = fromAlpha + (toAlpha - fromAlpha) * fminf(1, (float) (percent * 4));
     return [UIColor colorWithRed:newRed green:newGreen blue:newBlue alpha:newAlpha];
 }
 
@@ -123,8 +123,8 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 
 @interface HBDNavigationControllerDelegate : UIScreenEdgePanGestureRecognizer <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
-@property (nonatomic, weak) id<UINavigationControllerDelegate> proxiedDelegate;
-@property (nonatomic, weak, readonly) HBDNavigationController *nav;
+@property(nonatomic, weak) id <UINavigationControllerDelegate> proxyDelegate;
+@property(nonatomic, weak, readonly) HBDNavigationController *nav;
 
 - (instancetype)initWithNavigationController:(HBDNavigationController *)navigationController;
 
@@ -132,19 +132,22 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 
 @interface HBDNavigationController ()
 
-@property (nonatomic, readonly) HBDNavigationBar *navigationBar;
-@property (nonatomic, strong) UIVisualEffectView *fromFakeBar;
-@property (nonatomic, strong) UIVisualEffectView *toFakeBar;
-@property (nonatomic, strong) UIImageView *fromFakeShadow;
-@property (nonatomic, strong) UIImageView *toFakeShadow;
-@property (nonatomic, strong) UIImageView *fromFakeImageView;
-@property (nonatomic, strong) UIImageView *toFakeImageView;
-@property (nonatomic, weak) UIViewController *poppingViewController;
-@property (nonatomic, strong) HBDNavigationControllerDelegate *navigationDelegate;
+@property(nonatomic, readonly) HBDNavigationBar *navigationBar;
+@property(nonatomic, strong) UIVisualEffectView *fromFakeBar;
+@property(nonatomic, strong) UIVisualEffectView *toFakeBar;
+@property(nonatomic, strong) UIImageView *fromFakeShadow;
+@property(nonatomic, strong) UIImageView *toFakeShadow;
+@property(nonatomic, strong) UIImageView *fromFakeImageView;
+@property(nonatomic, strong) UIImageView *toFakeImageView;
+@property(nonatomic, weak) UIViewController *poppingViewController;
+@property(nonatomic, strong) HBDNavigationControllerDelegate *navigationDelegate;
 
 - (void)updateNavigationBarStyleForViewController:(UIViewController *)vc;
-- (void)updateNavigationBarTinitColorForViewController:(UIViewController *)vc;
+
+- (void)updateNavigationBarTintColorForViewController:(UIViewController *)vc;
+
 - (void)updateNavigationBarAlphaForViewController:(UIViewController *)vc;
+
 - (void)updateNavigationBarBackgroundForViewController:(UIViewController *)vc;
 
 - (void)showFakeBarFrom:(UIViewController *)from to:(UIViewController *)to;
@@ -181,7 +184,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
     return NO;
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer API_AVAILABLE(ios(7.0)){
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer API_AVAILABLE(ios(7.0)) {
     if (gestureRecognizer == self.nav.interactivePopGestureRecognizer) {
         return YES;
     }
@@ -190,15 +193,15 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 
 - (void)handleNavigationTransition:(UIScreenEdgePanGestureRecognizer *)pan {
     HBDNavigationController *nav = self.nav;
-    if (![self.proxiedDelegate respondsToSelector:@selector(navigationController:interactionControllerForAnimationController:)]) {
-        id<HBDNavigationTransitionProtocol> target = (id<HBDNavigationTransitionProtocol>)[nav superInteractivePopGestureRecognizer].delegate;
+    if (![self.proxyDelegate respondsToSelector:@selector(navigationController:interactionControllerForAnimationController:)]) {
+        id <HBDNavigationTransitionProtocol> target = (id <HBDNavigationTransitionProtocol>) [nav superInteractivePopGestureRecognizer].delegate;
         if ([target respondsToSelector:@selector(handleNavigationTransition:)]) {
             [target handleNavigationTransition:pan];
         }
     }
-    
-    if (@available(iOS 11.0, *)) ; else return;
-    id<UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
+
+    if (@available(iOS 11.0, *)); else return;
+    id <UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
     if (coordinator) {
         UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
         UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
@@ -209,17 +212,17 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)]) {
-        [self.proxiedDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
+    if (self.proxyDelegate && [self.proxyDelegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)]) {
+        [self.proxyDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
     }
-    
+
     if (!viewController.hbd_extendedLayoutDidSet) {
         adjustLayout(viewController);
         viewController.hbd_extendedLayoutDidSet = YES;
     }
-    
+
     HBDNavigationController *nav = self.nav;
-    id<UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
+    id <UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
     if (coordinator) {
         [self showViewController:viewController withCoordinator:coordinator];
     } else {
@@ -235,82 +238,82 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)]) {
-        [self.proxiedDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
+    if (self.proxyDelegate && [self.proxyDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)]) {
+        [self.proxyDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
     }
-    
+
     HBDNavigationController *nav = self.nav;
     if (!animated) {
         [nav updateNavigationBarForViewController:viewController];
         [nav clearFake];
     }
-    
+
     nav.poppingViewController = nil;
 }
 
 - (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController *)navigationController {
-    if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationControllerSupportedInterfaceOrientations:)]) {
-        return [self.proxiedDelegate navigationControllerSupportedInterfaceOrientations:navigationController];
+    if (self.proxyDelegate && [self.proxyDelegate respondsToSelector:@selector(navigationControllerSupportedInterfaceOrientations:)]) {
+        return [self.proxyDelegate navigationControllerSupportedInterfaceOrientations:navigationController];
     }
     return UIInterfaceOrientationMaskPortrait;
 }
 
-- (UIInterfaceOrientation)navigationControllerPreferredInterfaceOrientationForPresentation:(UINavigationController *)navigationController  {
-    if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationControllerPreferredInterfaceOrientationForPresentation:)]) {
-        return [self.proxiedDelegate navigationControllerPreferredInterfaceOrientationForPresentation:navigationController];
+- (UIInterfaceOrientation)navigationControllerPreferredInterfaceOrientationForPresentation:(UINavigationController *)navigationController {
+    if (self.proxyDelegate && [self.proxyDelegate respondsToSelector:@selector(navigationControllerPreferredInterfaceOrientationForPresentation:)]) {
+        return [self.proxyDelegate navigationControllerPreferredInterfaceOrientationForPresentation:navigationController];
     }
     return UIInterfaceOrientationPortrait;
 }
 
 - (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
-                                   interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController  {
-    if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationController:interactionControllerForAnimationController:)]) {
-        return [self.proxiedDelegate navigationController:navigationController interactionControllerForAnimationController:animationController];
+                                   interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>)animationController {
+    if (self.proxyDelegate && [self.proxyDelegate respondsToSelector:@selector(navigationController:interactionControllerForAnimationController:)]) {
+        return [self.proxyDelegate navigationController:navigationController interactionControllerForAnimationController:animationController];
     }
     return nil;
 }
 
 - (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-                                   animationControllerForOperation:(UINavigationControllerOperation)operation
-                                                fromViewController:(UIViewController *)fromVC
-                                                           toViewController:(UIViewController *)toVC  {
-    if (self.proxiedDelegate && [self.proxiedDelegate respondsToSelector:@selector(navigationController:animationControllerForOperation:fromViewController:toViewController:)]) {
-        return [self.proxiedDelegate navigationController:navigationController animationControllerForOperation:operation fromViewController:fromVC toViewController:toVC];
+                                            animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                         fromViewController:(UIViewController *)fromVC
+                                                           toViewController:(UIViewController *)toVC {
+    if (self.proxyDelegate && [self.proxyDelegate respondsToSelector:@selector(navigationController:animationControllerForOperation:fromViewController:toViewController:)]) {
+        return [self.proxyDelegate navigationController:navigationController animationControllerForOperation:operation fromViewController:fromVC toViewController:toVC];
     }
     return nil;
 }
 
-- (void)showViewController:(UIViewController * _Nonnull)viewController withCoordinator: (id<UIViewControllerTransitionCoordinator>)coordinator {
+- (void)showViewController:(UIViewController *_Nonnull)viewController withCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
     UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
-    
+
     if (@available(iOS 12.0, *)) {
         // Fix a system bug https://github.com/listenzz/HBDNavigationBar/issues/35
         [self resetButtonLabelInNavBar:self.nav.navigationBar];
     }
-    
+
     if (self.nav.poppingViewController) {
         // Inspired by QMUI
         UILabel *backButtonLabel = self.nav.navigationBar.backButtonLabel;
         if (backButtonLabel) {
             backButtonLabel.hbd_specifiedTextColor = backButtonLabel.textColor;
         }
-        
-        [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
-            
-        } completion:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context) {
+
+        [coordinator animateAlongsideTransition:^(id <UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+
+        }                            completion:^(id <UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
             backButtonLabel.hbd_specifiedTextColor = nil;
         }];
     }
-    
+
     [self.nav updateNavigationBarStyleForViewController:viewController];
-    
-    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+
+    [coordinator animateAlongsideTransition:^(id <UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
         BOOL shouldFake = shouldShowFake(viewController, from, to);
         if (shouldFake) {
             // title attributes, button tint color, barStyle
-            [self.nav updateNavigationBarTinitColorForViewController:viewController];
-        
+            [self.nav updateNavigationBarTintColorForViewController:viewController];
+
             // background alpha, background color, shadow image alpha
             [self.nav showFakeBarFrom:from to:to];
         } else {
@@ -324,7 +327,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
                 }
             }
         }
-    } completion:^(id<UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+    }                            completion:^(id <UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
         self.nav.poppingViewController = nil;
         if (@available(iOS 13.0, *)) {
             self.nav.navigationBar.scrollEdgeAppearance.backgroundColor = UIColor.clearColor;
@@ -332,7 +335,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
             self.nav.navigationBar.standardAppearance.backgroundColor = UIColor.clearColor;
             self.nav.navigationBar.standardAppearance.backgroundImage = nil;
         }
-      
+
         if (context.isCancelled) {
             if (to == viewController) {
                 [self.nav updateNavigationBarForViewController:from];
@@ -378,7 +381,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController {
     if (self = [super initWithNavigationBarClass:[HBDNavigationBar class] toolbarClass:nil]) {
-        self.viewControllers = @[ rootViewController ];
+        self.viewControllers = @[rootViewController];
     }
     return self;
 }
@@ -392,11 +395,11 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
     return [super initWithNavigationBarClass:[HBDNavigationBar class] toolbarClass:nil];
 }
 
-- (void)setDelegate:(id<UINavigationControllerDelegate>)delegate {
+- (void)setDelegate:(id <UINavigationControllerDelegate>)delegate {
     if ([delegate isKindOfClass:[HBDNavigationControllerDelegate class]] || !self.navigationDelegate) {
         [super setDelegate:delegate];
     } else {
-        self.navigationDelegate.proxiedDelegate = delegate;
+        self.navigationDelegate.proxyDelegate = delegate;
     }
 }
 
@@ -424,7 +427,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
     [super viewDidLoad];
     [self.navigationBar setTranslucent:YES];
     [self.navigationBar setShadowImage:[UINavigationBar appearance].shadowImage];
-    
+
     if (@available(iOS 13.0, *)) {
         UINavigationBarAppearance *scrollEdgeAppearance = [[UINavigationBarAppearance alloc] init];
         [scrollEdgeAppearance configureWithTransparentBackground];
@@ -435,22 +438,22 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
         self.navigationBar.scrollEdgeAppearance = scrollEdgeAppearance;
         self.navigationBar.standardAppearance = [scrollEdgeAppearance copy];
     }
-    
+
     self.navigationDelegate = [[HBDNavigationControllerDelegate alloc] initWithNavigationController:self];
-    self.navigationDelegate.proxiedDelegate = self.delegate;
+    self.navigationDelegate.proxyDelegate = self.delegate;
     self.delegate = self.navigationDelegate;
 }
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
+    id <UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
     if (!coordinator) {
-       [self updateNavigationBarForViewController:self.topViewController];
+        [self updateNavigationBarForViewController:self.topViewController];
     }
 }
 
 - (BOOL)navigationBar:(UINavigationBar *)navigationBar shouldPopItem:(UINavigationItem *)item {
-    if (self.viewControllers.count > 1 && self.topViewController.navigationItem == item ) {
+    if (self.viewControllers.count > 1 && self.topViewController.navigationItem == item) {
         if (!(self.topViewController.hbd_backInteractive && self.topViewController.hbd_clickBackEnabled)) {
             [self resetSubviewsInNavBar:self.navigationBar];
             return NO;
@@ -485,9 +488,9 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
     if (@available(iOS 13.0, *)) {
         return;
     }
-    if (@available(iOS 11.0, *)){
+    if (@available(iOS 11.0, *)) {
         // fix：ios 11，12，当前后两个页面的 barStyle 不一样时，点击返回按钮返回，前一个页面的标题颜色响应迟缓或不响应
-        id<UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
+        id <UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
         if (!(coordinator && coordinator.interactive)) {
             self.navigationBar.barStyle = self.topViewController.hbd_barStyle;
             self.navigationBar.titleTextAttributes = self.topViewController.hbd_titleTextAttributes;
@@ -500,7 +503,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
         // empty
     } else {
         // Workaround for >= iOS7.1. Thanks to @boliva - http://stackoverflow.com/posts/comments/34452906
-        [navBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subview, NSUInteger idx, BOOL * _Nonnull stop) {
+        [navBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView *_Nonnull subview, NSUInteger idx, BOOL *_Nonnull stop) {
             if (subview.alpha < 1.0) {
                 [UIView animateWithDuration:.25 animations:^{
                     subview.alpha = 1.0;
@@ -514,14 +517,14 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
     [self updateNavigationBarStyleForViewController:vc];
     [self updateNavigationBarAlphaForViewController:vc];
     [self updateNavigationBarBackgroundForViewController:vc];
-    [self updateNavigationBarTinitColorForViewController:vc];
+    [self updateNavigationBarTintColorForViewController:vc];
 }
 
 - (void)updateNavigationBarStyleForViewController:(UIViewController *)vc {
     self.navigationBar.barStyle = vc.hbd_barStyle;
 }
 
-- (void)updateNavigationBarTinitColorForViewController:(UIViewController *)vc {
+- (void)updateNavigationBarTintColorForViewController:(UIViewController *)vc {
     self.navigationBar.tintColor = vc.hbd_tintColor;
     self.navigationBar.titleTextAttributes = vc.hbd_titleTextAttributes;
     if (@available(iOS 13.0, *)) {
@@ -538,13 +541,13 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
         self.navigationBar.fakeView.alpha = vc.hbd_barAlpha;
         self.navigationBar.backgroundImageView.alpha = 0;
     }
-    
+
     if (vc.hbd_barAlpha == 0) {
         self.navigationBar.hbd_backgroundView.layer.mask = [CALayer new];
     } else {
         self.navigationBar.hbd_backgroundView.layer.mask = nil;
     }
-    
+
     self.navigationBar.shadowImageView.alpha = vc.hbd_computedBarShadowAlpha;
 }
 
@@ -553,7 +556,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
     self.navigationBar.backgroundImageView.image = vc.hbd_computedBarImage;
 }
 
-- (void)showFakeBarFrom:(UIViewController *)from to:(UIViewController * _Nonnull)to {
+- (void)showFakeBarFrom:(UIViewController *)from to:(UIViewController *_Nonnull)to {
     [UIView setAnimationsEnabled:NO];
     self.navigationBar.fakeView.alpha = 0;
     self.navigationBar.shadowImageView.alpha = 0;
@@ -568,33 +571,33 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
     self.fromFakeImageView.alpha = from.hbd_barAlpha;
     self.fromFakeImageView.frame = [self fakeBarFrameForViewController:from];
     [from.view addSubview:self.fromFakeImageView];
-    
+
     self.fromFakeBar.subviews.lastObject.backgroundColor = from.hbd_computedBarTintColor;
     self.fromFakeBar.alpha = from.hbd_computedBarImage ? 0 : from.hbd_barAlpha;
 
     if (from.hbd_barAlpha == 0 || from.hbd_computedBarImage) {
         self.fromFakeBar.subviews.lastObject.layer.mask = [CALayer new];
     }
-    
+
     self.fromFakeBar.frame = [self fakeBarFrameForViewController:from];
     [from.view addSubview:self.fromFakeBar];
-    
+
     self.fromFakeShadow.alpha = from.hbd_computedBarShadowAlpha;
     self.fromFakeShadow.frame = [self fakeShadowFrameWithBarFrame:self.fromFakeBar.frame];
     [from.view addSubview:self.fromFakeShadow];
 }
 
-- (void)showFakeBarTo:(UIViewController * _Nonnull)to {
+- (void)showFakeBarTo:(UIViewController *_Nonnull)to {
     self.toFakeImageView.image = to.hbd_computedBarImage;
     self.toFakeImageView.alpha = to.hbd_barAlpha;
     self.toFakeImageView.frame = [self fakeBarFrameForViewController:to];
     [to.view addSubview:self.toFakeImageView];
-    
+
     self.toFakeBar.subviews.lastObject.backgroundColor = to.hbd_computedBarTintColor;
     self.toFakeBar.alpha = to.hbd_computedBarImage ? 0 : to.hbd_barAlpha;
     self.toFakeBar.frame = [self fakeBarFrameForViewController:to];
     [to.view addSubview:self.toFakeBar];
-    
+
     self.toFakeShadow.alpha = to.hbd_computedBarShadowAlpha;
     self.toFakeShadow.frame = [self fakeShadowFrameWithBarFrame:self.toFakeBar.frame];
     [to.view addSubview:self.toFakeShadow];
@@ -669,9 +672,9 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 
     // fix issue for pushed to UIViewController whose root view is UIScrollView.
     if ([vc.view isKindOfClass:[UIScrollView class]]) {
-        UIScrollView *scrollview = (UIScrollView *)vc.view;
-        scrollview.clipsToBounds = NO;
-        if (scrollview.contentOffset.y == 0) {
+        UIScrollView *scrollView = (UIScrollView *) vc.view;
+        scrollView.clipsToBounds = NO;
+        if (scrollView.contentOffset.y == 0) {
             frame.origin.y = -frame.size.height;
         }
     }
