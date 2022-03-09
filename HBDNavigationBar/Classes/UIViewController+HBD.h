@@ -24,7 +24,7 @@
 @property(nonatomic, assign) IBInspectable BOOL hbd_splitNavigationBarTransition;
 
 // computed
-@property(nonatomic, assign, readonly) float hbd_computedBarShadowAlpha;
+@property(nonatomic, assign, readonly) CGFloat hbd_computedBarShadowAlpha;
 @property(nonatomic, strong, readonly) UIColor *hbd_computedBarTintColor;
 @property(nonatomic, strong, readonly) UIImage *hbd_computedBarImage;
 

@@ -170,7 +170,7 @@
     objc_setAssociatedObject(self, @selector(hbd_splitNavigationBarTransition), @(splitNavigationBarTransition), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (float)hbd_computedBarShadowAlpha {
+- (CGFloat)hbd_computedBarShadowAlpha {
     return self.hbd_barShadowHidden ? 0 : self.hbd_barAlpha;
 }
 

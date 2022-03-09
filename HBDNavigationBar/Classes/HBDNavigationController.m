@@ -123,7 +123,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 
 @interface HBDNavigationControllerDelegate : UIScreenEdgePanGestureRecognizer <UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
-@property(nonatomic, weak) id <UINavigationControllerDelegate> proxyDelegate;
+@property(nonatomic, weak) id <UINavigationControllerDelegate> navDelegate;
 @property(nonatomic, weak, readonly) HBDNavigationController *nav;
 
 - (instancetype)initWithNavigationController:(HBDNavigationController *)navigationController;
@@ -140,7 +140,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 @property(nonatomic, strong) UIImageView *fromFakeImageView;
 @property(nonatomic, strong) UIImageView *toFakeImageView;
 @property(nonatomic, weak) UIViewController *poppingViewController;
-@property(nonatomic, strong) HBDNavigationControllerDelegate *navigationDelegate;
+@property(nonatomic, strong) HBDNavigationControllerDelegate *delegateProxy;
 
 - (void)updateNavigationBarStyleForViewController:(UIViewController *)vc;
 
@@ -193,7 +193,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 
 - (void)handleNavigationTransition:(UIScreenEdgePanGestureRecognizer *)pan {
     HBDNavigationController *nav = self.nav;
-    if (![self.proxyDelegate respondsToSelector:@selector(navigationController:interactionControllerForAnimationController:)]) {
+    if (![self.navDelegate respondsToSelector:@selector(navigationController:interactionControllerForAnimationController:)]) {
         id <HBDNavigationTransitionProtocol> target = (id <HBDNavigationTransitionProtocol>) [nav superInteractivePopGestureRecognizer].delegate;
         if ([target respondsToSelector:@selector(handleNavigationTransition:)]) {
             [target handleNavigationTransition:pan];
@@ -212,8 +212,8 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if (self.proxyDelegate && [self.proxyDelegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)]) {
-        [self.proxyDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
+    if (self.navDelegate && [self.navDelegate respondsToSelector:@selector(navigationController:willShowViewController:animated:)]) {
+        [self.navDelegate navigationController:navigationController willShowViewController:viewController animated:animated];
     }
 
     if (!viewController.hbd_extendedLayoutDidSet) {
@@ -238,8 +238,8 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 }
 
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if (self.proxyDelegate && [self.proxyDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)]) {
-        [self.proxyDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
+    if (self.navDelegate && [self.navDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)]) {
+        [self.navDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
     }
 
     HBDNavigationController *nav = self.nav;
@@ -252,23 +252,23 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 }
 
 - (UIInterfaceOrientationMask)navigationControllerSupportedInterfaceOrientations:(UINavigationController *)navigationController {
-    if (self.proxyDelegate && [self.proxyDelegate respondsToSelector:@selector(navigationControllerSupportedInterfaceOrientations:)]) {
-        return [self.proxyDelegate navigationControllerSupportedInterfaceOrientations:navigationController];
+    if (self.navDelegate && [self.navDelegate respondsToSelector:@selector(navigationControllerSupportedInterfaceOrientations:)]) {
+        return [self.navDelegate navigationControllerSupportedInterfaceOrientations:navigationController];
     }
     return UIInterfaceOrientationMaskPortrait;
 }
 
 - (UIInterfaceOrientation)navigationControllerPreferredInterfaceOrientationForPresentation:(UINavigationController *)navigationController {
-    if (self.proxyDelegate && [self.proxyDelegate respondsToSelector:@selector(navigationControllerPreferredInterfaceOrientationForPresentation:)]) {
-        return [self.proxyDelegate navigationControllerPreferredInterfaceOrientationForPresentation:navigationController];
+    if (self.navDelegate && [self.navDelegate respondsToSelector:@selector(navigationControllerPreferredInterfaceOrientationForPresentation:)]) {
+        return [self.navDelegate navigationControllerPreferredInterfaceOrientationForPresentation:navigationController];
     }
     return UIInterfaceOrientationPortrait;
 }
 
 - (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
                                    interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>)animationController {
-    if (self.proxyDelegate && [self.proxyDelegate respondsToSelector:@selector(navigationController:interactionControllerForAnimationController:)]) {
-        return [self.proxyDelegate navigationController:navigationController interactionControllerForAnimationController:animationController];
+    if (self.navDelegate && [self.navDelegate respondsToSelector:@selector(navigationController:interactionControllerForAnimationController:)]) {
+        return [self.navDelegate navigationController:navigationController interactionControllerForAnimationController:animationController];
     }
     return nil;
 }
@@ -277,8 +277,8 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
                                             animationControllerForOperation:(UINavigationControllerOperation)operation
                                                          fromViewController:(UIViewController *)fromVC
                                                            toViewController:(UIViewController *)toVC {
-    if (self.proxyDelegate && [self.proxyDelegate respondsToSelector:@selector(navigationController:animationControllerForOperation:fromViewController:toViewController:)]) {
-        return [self.proxyDelegate navigationController:navigationController animationControllerForOperation:operation fromViewController:fromVC toViewController:toVC];
+    if (self.navDelegate && [self.navDelegate respondsToSelector:@selector(navigationController:animationControllerForOperation:fromViewController:toViewController:)]) {
+        return [self.navDelegate navigationController:navigationController animationControllerForOperation:operation fromViewController:fromVC toViewController:toVC];
     }
     return nil;
 }
@@ -386,25 +386,25 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
     return self;
 }
 
-- (instancetype)initWithNavigationBarClass:(Class)navigationBarClass toolbarClass:(Class)toolbarClass {
+- (UINavigationController *)initWithNavigationBarClass:(Class)navigationBarClass toolbarClass:(Class)toolbarClass {
     NSAssert([navigationBarClass isSubclassOfClass:[HBDNavigationBar class]], @"navigationBarClass Must be a subclass of HBDNavigationBar");
     return [super initWithNavigationBarClass:navigationBarClass toolbarClass:toolbarClass];
 }
 
-- (instancetype)init {
+- (UINavigationController *)init {
     return [super initWithNavigationBarClass:[HBDNavigationBar class] toolbarClass:nil];
 }
 
 - (void)setDelegate:(id <UINavigationControllerDelegate>)delegate {
-    if ([delegate isKindOfClass:[HBDNavigationControllerDelegate class]] || !self.navigationDelegate) {
+    if ([delegate isKindOfClass:[HBDNavigationControllerDelegate class]] || !self.delegateProxy) {
         [super setDelegate:delegate];
     } else {
-        self.navigationDelegate.proxyDelegate = delegate;
+        self.delegateProxy.navDelegate = delegate;
     }
 }
 
 - (UIGestureRecognizer *)interactivePopGestureRecognizer {
-    return self.navigationDelegate;
+    return self.delegateProxy;
 }
 
 - (UIGestureRecognizer *)superInteractivePopGestureRecognizer {
@@ -439,9 +439,9 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
         self.navigationBar.standardAppearance = [scrollEdgeAppearance copy];
     }
 
-    self.navigationDelegate = [[HBDNavigationControllerDelegate alloc] initWithNavigationController:self];
-    self.navigationDelegate.proxyDelegate = self.delegate;
-    self.delegate = self.navigationDelegate;
+    self.delegateProxy = [[HBDNavigationControllerDelegate alloc] initWithNavigationController:self];
+    self.delegateProxy.navDelegate = self.delegate;
+    self.delegate = self.delegateProxy;
 }
 
 - (void)viewWillLayoutSubviews {
