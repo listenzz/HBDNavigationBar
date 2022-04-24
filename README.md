@@ -224,8 +224,18 @@ iOS 9+
 HBDNavigationBar is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
+## Objective-C
 ```ruby
-pod 'HBDNavigationBar', '~> 1.9.5'
+pod 'HBDNavigationBar', '~> 1.9.6'
+```
+## Swift
+```ruby
+pod 'HBDNavigationBar/Swift', '~> 1.9.6'
+```
+swift版本使用比较简单，直接在控制器中调用 navigation.xxxx，其原理和OC版本一样
+```
+/// 例如：
+navigation.barTintColor = .red
 ```
 
 ## License

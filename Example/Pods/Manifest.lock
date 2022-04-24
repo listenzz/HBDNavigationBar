@@ -1,16 +1,20 @@
 PODS:
-  - HBDNavigationBar (1.9.4)
+  - HBDNavigationBar (1.9.5):
+    - HBDNavigationBar/Core (= 1.9.5)
+  - HBDNavigationBar/Core (1.9.5)
+  - HBDNavigationBar/Swift (1.9.5)
 
 DEPENDENCIES:
   - HBDNavigationBar (from `../`)
+  - HBDNavigationBar/Swift (from `../`)
 
 EXTERNAL SOURCES:
   HBDNavigationBar:
     :path: "../"
 
 SPEC CHECKSUMS:
-  HBDNavigationBar: 6f2f5699c0d9f3e6087466c037b361d6f337ea22
+  HBDNavigationBar: c1662dffa511bb21be32aa5f3294fcd93009005e
 
-PODFILE CHECKSUM: dde7e6b55a5f954d962af30e3bb1e9a1b911127f
+PODFILE CHECKSUM: 648aee23e653d920c60b467cdf88d65d69bcb01c
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

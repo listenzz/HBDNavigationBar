@@ -312,6 +312,7 @@
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
 						DevelopmentTeam = RJX3H8KBAF;
+						LastSwiftMigration = 1330;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -578,13 +579,18 @@
 			baseConfigurationReference = B4CB778013B4106CEE199CD0 /* Pods-HBDNavigationBar_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = RJX3H8KBAF;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HBDNavigationBar/HBDNavigationBar-Prefix.pch";
 				INFOPLIST_FILE = "HBDNavigationBar/HBDNavigationBar-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HBDNavigationBar/HBDNavigationBar_Example-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -594,13 +600,17 @@
 			baseConfigurationReference = F10CA745C33C3DA26A969DE6 /* Pods-HBDNavigationBar_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = RJX3H8KBAF;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HBDNavigationBar/HBDNavigationBar-Prefix.pch";
 				INFOPLIST_FILE = "HBDNavigationBar/HBDNavigationBar-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "HBDNavigationBar/HBDNavigationBar_Example-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
