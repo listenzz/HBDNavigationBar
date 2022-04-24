@@ -42,7 +42,7 @@ class ViewController: UIViewController {
         backItem.title = title
         navigationItem.backBarButtonItem = backItem
         
-        if self.presentingViewController != nil {
+        if presentingViewController != nil {
             let dismissItem = UIBarButtonItem(title: "Dismiss", style: .plain, target: self, action: #selector(dismissButtonAction))
             navigationItem.rightBarButtonItem = dismissItem
         }
@@ -65,8 +65,8 @@ extension ViewController {
     }
     
     @objc func dismissButtonAction(_ sender: UIButton) {
-        if self.presentationController != nil {
-            self.dismiss(animated: true, completion: nil)
+        if presentationController != nil {
+            dismiss(animated: true, completion: nil)
         }
     }
     
@@ -75,7 +75,10 @@ extension ViewController {
 extension UIColor {
     
     static var random: UIColor {
-        return UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1.0)
+        return UIColor(red:   CGFloat.random(in: 0...1),
+                       green: CGFloat.random(in: 0...1),
+                       blue:  CGFloat.random(in: 0...1),
+                       alpha: 1.0)
     }
     
 }

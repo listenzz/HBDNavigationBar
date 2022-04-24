@@ -1,6 +1,0 @@
-module HBDNavigationBar {
-  umbrella header "HBDNavigationBar-umbrella.h"
-
-  export *
-  module * { export * }
-}
