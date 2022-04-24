@@ -231,6 +231,8 @@ pod 'HBDNavigationBar', '~> 1.9.6'
 ## Swift
 ```ruby
 pod 'HBDNavigationBar/Swift', '~> 1.9.6'
+或者使用
+pod 'KxSwiftNavigation'
 ```
 swift版本使用比较简单，直接在控制器中调用 navigation.xxxx，其原理和OC版本一样
 ```
