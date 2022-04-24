@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'HBDNavigationBar'
-  s.version          = '1.9.5'
+  s.version          = '1.9.6'
   s.summary          = 'An aspiring UINavigationBar.'
   s.description      = <<-DESC
 导航栏管理工具，支持OC iOS9.0及以后版本；支持Swift，目前仅支持Swift 5.0及以后版本，其他版本未经测试；
