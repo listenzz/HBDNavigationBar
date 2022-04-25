@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'Swift' do |spec|
-    spec.swift_version        = '5.0'
+    spec.swift_versions       = ['5.3', '5.4', '5.5']
     spec.source_files         = 'HBDNavigationBar/Classes/**/*.swift'
     spec.pod_target_xcconfig  = {
         'SWIFT_ACTIVE_COMPILATION_CONDITIONS'  => 'PERMISSIONSKIT_CAMERA PERMISSIONSKIT_COCOAPODS'
