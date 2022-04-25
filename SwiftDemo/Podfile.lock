@@ -1,0 +1,16 @@
+PODS:
+  - HBDNavigationBar/Swift (1.9.5)
+
+DEPENDENCIES:
+  - HBDNavigationBar/Swift (from `../`)
+
+EXTERNAL SOURCES:
+  HBDNavigationBar:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  HBDNavigationBar: c1662dffa511bb21be32aa5f3294fcd93009005e
+
+PODFILE CHECKSUM: 945c614cbf18a52d6edcf56dedc597f75b32b8df
+
+COCOAPODS: 1.11.3

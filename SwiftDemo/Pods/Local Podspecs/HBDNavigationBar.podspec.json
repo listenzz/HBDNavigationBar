@@ -1,0 +1,42 @@
+{
+  "name": "HBDNavigationBar",
+  "version": "1.9.5",
+  "summary": "An aspiring UINavigationBar.",
+  "description": "导航栏管理工具，支持OC iOS9.0及以后版本；支持Swift，目前仅支持Swift 5.0及以后版本，其他版本未经测试；",
+  "homepage": "https://github.com/listenzz/HBDNavigationBar",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "listen": "listenzz@163.com"
+  },
+  "source": {
+    "git": "https://github.com/listenzz/HBDNavigationBar.git",
+    "tag": "1.9.5"
+  },
+  "frameworks": [
+    "UIKit",
+    "Foundation"
+  ],
+  "platforms": {
+    "ios": "10.0"
+  },
+  "default_subspecs": "Core",
+  "swift_versions": "5.0",
+  "subspecs": [
+    {
+      "name": "Core",
+      "source_files": "HBDNavigationBar/Classes/**/*.{h,m}",
+      "public_header_files": "HBDNavigationBar/Classes/**/*.h"
+    },
+    {
+      "name": "Swift",
+      "source_files": "HBDNavigationBar/Classes/**/*.swift",
+      "pod_target_xcconfig": {
+        "SWIFT_ACTIVE_COMPILATION_CONDITIONS": "PERMISSIONSKIT_CAMERA PERMISSIONSKIT_COCOAPODS"
+      }
+    }
+  ],
+  "swift_version": "5.0"
+}

@@ -217,17 +217,34 @@ self.window.rootViewController = [[HBDNavigationController alloc] initWithRootVi
 
 ## Requirements
 
-iOS 9+
+iOS 10+
 
 ## Installation
 
-HBDNavigationBar is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+HBDNavigationBar可以通过[CocoaPods](http://cocoapods.org)获得。安装
+它，简单地添加以下行到你的Podfile:
 
+## Objective-C
 ```ruby
-pod 'HBDNavigationBar', '~> 1.9.5'
+pod 'HBDNavigationBar', '~> 1.9.6'
+```
+## Swift
+```ruby
+pod 'HBDNavigationBar/Swift', '~> 1.9.6'
+或者使用
+pod 'KxSwiftNavigation'
+```
+swift版本使用比较简单，直接在控制器中调用 navigation.xxxx，其原理和OC版本一样
+```
+/// 在控制器中使用前缀 navigation.xxxx 的方式进行各属性设置，具体参考SwiftDemo
+例如：
+navigation.barStyle = .black
+navigation.barTintColor = .random
+navigation.tintColor = .white
+navigation.titleTextAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17),
+                                          NSAttributedString.Key.foregroundColor: UIColor.white]
 ```
 
 ## License
 
-HBDNavigationBar is available under the MIT license. See the LICENSE file for more info.
+HBDNavigationBar在MIT许可下可用。请参阅许可证文件了解更多信息。

@@ -165,16 +165,24 @@ If you need to hide the status bar, use this lib with [HBDStatusBar](https://git
 
 ## Requirements
 
-iOS 8+
+iOS 10+
 
 ## Installation
 
 HBDNavigationBar is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
+## Objective-C
 ```ruby
-pod 'HBDNavigationBar', '~> 1.5.0'
+pod 'HBDNavigationBar', '~> 1.9.6'
 ```
+
+## Swift
+```ruby
+pod 'HBDNavigationBar', '~> 1.9.6'
+
+```
+swift版本使用方法参考SwiftDemo
 
 ## License
 

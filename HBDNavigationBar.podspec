@@ -1,41 +1,29 @@
-#
-# Be sure to run `pod lib lint HBDNavigationBar.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
-  s.name             = 'HBDNavigationBar'
-  s.version          = '1.9.5'
-  s.summary          = 'An aspiring UINavigationBar.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  s.name                      = 'HBDNavigationBar'
+  s.version                   = '1.9.6'
+  s.summary                   = 'An aspiring UINavigationBar.'
+  s.description               = <<-DESC
+导航栏管理工具，支持OC iOS9.0及以后版本；支持Swift，目前仅支持Swift 5.0及以后版本，其他版本未经测试；
                        DESC
 
-  s.homepage         = 'https://github.com/listenzz/HBDNavigationBar'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'listen' => 'listenzz@163.com' }
-  s.source           = { :git => 'https://github.com/listenzz/HBDNavigationBar.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
-  s.ios.deployment_target = '9.0'
-
-  s.source_files = 'HBDNavigationBar/Classes/**/*'
+  s.homepage                  = 'https://github.com/listenzz/HBDNavigationBar'
+  s.license                   = { :type => 'MIT', :file => 'LICENSE' }
+  s.author                    = { 'listen' => 'listenzz@163.com' }
+  s.source                    = { :git => 'https://github.com/listenzz/HBDNavigationBar.git', :tag => s.version.to_s }
+  s.frameworks                = 'UIKit','Foundation'
+  s.ios.deployment_target     = '10.0'
+  s.default_subspec           = 'Core'
   
-  # s.resource_bundles = {
-  #   'HBDNavigationBar' => ['HBDNavigationBar/Assets/*.png']
-  # }
+  s.subspec 'Core' do |spec|
+    spec.source_files         = 'HBDNavigationBar/Classes/**/*.{h,m}'
+    spec.public_header_files  = 'HBDNavigationBar/Classes/**/*.h'
+  end
 
-  s.public_header_files = 'HBDNavigationBar/Classes/**/*.h'
-  s.frameworks = 'UIKit'
+  s.subspec 'Swift' do |spec|
+    spec.swift_versions       = ['5.3', '5.4', '5.5']
+    spec.source_files         = 'HBDNavigationBar/Classes/**/*.swift'
+    spec.pod_target_xcconfig  = {
+        'SWIFT_ACTIVE_COMPILATION_CONDITIONS'  => 'PERMISSIONSKIT_CAMERA PERMISSIONSKIT_COCOAPODS'
+    }
+  end
 end
