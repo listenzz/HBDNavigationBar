@@ -8,6 +8,8 @@
 #import "HBDNavigationBar.h"
 #import <objc/runtime.h>
 
+#define hairlineWidth (1.f/[UIScreen mainScreen].scale)
+
 static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL swizzledSelector) {
     Method originalMethod = class_getInstanceMethod(class, originalSelector);
     Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
@@ -97,7 +99,7 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
     [super layoutSubviews];
     self.fakeView.frame = self.fakeView.superview.bounds;
     self.backgroundImageView.frame = self.backgroundImageView.superview.bounds;
-    self.shadowImageView.frame = CGRectMake(0, CGRectGetHeight(self.shadowImageView.superview.bounds) - 0.5, CGRectGetWidth(self.shadowImageView.superview.bounds), 0.5);
+    self.shadowImageView.frame = CGRectMake(0, CGRectGetHeight(self.shadowImageView.superview.bounds) - hairlineWidth, CGRectGetWidth(self.shadowImageView.superview.bounds), hairlineWidth);
 }
 
 - (void)setBarTintColor:(UIColor *)barTintColor {
@@ -171,6 +173,7 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
         _shadowImageView = [[UIImageView alloc] init];
         _shadowImageView.userInteractionEnabled = NO;
         _shadowImageView.contentScaleFactor = 1;
+        _shadowImageView.layer.allowsEdgeAntialiasing = YES;
         [[self.subviews firstObject] insertSubview:_shadowImageView aboveSubview:self.backgroundImageView];
     }
     return _shadowImageView;
@@ -186,7 +189,7 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
 
     if (!self.shadowImageView.superview) {
         [[self.subviews firstObject] insertSubview:_shadowImageView aboveSubview:self.backgroundImageView];
-        self.shadowImageView.frame = CGRectMake(0, CGRectGetHeight(self.shadowImageView.superview.bounds) - 0.5, CGRectGetWidth(self.shadowImageView.superview.bounds), 0.5);
+        self.shadowImageView.frame = CGRectMake(0, CGRectGetHeight(self.shadowImageView.superview.bounds) - hairlineWidth, CGRectGetWidth(self.shadowImageView.superview.bounds), hairlineWidth);
     }
 
     if (!self.backgroundImageView.superview) {
