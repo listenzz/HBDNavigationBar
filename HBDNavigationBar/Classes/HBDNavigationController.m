@@ -9,6 +9,8 @@
 #import "UIViewController+HBD.h"
 #import "HBDNavigationBar.h"
 
+#define hairlineWidth (1.f/[UIScreen mainScreen].scale)
+
 BOOL isImageEqual(UIImage *image1, UIImage *image2) {
     if (image1 == image2) {
         return YES;
@@ -682,7 +684,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 }
 
 - (CGRect)fakeShadowFrameWithBarFrame:(CGRect)frame {
-    return CGRectMake(frame.origin.x, frame.size.height + frame.origin.y - 0.5, frame.size.width, 0.5);
+    return CGRectMake(frame.origin.x, frame.size.height + frame.origin.y - hairlineWidth, frame.size.width, hairlineWidth);
 }
 
 @end
