@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -39,21 +39,21 @@
 		035DAF5E0261E1C66CB822D7EE45393E /* HBDNavigationBar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HBDNavigationBar.release.xcconfig; sourceTree = "<group>"; };
 		03E212C70A538A87D60644B78AC9150D /* HBDNavigationController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HBDNavigationController.m; path = HBDNavigationBar/Classes/HBDNavigationController.m; sourceTree = "<group>"; };
 		0FC3A1AF672B353EC6115D508F6E07D6 /* HBDNavigationBar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = HBDNavigationBar.debug.xcconfig; sourceTree = "<group>"; };
-		1D3F83756BC2B0525BCBCBAF096CA50C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		2506257DC3D09691DA6D8D05B9934853 /* HBDNavigationBar.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = HBDNavigationBar.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		4080912C7C19D96CD1861F5CCD1BD6D5 /* Pods-HBDNavigationBar_Example */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "Pods-HBDNavigationBar_Example"; path = "libPods-HBDNavigationBar_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E65573D28330C75E8A4E0EA37DC9492 /* Pods-HBDNavigationBar_Tests */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "Pods-HBDNavigationBar_Tests"; path = "libPods-HBDNavigationBar_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D3F83756BC2B0525BCBCBAF096CA50C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2506257DC3D09691DA6D8D05B9934853 /* HBDNavigationBar.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = HBDNavigationBar.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		4080912C7C19D96CD1861F5CCD1BD6D5 /* libPods-HBDNavigationBar_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HBDNavigationBar_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E65573D28330C75E8A4E0EA37DC9492 /* libPods-HBDNavigationBar_Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HBDNavigationBar_Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		708D1369C509E7FAA6FCDF3EB42FFED2 /* HBDNavigationBar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = HBDNavigationBar.m; path = HBDNavigationBar/Classes/HBDNavigationBar.m; sourceTree = "<group>"; };
 		7A0853D74F67F1BA8A7A8FAE2F001996 /* HBDNavigationBar-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "HBDNavigationBar-prefix.pch"; sourceTree = "<group>"; };
 		7E6BF2D5DDD8A899175FF3C7E0B6D52D /* Pods-HBDNavigationBar_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HBDNavigationBar_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		89C20BF3874C67245C6B5883CEB19B7B /* Pods-HBDNavigationBar_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HBDNavigationBar_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		93FAA0B6B2D5D97E58587CF13FB4674C /* Pods-HBDNavigationBar_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HBDNavigationBar_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A42E9E3E29487BCC73D9C41213B615C8 /* HBDNavigationBar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HBDNavigationBar.h; path = HBDNavigationBar/Classes/HBDNavigationBar.h; sourceTree = "<group>"; };
 		A97F9FD05DF3A863A9521942ED3E8565 /* Pods-HBDNavigationBar_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HBDNavigationBar_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		B3254C89F6F313BE40F6AB764E32C4BC /* UIViewController+HBD.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+HBD.h"; path = "HBDNavigationBar/Classes/UIViewController+HBD.h"; sourceTree = "<group>"; };
 		B5ECADE9A8105980E0E435F1D921CD80 /* HBDNavigationController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HBDNavigationController.h; path = HBDNavigationBar/Classes/HBDNavigationController.h; sourceTree = "<group>"; };
-		B94EACAE8193E2637ED120D6EF997FA6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		B94EACAE8193E2637ED120D6EF997FA6 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		BEE1668D8C9D86212F900075047AF3A5 /* UIViewController+HBD.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+HBD.m"; path = "HBDNavigationBar/Classes/UIViewController+HBD.m"; sourceTree = "<group>"; };
 		C9BB9A5F1CA87A2DCFF96128C61185FE /* Pods-HBDNavigationBar_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HBDNavigationBar_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		C9ECC296FA9F352E9A54B2B8B69670D9 /* Pods-HBDNavigationBar_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HBDNavigationBar_Example-dummy.m"; sourceTree = "<group>"; };
@@ -62,7 +62,7 @@
 		E758FE7F2D9C936949B2FB79CD01A0A4 /* Pods-HBDNavigationBar_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HBDNavigationBar_Tests-dummy.m"; sourceTree = "<group>"; };
 		E7D389133D21FC42E51FCCD15E37CA8C /* Pods-HBDNavigationBar_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HBDNavigationBar_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		FC3F4781CB6E0F1003784ADF2A2ECA89 /* Pods-HBDNavigationBar_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HBDNavigationBar_Example.release.xcconfig"; sourceTree = "<group>"; };
-		FC673151C5497BC8027FF15C04A83C54 /* HBDNavigationBar */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = HBDNavigationBar; path = libHBDNavigationBar.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC673151C5497BC8027FF15C04A83C54 /* libHBDNavigationBar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHBDNavigationBar.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,9 +103,9 @@
 		46CE9492E0D585CE1EC621B8A8036B2C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				FC673151C5497BC8027FF15C04A83C54 /* HBDNavigationBar */,
-				4080912C7C19D96CD1861F5CCD1BD6D5 /* Pods-HBDNavigationBar_Example */,
-				6E65573D28330C75E8A4E0EA37DC9492 /* Pods-HBDNavigationBar_Tests */,
+				FC673151C5497BC8027FF15C04A83C54 /* libHBDNavigationBar.a */,
+				4080912C7C19D96CD1861F5CCD1BD6D5 /* libPods-HBDNavigationBar_Example.a */,
+				6E65573D28330C75E8A4E0EA37DC9492 /* libPods-HBDNavigationBar_Tests.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -243,7 +243,7 @@
 			);
 			name = HBDNavigationBar;
 			productName = HBDNavigationBar;
-			productReference = FC673151C5497BC8027FF15C04A83C54 /* HBDNavigationBar */;
+			productReference = FC673151C5497BC8027FF15C04A83C54 /* libHBDNavigationBar.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		448E44C176A30038DEF6293723E6FA0B /* Pods-HBDNavigationBar_Example */ = {
@@ -261,7 +261,7 @@
 			);
 			name = "Pods-HBDNavigationBar_Example";
 			productName = "Pods-HBDNavigationBar_Example";
-			productReference = 4080912C7C19D96CD1861F5CCD1BD6D5 /* Pods-HBDNavigationBar_Example */;
+			productReference = 4080912C7C19D96CD1861F5CCD1BD6D5 /* libPods-HBDNavigationBar_Example.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		DEE56EE42793FEE13226E6C678A975F8 /* Pods-HBDNavigationBar_Tests */ = {
@@ -279,7 +279,7 @@
 			);
 			name = "Pods-HBDNavigationBar_Tests";
 			productName = "Pods-HBDNavigationBar_Tests";
-			productReference = 6E65573D28330C75E8A4E0EA37DC9492 /* Pods-HBDNavigationBar_Tests */;
+			productReference = 6E65573D28330C75E8A4E0EA37DC9492 /* libPods-HBDNavigationBar_Tests.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -288,8 +288,9 @@
 		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1610;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -361,14 +362,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7E6BF2D5DDD8A899175FF3C7E0B6D52D /* Pods-HBDNavigationBar_Tests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = amd64;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -376,6 +377,9 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 15.6;
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -388,7 +392,8 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = amd64;
 				GCC_PREFIX_HEADER = "Target Support Files/HBDNavigationBar/HBDNavigationBar-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -399,7 +404,10 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 18.0;
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -438,9 +446,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -453,11 +463,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -474,7 +483,8 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = amd64;
 				GCC_PREFIX_HEADER = "Target Support Files/HBDNavigationBar/HBDNavigationBar-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
@@ -485,6 +495,9 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 18.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
@@ -492,14 +505,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D9D655DBA65BE9BCE7572FC7A768FFBF /* Pods-HBDNavigationBar_Tests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = amd64;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -507,7 +520,10 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TVOS_DEPLOYMENT_TARGET = 15.6;
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 10.6;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -515,13 +531,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC3F4781CB6E0F1003784ADF2A2ECA89 /* Pods-HBDNavigationBar_Example.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = amd64;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MACH_O_TYPE = staticlib;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -531,6 +546,8 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 8.7;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Release;
 		};
@@ -569,9 +586,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -587,12 +606,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -604,13 +622,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A97F9FD05DF3A863A9521942ED3E8565 /* Pods-HBDNavigationBar_Example.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = amd64;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MACH_O_TYPE = staticlib;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -619,6 +636,8 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				WATCHOS_DEPLOYMENT_TARGET = 8.7;
+				XROS_DEPLOYMENT_TARGET = 2.0;
 			};
 			name = Debug;
 		};
