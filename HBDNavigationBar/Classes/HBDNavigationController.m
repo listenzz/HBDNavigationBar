@@ -9,7 +9,7 @@
 #import "UIViewController+HBD.h"
 #import "HBDNavigationBar.h"
 
-#define hairlineWidth 0.6///(1.f/[UIScreen mainScreen].scale)
+#define hairlineWidth (1.f/[UIScreen mainScreen].scale)
 
 BOOL isImageEqual(UIImage *image1, UIImage *image2) {
     if (image1 == image2) {
