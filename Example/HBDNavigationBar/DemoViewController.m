@@ -93,6 +93,9 @@
         [self dismissViewControllerAnimated:YES completion:^{
 
         }];
+    } else {
+        self.hbd_tintColor = [UIColor redColor];
+        [self hbd_setNeedsUpdateNavigationBar];
     }
 }
 
