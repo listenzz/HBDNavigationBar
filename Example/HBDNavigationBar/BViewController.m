@@ -30,13 +30,13 @@
     self.view.backgroundColor = [UIColor colorWithRed:((float) arc4random_uniform(256) / 255.0) green:((float) arc4random_uniform(256) / 255.0) blue:((float) arc4random_uniform(256) / 255.0) alpha:1.0];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    NSLog(@"%s", __FUNCTION__);
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-    NSLog(@"%s", __FUNCTION__);
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    NSLog(@"%s", __FUNCTION__);
+//}
+//
+//- (void)viewDidAppear:(BOOL)animated {
+//    NSLog(@"%s", __FUNCTION__);
+//}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pop-to-root" object:nil];

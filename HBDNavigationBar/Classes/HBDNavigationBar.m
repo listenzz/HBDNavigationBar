@@ -95,6 +95,15 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
     return view;
 }
 
+- (void)didAddSubview:(UIView *)subview {
+    [subview didAddSubview:subview];
+    if ([subview isKindOfClass:NSClassFromString(@"_UIBarBackground")]) {
+        if (self.mydelegate && [self.mydelegate respondsToSelector:@selector(shouldUpdateNavigationBar:)]) {
+            [self.mydelegate shouldUpdateNavigationBar:self];
+        }
+    }
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     self.fakeView.frame = self.fakeView.superview.bounds;

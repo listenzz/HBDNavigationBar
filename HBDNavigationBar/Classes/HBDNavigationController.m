@@ -132,7 +132,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 
 @end
 
-@interface HBDNavigationController ()
+@interface HBDNavigationController () <HBDNavigationBarDelegate>
 
 @property(nonatomic, readonly) HBDNavigationBar *navigationBar;
 @property(nonatomic, strong) UIVisualEffectView *fromFakeBar;
@@ -384,17 +384,22 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController {
     if (self = [super initWithNavigationBarClass:[HBDNavigationBar class] toolbarClass:nil]) {
         self.viewControllers = @[rootViewController];
+        self.navigationBar.mydelegate = self;
     }
     return self;
 }
 
 - (UINavigationController *)initWithNavigationBarClass:(Class)navigationBarClass toolbarClass:(Class)toolbarClass {
     NSAssert([navigationBarClass isSubclassOfClass:[HBDNavigationBar class]], @"navigationBarClass Must be a subclass of HBDNavigationBar");
-    return [super initWithNavigationBarClass:navigationBarClass toolbarClass:toolbarClass];
+    self = [super initWithNavigationBarClass:navigationBarClass toolbarClass:toolbarClass];
+    self.navigationBar.mydelegate = self;
+    return self;
 }
 
 - (UINavigationController *)init {
-    return [super initWithNavigationBarClass:[HBDNavigationBar class] toolbarClass:nil];
+    self = [super initWithNavigationBarClass:[HBDNavigationBar class] toolbarClass:nil];
+    self.navigationBar.mydelegate = self;
+    return self;
 }
 
 - (void)setDelegate:(id <UINavigationControllerDelegate>)delegate {
@@ -675,6 +680,35 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 
 - (CGRect)fakeShadowFrameWithBarFrame:(CGRect)frame {
     return CGRectMake(frame.origin.x, frame.size.height + frame.origin.y - hairlineWidth, frame.size.width, hairlineWidth);
+}
+
+/// MARK: - HBDNavigationBarDelegate
+- (void)shouldUpdateNavigationBar:(HBDNavigationBar *)navigationBar {
+    
+    UIViewController *viewController = self.topViewController;
+
+    [self updateNavigationBarStyleForViewController:viewController];
+    [self updateNavigationBarBackgroundForViewController:viewController];
+    
+    id <UIViewControllerTransitionCoordinator> coordinator = self.transitionCoordinator;
+    
+    if (coordinator) {
+        UIViewController *from = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
+        UIViewController *to = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
+       
+        [self updateNavigationBarTintColorForViewController:from];
+        [self updateNavigationBarTintColorForViewController:to];
+        
+        if ([self.viewControllers containsObject:from]) {
+            [self updateNavigationBarAlphaForViewController:from];
+        } else {
+            [self updateNavigationBarAlphaForViewController:to];
+        }
+        
+        if (shouldShowFake(viewController, from, to)) {
+            [self showFakeBarFrom:from to:to];
+        }
+    }
 }
 
 @end

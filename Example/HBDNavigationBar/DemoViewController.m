@@ -53,15 +53,15 @@
 
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    NSLog(@"viewWillAppear:%@", self);
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    NSLog(@"viewWillDisappear:%@", self);
-}
+//- (void)viewWillAppear:(BOOL)animated {
+//    [super viewWillAppear:animated];
+//    NSLog(@"viewWillAppear:%@", self);
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated {
+//    [super viewWillDisappear:animated];
+//    NSLog(@"viewWillDisappear:%@", self);
+//}
 
 - (IBAction)sliderValueChanged:(UISlider *)sender {
     self.alphaComponent.text = [NSString stringWithFormat:@"%.2f", sender.value];
@@ -93,6 +93,9 @@
         [self dismissViewControllerAnimated:YES completion:^{
 
         }];
+    } else {
+        self.hbd_tintColor = [UIColor redColor];
+        [self hbd_setNeedsUpdateNavigationBar];
     }
 }
 

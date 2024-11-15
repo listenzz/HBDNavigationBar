@@ -35,11 +35,7 @@
 
     tableView.delegate = self;
     tableView.dataSource = self;
-    if (@available(iOS 11, *)) {
-        tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    } else {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    }
+    tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
 
     NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"lakeside_sunset" ofType:@"png"];
     UIImage *headerImage = [UIImage imageWithContentsOfFile:imagePath];
@@ -132,11 +128,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat headerHeight = CGRectGetHeight(self.headerView.frame);
-    if (@available(iOS 11, *)) {
-        headerHeight -= self.view.safeAreaInsets.top;
-    } else {
-        headerHeight -= [self.topLayoutGuide length];
-    }
+    headerHeight -= self.view.safeAreaInsets.top;
 
     CGFloat progress = scrollView.contentOffset.y + scrollView.contentInset.top;
     CGFloat gradientProgress = MIN(1, MAX(0, progress / headerHeight));
