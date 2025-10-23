@@ -132,11 +132,11 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
 
 - (UILabel *)backButtonLabel {
     if (@available(iOS 11, *)); else return nil;
-    UIView *navigationBarContentView = [self valueForKeyPath:@"visualProvider.contentView"];
+    UIView *navigationBarContentView = [self getViewFromContext:self withKeyPath:@"visualProvider.contentView"];
     __block UILabel *backButtonLabel = nil;
     [navigationBarContentView.subviews enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIView *_Nonnull subview, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([subview isKindOfClass:NSClassFromString(@"_UIButtonBarButton")]) {
-            UIButton *titleButton = [subview valueForKeyPath:@"visualProvider.titleButton"];
+            UIButton *titleButton = [self getViewFromContext:subview withKeyPath:@"visualProvider.titleButton"];
             backButtonLabel = titleButton.titleLabel;
             *stop = YES;
         }
@@ -197,6 +197,70 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
         self.backgroundImageView.frame = self.backgroundImageView.superview.bounds;
     }
     [UIView setAnimationsEnabled:YES];
+}
+
+// 兼容 iOS26
+- (UIView *)getViewFromContext:(id)context withKeyPath:(NSString *)keyPath {
+    if (!context || !keyPath) {
+        return nil;
+    }
+
+    if (@available(iOS 26.0, *)) {
+        // 如果 context 是 UIView，先尝试通过遍历 subviews 查找包含 "ContentView" 的视图
+        if ([context isKindOfClass:[UIView class]]) {
+            UIView *view = (UIView *)context;
+            __block UIView *contentView = nil;
+
+            // 使用标准的 enumerateObjectsUsingBlock 替代 qmui_firstMatchWithBlock
+            [view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull item, NSUInteger idx, BOOL * _Nonnull stop) {
+                if ([NSStringFromClass(item.class) containsString:@"ContentView"]) {
+                    contentView = item;
+                    *stop = YES;
+                }
+            }];
+
+            if (contentView) return contentView;
+        }
+
+        // Xcode 26 编译在 iOS 26 上时，无法用以前的 KVC 方式获取 contentView，所以改为通过 Ivar 获取
+        // 解析 keyPath，获取 provider key（例如从 "visualProvider.contentView" 中获取 "visualProvider"）
+        NSArray *components = [keyPath componentsSeparatedByString:@"."];
+        if (components.count > 0) {
+            NSString *providerKey = components.firstObject;
+            NSObject *provider = [context valueForKey:providerKey];
+
+            if (provider && components.count > 1) {
+                NSString *targetKey = components.lastObject;
+                __block UIView *result = nil;
+
+                // 使用 Runtime API 直接获取 Ivar 列表，替代 qmui_enumrateIvarsUsingBlock
+                unsigned int ivarCount = 0;
+                Ivar *ivars = class_copyIvarList([provider class], &ivarCount);
+
+                if (ivars) {
+                    for (unsigned int i = 0; i < ivarCount && !result; i++) {
+                        Ivar ivar = ivars[i];
+                        const char *ivarName = ivar_getName(ivar);
+
+                        if (ivarName) {
+                            NSString *ivarNameString = [NSString stringWithUTF8String:ivarName];
+                            // 检查 ivar 名称是否包含 targetKey
+                            if ([ivarNameString containsString:targetKey]) {
+                                // 直接使用 object_getIvar 获取 Ivar 值，替代 getObjectIvarValue
+                                result = object_getIvar(provider, ivar);
+                            }
+                        }
+                    }
+                    free(ivars);
+                }
+
+                return result;
+            }
+        }
+    }
+
+    // 在 iOS 26.0 以下，直接通过 KVC 获取
+    return [context valueForKeyPath:keyPath];
 }
 
 @end
