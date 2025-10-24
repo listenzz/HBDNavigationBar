@@ -63,7 +63,7 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
     if ([view isKindOfClass:[self class]]) {
         for (UIView *subview in self.subviews) {
             NSString *viewName = [[[subview classForCoder] description] stringByReplacingOccurrencesOfString:@"_" withString:@""];
-            NSArray *array = @[@"UINavigationItemButtonView"];
+            NSArray *array = @[@"UINavigationItemButtonView", @"UIKit.NavigationBarContentView", @"UIButtonBarButton"];
             if ([array containsObject:viewName]) {
                 CGPoint convertedPoint = [self convertPoint:point toView:subview];
                 CGRect bounds = subview.bounds;
@@ -77,7 +77,7 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
         }
     }
 
-    NSArray *array = @[@"UINavigationBarContentView", @"UIButtonBarStackView", NSStringFromClass([self class])];
+    NSArray *array = @[@"UINavigationBarContentView", @"UIButtonBarStackView", @"UIKit.NavigationBarContentView", @"UIButtonBarButton", NSStringFromClass([self class])];
     if ([array containsObject:viewName]) {
         if (self.backgroundImageView.image) {
             if (self.backgroundImageView.alpha < 0.01) {
@@ -150,7 +150,7 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
 }
 
 - (UIView *)hbd_backgroundView {
-    return [self valueForKey:@"_backgroundView"];
+    return [self getViewFromContext:self withKeyPath:@"_backgroundView"];
 }
 
 - (void)setTranslucent:(BOOL)translucent {
