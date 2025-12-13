@@ -53,31 +53,14 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
 @implementation HBDNavigationBar
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    if (!self.isUserInteractionEnabled || self.isHidden || self.alpha <= 0.01) {
+    if (!self.isUserInteractionEnabled || self.isHidden || self.alpha < 0.01) {
         return nil;
     }
 
     UIView *view = [super hitTest:point withEvent:event];
     NSString *viewName = [[[view classForCoder] description] stringByReplacingOccurrencesOfString:@"_" withString:@""];
 
-    if ([view isKindOfClass:[self class]]) {
-        for (UIView *subview in self.subviews) {
-            NSString *viewName = [[[subview classForCoder] description] stringByReplacingOccurrencesOfString:@"_" withString:@""];
-            NSArray *array = @[@"UINavigationItemButtonView", @"UIKit.NavigationBarContentView", @"UIButtonBarButton"];
-            if ([array containsObject:viewName]) {
-                CGPoint convertedPoint = [self convertPoint:point toView:subview];
-                CGRect bounds = subview.bounds;
-                if (bounds.size.width < 80) {
-                    bounds = CGRectInset(bounds, bounds.size.width - 80, 0);
-                }
-                if (CGRectContainsPoint(bounds, convertedPoint)) {
-                    return view;
-                }
-            }
-        }
-    }
-
-    NSArray *array = @[@"UINavigationBarContentView", @"UIButtonBarStackView", @"UIKit.NavigationBarContentView", @"UIButtonBarButton", NSStringFromClass([self class])];
+    NSArray *array = @[@"UINavigationBarContentView", @"UIButtonBarStackView", @"UIKit.NavigationBarContentView", NSStringFromClass([self class])];
     if ([array containsObject:viewName]) {
         if (self.backgroundImageView.image) {
             if (self.backgroundImageView.alpha < 0.01) {
@@ -86,10 +69,6 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
         } else if (self.fakeView.alpha < 0.01) {
             return nil;
         }
-    }
-
-    if (CGRectEqualToRect(view.bounds, CGRectZero)) {
-        return nil;
     }
 
     return view;

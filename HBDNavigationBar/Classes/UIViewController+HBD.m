@@ -116,11 +116,18 @@
 
 - (void)setHbd_barHidden:(BOOL)hidden {
     if (hidden) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
         self.navigationItem.titleView = [UIView new];
     } else {
-        self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.titleView = nil;
+    }
+    if (@available(iOS 16.0, *)) {
+        [self.navigationItem setHidesBackButton:hidden];
+    } else {
+        if (hidden) {
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView new]];
+        } else {
+            self.navigationItem.leftBarButtonItem = nil;
+        }
     }
     objc_setAssociatedObject(self, @selector(hbd_barHidden), @(hidden), OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
