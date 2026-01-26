@@ -1,4 +1,5 @@
-# HBDNavigationBar
+# 本库始于 iOS 9.0，现已经过去 8 年多了，大多数 API 已经过时，本库已经不再维护，择日归档，请使用其他库。
+
 
 [English Document](./README_EN.md)
 
