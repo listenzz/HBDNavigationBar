@@ -127,8 +127,14 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 
 @property(nonatomic, weak) id <UINavigationControllerDelegate> navDelegate;
 @property(nonatomic, weak, readonly) HBDNavigationController *nav;
+@property(nonatomic, assign) UIEdgeInsets hbd_savedAdditionalSafeAreaInsetsForTo;
+@property(nonatomic, assign) BOOL hbd_didCompensateSafeAreaForTo;
+@property(nonatomic, assign) UIEdgeInsets hbd_savedAdditionalSafeAreaInsetsForFrom;
+@property(nonatomic, assign) BOOL hbd_didCompensateSafeAreaForFrom;
 
 - (instancetype)initWithNavigationController:(HBDNavigationController *)navigationController;
+- (void)hbd_compensateSafeAreaForViewController:(UIViewController *)vc expectedTopInset:(CGFloat)expectedTopInset isToVC:(BOOL)isToVC;
+- (void)hbd_restoreCompensatedSafeAreaForFrom:(UIViewController *)from to:(UIViewController *)to viewController:(UIViewController *)viewController;
 
 @end
 
@@ -177,11 +183,18 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
-    if (self.nav.viewControllers.count > 1) {
+    HBDNavigationController *nav = self.nav;
+
+    if (nav.transitionCoordinator) {
+        return NO;
+    }
+
+    if (nav.viewControllers.count > 1) {
+        UIViewController *topVC = nav.topViewController;
         // 先判断hbd_swipeBackEnabled再判断hbd_backInteractive，
         // 可以解决当用户已经将hbd_swipeBackEnabled设置为NO时，并且重写了hbd_backInteractive的getter方法，用手势返回时，先调用hbd_backInteractive的getter方法的问题
         // 应该是已经将hbd_swipeBackEnabled设置为NO后，用户再进行侧滑手势时，不触发任何操作。
-        return self.nav.topViewController.hbd_swipeBackEnabled && self.nav.topViewController.hbd_backInteractive;
+        return topVC.hbd_swipeBackEnabled && topVC.hbd_backInteractive;
     }
     return NO;
 }
@@ -318,6 +331,14 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 
             // background alpha, background color, shadow image alpha
             [self.nav showFakeBarFrom:from to:to];
+
+            // 转场涉及旋转时不应用 safe area 补偿，避免布局错乱
+            BOOL noRotation = CGAffineTransformIsIdentity(context.targetTransform);
+            if (noRotation) {
+                CGFloat expectedTopInset = CGRectGetMaxY(self.nav.navigationBar.frame);
+                [self hbd_compensateSafeAreaForViewController:to expectedTopInset:expectedTopInset isToVC:YES];
+                [self hbd_compensateSafeAreaForViewController:from expectedTopInset:expectedTopInset isToVC:NO];
+            }
         } else {
             [self.nav updateNavigationBarForViewController:viewController];
             if (@available(iOS 13.0, *)) {
@@ -329,7 +350,9 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
                 }
             }
         }
-    }                            completion:^(id <UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+    } completion:^(id <UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+        
+        [self hbd_restoreCompensatedSafeAreaForFrom:from to:to viewController:viewController];
         self.nav.poppingViewController = nil;
         if (@available(iOS 13.0, *)) {
             self.nav.navigationBar.scrollEdgeAppearance.backgroundColor = UIColor.clearColor;
@@ -371,6 +394,40 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
     } else if (view.subviews.count > 0) {
         for (UIView *sub in view.subviews) {
             [self resetButtonLabelInView:sub];
+        }
+    }
+}
+
+- (void)hbd_compensateSafeAreaForViewController:(UIViewController *)vc expectedTopInset:(CGFloat)expectedTopInset isToVC:(BOOL)isToVC {
+    if (vc.isViewLoaded) {
+        [vc.view layoutIfNeeded];
+    }
+    if (@available(iOS 11.0, *)) {
+        CGFloat systemTop = vc.isViewLoaded ? vc.view.safeAreaInsets.top : 0;
+        CGFloat compensate = expectedTopInset > systemTop ? (expectedTopInset - systemTop) : 0;
+        if (isToVC) {
+            self.hbd_savedAdditionalSafeAreaInsetsForTo = vc.additionalSafeAreaInsets;
+            self.hbd_didCompensateSafeAreaForTo = (compensate > 0);
+        } else {
+            self.hbd_savedAdditionalSafeAreaInsetsForFrom = vc.additionalSafeAreaInsets;
+            self.hbd_didCompensateSafeAreaForFrom = (compensate > 0);
+        }
+        if (compensate > 0) {
+            UIEdgeInsets o = vc.additionalSafeAreaInsets;
+            vc.additionalSafeAreaInsets = UIEdgeInsetsMake(o.top + compensate, o.left, o.bottom, o.right);
+        }
+    }
+}
+
+- (void)hbd_restoreCompensatedSafeAreaForFrom:(UIViewController *)from to:(UIViewController *)to viewController:(UIViewController *)viewController {
+    if (@available(iOS 11.0, *)) {
+        if (self.hbd_didCompensateSafeAreaForTo && to == viewController) {
+            viewController.additionalSafeAreaInsets = self.hbd_savedAdditionalSafeAreaInsetsForTo;
+            self.hbd_didCompensateSafeAreaForTo = NO;
+        }
+        if (self.hbd_didCompensateSafeAreaForFrom) {
+            from.additionalSafeAreaInsets = self.hbd_savedAdditionalSafeAreaInsetsForFrom;
+            self.hbd_didCompensateSafeAreaForFrom = NO;
         }
     }
 }
