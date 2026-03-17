@@ -146,6 +146,10 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 - (instancetype)initWithNavigationController:(HBDNavigationController *)navigationController;
 - (void)hbd_compensateSafeAreaForViewController:(UIViewController *)vc expectedTopInset:(CGFloat)expectedTopInset isToVC:(BOOL)isToVC;
 - (void)hbd_restoreCompensatedSafeAreaForFrom:(UIViewController *)from to:(UIViewController *)to viewController:(UIViewController *)viewController;
+- (BOOL)shouldAnimateTabBarFrom:(UIViewController *)from to:(UIViewController *)to;
+- (void)prepareTabBarForTransitionFrom:(UIViewController *)from to:(UIViewController *)to;
+- (void)animateTabBarForTransitionFrom:(UIViewController *)from to:(UIViewController *)to;
+- (void)completeTabBarTransitionFrom:(UIViewController *)from to:(UIViewController *)to cancelled:(BOOL)cancelled;
 
 @end
 
@@ -333,6 +337,10 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
     }
 
     [self.nav updateNavigationBarStyleForViewController:viewController];
+    BOOL shouldAnimateTabBar = [self shouldAnimateTabBarFrom:from to:to];
+    if (shouldAnimateTabBar) {
+        [self prepareTabBarForTransitionFrom:from to:to];
+    }
 
     [coordinator animateAlongsideTransition:^(id <UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
         BOOL shouldFake = shouldShowFake(viewController, from, to);
@@ -361,17 +369,13 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
                 }
             }
         }
-    } completion:^(id <UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
-        
-        [self hbd_restoreCompensatedSafeAreaForFrom:from to:to viewController:viewController];
-        self.nav.poppingViewController = nil;
-        if (@available(iOS 13.0, *)) {
-            self.nav.navigationBar.scrollEdgeAppearance.backgroundColor = UIColor.clearColor;
-            self.nav.navigationBar.scrollEdgeAppearance.backgroundImage = nil;
-            self.nav.navigationBar.standardAppearance.backgroundColor = UIColor.clearColor;
-            self.nav.navigationBar.standardAppearance.backgroundImage = nil;
-        }
 
+        if (shouldAnimateTabBar) {
+            [self animateTabBarForTransitionFrom:from to:to];
+        }
+    } completion:^(id <UIViewControllerTransitionCoordinatorContext> _Nonnull context) {
+
+        [self hbd_restoreCompensatedSafeAreaForFrom:from to:to viewController:viewController];
         if (context.isCancelled) {
             if (to == viewController) {
                 [self.nav updateNavigationBarForViewController:from];
@@ -380,10 +384,67 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
             // `to` != `viewController` when present
             [self.nav updateNavigationBarForViewController:viewController];
         }
+
+        if (@available(iOS 13.0, *)) {
+            self.nav.navigationBar.scrollEdgeAppearance.backgroundColor = UIColor.clearColor;
+            self.nav.navigationBar.scrollEdgeAppearance.backgroundImage = nil;
+            self.nav.navigationBar.standardAppearance.backgroundColor = UIColor.clearColor;
+            self.nav.navigationBar.standardAppearance.backgroundImage = nil;
+        }
+
+        if (shouldAnimateTabBar) {
+            [self completeTabBarTransitionFrom:from to:to cancelled:context.isCancelled];
+        }
+
+        self.nav.poppingViewController = nil;
         if (to == viewController) {
             [self.nav clearFake];
         }
     }];
+}
+
+- (BOOL)shouldAnimateTabBarFrom:(UIViewController *)from to:(UIViewController *)to {
+    UITabBarController *tabBarController = self.nav.tabBarController;
+    if (!tabBarController) {
+        return NO;
+    }
+
+    return from.hidesBottomBarWhenPushed != to.hidesBottomBarWhenPushed;
+}
+
+- (void)prepareTabBarForTransitionFrom:(UIViewController *)from to:(UIViewController *)to {
+    UITabBar *tabBar = self.nav.tabBarController.tabBar;
+    [tabBar.layer removeAllAnimations];
+    tabBar.hidden = NO;
+
+    if (from.hidesBottomBarWhenPushed && !to.hidesBottomBarWhenPushed) {
+        tabBar.alpha = 0.0;
+    } else if (!from.hidesBottomBarWhenPushed && to.hidesBottomBarWhenPushed) {
+        tabBar.alpha = 1.0;
+    }
+}
+
+- (void)animateTabBarForTransitionFrom:(UIViewController *)from to:(UIViewController *)to {
+    UITabBar *tabBar = self.nav.tabBarController.tabBar;
+    if (from.hidesBottomBarWhenPushed && !to.hidesBottomBarWhenPushed) {
+        tabBar.alpha = 1.0;
+    } else if (!from.hidesBottomBarWhenPushed && to.hidesBottomBarWhenPushed) {
+        tabBar.alpha = 0.0;
+    }
+}
+
+- (void)completeTabBarTransitionFrom:(UIViewController *)from to:(UIViewController *)to cancelled:(BOOL)cancelled {
+    UITabBar *tabBar = self.nav.tabBarController.tabBar;
+    [tabBar.layer removeAllAnimations];
+
+    UIViewController *visibleViewController = cancelled ? from : to;
+    if (visibleViewController.hidesBottomBarWhenPushed) {
+        tabBar.alpha = 1.0;
+        tabBar.hidden = YES;
+    } else {
+        tabBar.hidden = NO;
+        tabBar.alpha = 1.0;
+    }
 }
 
 - (void)resetButtonLabelInNavBar:(UINavigationBar *)navBar {
