@@ -123,7 +123,7 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
 
 - (UILabel *)backButtonLabel {
     if (@available(iOS 11, *)); else return nil;
-    UIView *navigationBarContentView = [self getViewFromContext:self withKeyPath:@"visualProvider.contentView"];
+    UIView *navigationBarContentView = [self hbd_contentView];
     __block UILabel *backButtonLabel = nil;
     [navigationBarContentView.subviews enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIView *_Nonnull subview, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([subview isKindOfClass:NSClassFromString(@"_UIButtonBarButton")]) {
@@ -133,6 +133,27 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
         }
     }];
     return backButtonLabel;
+}
+
+- (void)hbd_setContentHidden:(BOOL)hidden {
+    UIView *contentView = [self hbd_contentView];
+    contentView.alpha = hidden ? 0.0 : 1.0;
+}
+
+- (UIView *)hbd_contentView {
+    UIView *contentView = [self getViewFromContext:self withKeyPath:@"visualProvider.contentView"];
+    if (contentView) {
+        return contentView;
+    }
+
+    for (UIView *subview in self.subviews) {
+        NSString *viewName = NSStringFromClass(subview.class);
+        if ([viewName containsString:@"ContentView"]) {
+            return subview;
+        }
+    }
+
+    return nil;
 }
 
 - (void)setBackgroundImage:(UIImage *)backgroundImage forBarMetrics:(UIBarMetrics)barMetrics {

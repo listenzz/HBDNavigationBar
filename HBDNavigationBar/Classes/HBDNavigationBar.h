@@ -15,6 +15,8 @@
 @property(nonatomic, strong, readonly) UILabel *backButtonLabel;
 @property(nonatomic, strong, readonly) UIView *hbd_backgroundView;
 
+- (void)hbd_setContentHidden:(BOOL)hidden;
+
 @end
 
 

@@ -664,6 +664,7 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 - (void)updateNavigationBarTintColorForViewController:(UIViewController *)vc {
     self.navigationBar.tintColor = vc.hbd_tintColor;
     self.navigationBar.titleTextAttributes = vc.hbd_titleTextAttributes;
+    [self.navigationBar hbd_setContentHidden:vc.hbd_barHidden];
     if (@available(iOS 13.0, *)) {
         self.navigationBar.scrollEdgeAppearance.titleTextAttributes = vc.hbd_titleTextAttributes;
         self.navigationBar.standardAppearance.titleTextAttributes = vc.hbd_titleTextAttributes;
@@ -732,6 +733,11 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 
     self.toFakeBar.subviews.lastObject.backgroundColor = to.hbd_computedBarTintColor;
     self.toFakeBar.alpha = to.hbd_computedBarImage ? 0 : to.hbd_barAlpha;
+    if (to.hbd_barAlpha == 0 || to.hbd_computedBarImage) {
+        self.toFakeBar.subviews.lastObject.layer.mask = [CALayer new];
+    } else {
+        self.toFakeBar.subviews.lastObject.layer.mask = nil;
+    }
     self.toFakeBar.frame = [self fakeBarFrameForViewController:to];
     [to.view addSubview:self.toFakeBar];
 
