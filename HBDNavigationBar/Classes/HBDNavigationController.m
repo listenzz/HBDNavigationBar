@@ -223,6 +223,38 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 
 - (void)handleNavigationTransition:(UIScreenEdgePanGestureRecognizer *)pan {
     HBDNavigationController *nav = self.nav;
+    if (@available(iOS 11.0, *)) {
+        UIViewController *top = nav.topViewController;
+        if (top.navigationItem.backBarButtonItem && !nav.poppingViewController) {
+            top.hbd_backBarButtonItem = top.navigationItem.backBarButtonItem;
+        }
+
+        id <UIViewControllerTransitionCoordinator> coordinator = nav.transitionCoordinator;
+        if (coordinator) {
+            UIViewController *fromVC = [coordinator viewControllerForKey:UITransitionContextFromViewControllerKey];
+            UIViewController *toVC = [coordinator viewControllerForKey:UITransitionContextToViewControllerKey];
+
+            if (fromVC == nav.poppingViewController && toVC.navigationController == nav) {
+                UIBarButtonItem *oldButtonItem = toVC.navigationItem.backBarButtonItem;
+                UIBarButtonItem *newButtonItem = [[UIBarButtonItem alloc] init];
+                if (oldButtonItem) {
+                    newButtonItem.title = oldButtonItem.title;
+                } else {
+                    newButtonItem.title = nav.navigationBar.backButtonLabel.text;
+                }
+                newButtonItem.tintColor = fromVC.hbd_tintColor;
+                toVC.navigationItem.backBarButtonItem = newButtonItem;
+            }
+
+            if (toVC == top && fromVC.navigationController == nav) {
+                UIBarButtonItem *backItem = fromVC.navigationItem.backBarButtonItem;
+                if (backItem) {
+                    backItem.tintColor = toVC.hbd_tintColor;
+                }
+            }
+        }
+    }
+
     if (![self.navDelegate respondsToSelector:@selector(navigationController:interactionControllerForAnimationController:)]) {
         id <HBDNavigationTransitionProtocol> target = (id <HBDNavigationTransitionProtocol>) [nav superInteractivePopGestureRecognizer].delegate;
         if ([target respondsToSelector:@selector(handleNavigationTransition:)]) {
@@ -270,6 +302,12 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
     if (self.navDelegate && [self.navDelegate respondsToSelector:@selector(navigationController:didShowViewController:animated:)]) {
         [self.navDelegate navigationController:navigationController didShowViewController:viewController animated:animated];
+    }
+
+    if (@available(iOS 11.0, *)) {
+        if (viewController.hbd_backBarButtonItem) {
+            viewController.navigationItem.backBarButtonItem = viewController.hbd_backBarButtonItem;
+        }
     }
 
     HBDNavigationController *nav = self.nav;

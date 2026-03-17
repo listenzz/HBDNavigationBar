@@ -177,6 +177,14 @@
     objc_setAssociatedObject(self, @selector(hbd_splitNavigationBarTransition), @(splitNavigationBarTransition), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (UIBarButtonItem *)hbd_backBarButtonItem {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
+- (void)setHbd_backBarButtonItem:(UIBarButtonItem *)item {
+    objc_setAssociatedObject(self, @selector(hbd_backBarButtonItem), item, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 - (CGFloat)hbd_computedBarShadowAlpha {
     return self.hbd_barShadowHidden ? 0 : self.hbd_barAlpha;
 }

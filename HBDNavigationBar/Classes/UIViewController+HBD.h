@@ -27,6 +27,7 @@
 @property(nonatomic, assign, readonly) CGFloat hbd_computedBarShadowAlpha;
 @property(nonatomic, strong, readonly) UIColor *hbd_computedBarTintColor;
 @property(nonatomic, strong, readonly) UIImage *hbd_computedBarImage;
+@property(nonatomic, strong) UIBarButtonItem *hbd_backBarButtonItem;
 
 // 这个属性是内部使用的
 @property(nonatomic, assign) BOOL hbd_extendedLayoutDidSet;
