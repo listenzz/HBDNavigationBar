@@ -134,7 +134,7 @@
 
 - (BOOL)hbd_barShadowHidden {
     id obj = objc_getAssociatedObject(self, _cmd);
-    return self.hbd_barHidden || obj ? [obj boolValue] : NO;
+    return self.hbd_barHidden || (obj ? [obj boolValue] : NO);
 }
 
 - (void)setHbd_barShadowHidden:(BOOL)hidden {

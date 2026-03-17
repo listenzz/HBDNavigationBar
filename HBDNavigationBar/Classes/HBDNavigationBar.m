@@ -8,7 +8,18 @@
 #import "HBDNavigationBar.h"
 #import <objc/runtime.h>
 
-#define hairlineWidth (1.f/[UIScreen mainScreen].scale)
+static CGFloat HBDHairlineWidthForView(UIView *view) {
+    if (@available(iOS 13.0, *)) {
+        UIScreen *screen = view.window.windowScene.screen;
+        if (screen.scale > 0) {
+            return 1.f / screen.scale;
+        }
+    }
+    if (view.traitCollection.displayScale > 0) {
+        return 1.f / view.traitCollection.displayScale;
+    }
+    return 1.f;
+}
 
 static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL swizzledSelector) {
     Method originalMethod = class_getInstanceMethod(class, originalSelector);
@@ -76,6 +87,7 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    CGFloat hairlineWidth = HBDHairlineWidthForView(self);
     self.fakeView.frame = self.fakeView.superview.bounds;
     self.backgroundImageView.frame = self.backgroundImageView.superview.bounds;
     self.shadowImageView.frame = CGRectMake(0, CGRectGetHeight(self.shadowImageView.superview.bounds) - hairlineWidth, CGRectGetWidth(self.shadowImageView.superview.bounds), hairlineWidth);
@@ -115,7 +127,7 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
     __block UILabel *backButtonLabel = nil;
     [navigationBarContentView.subviews enumerateObjectsWithOptions:NSEnumerationReverse usingBlock:^(__kindof UIView *_Nonnull subview, NSUInteger idx, BOOL *_Nonnull stop) {
         if ([subview isKindOfClass:NSClassFromString(@"_UIButtonBarButton")]) {
-            UIButton *titleButton = [self getViewFromContext:subview withKeyPath:@"visualProvider.titleButton"];
+            UIButton *titleButton = (UIButton *) [self getViewFromContext:subview withKeyPath:@"visualProvider.titleButton"];
             backButtonLabel = titleButton.titleLabel;
             *stop = YES;
         }
@@ -168,6 +180,7 @@ static void hbd_exchangeImplementations(Class class, SEL originalSelector, SEL s
 
     if (!self.shadowImageView.superview) {
         [[self.subviews firstObject] insertSubview:_shadowImageView aboveSubview:self.backgroundImageView];
+        CGFloat hairlineWidth = HBDHairlineWidthForView(self);
         self.shadowImageView.frame = CGRectMake(0, CGRectGetHeight(self.shadowImageView.superview.bounds) - hairlineWidth, CGRectGetWidth(self.shadowImageView.superview.bounds), hairlineWidth);
     }
 

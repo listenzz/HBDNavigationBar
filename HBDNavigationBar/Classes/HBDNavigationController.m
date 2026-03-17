@@ -9,7 +9,18 @@
 #import "UIViewController+HBD.h"
 #import "HBDNavigationBar.h"
 
-#define hairlineWidth (1.f/[UIScreen mainScreen].scale)
+static CGFloat HBDHairlineWidthForView(UIView *view) {
+    if (@available(iOS 13.0, *)) {
+        UIScreen *screen = view.window.windowScene.screen;
+        if (screen.scale > 0) {
+            return 1.f / screen.scale;
+        }
+    }
+    if (view.traitCollection.displayScale > 0) {
+        return 1.f / view.traitCollection.displayScale;
+    }
+    return 1.f;
+}
 
 BOOL isImageEqual(UIImage *image1, UIImage *image2) {
     if (image1 == image2) {
@@ -522,7 +533,9 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 }
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {
-    self.poppingViewController = self.topViewController;
+    if (self.childViewControllers.count > 1) {
+        self.poppingViewController = self.topViewController;
+    }
     UIViewController *vc = [super popViewControllerAnimated:animated];
     // vc != self.topViewController
     [self fixClickBackIssue];
@@ -530,14 +543,18 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 }
 
 - (NSArray<UIViewController *> *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    self.poppingViewController = self.topViewController;
+    if (self.childViewControllers.count > 1) {
+        self.poppingViewController = self.topViewController;
+    }
     NSArray *array = [super popToViewController:viewController animated:animated];
     [self fixClickBackIssue];
     return array;
 }
 
 - (NSArray<UIViewController *> *)popToRootViewControllerAnimated:(BOOL)animated {
-    self.poppingViewController = self.topViewController;
+    if (self.childViewControllers.count > 1) {
+        self.poppingViewController = self.topViewController;
+    }
     NSArray *array = [super popToRootViewControllerAnimated:animated];
     [self fixClickBackIssue];
     return array;
@@ -731,8 +748,8 @@ void printViewHierarchy(UIView *view, NSString *prefix) {
 }
 
 - (CGRect)fakeShadowFrameWithBarFrame:(CGRect)frame {
+    CGFloat hairlineWidth = HBDHairlineWidthForView(self.navigationBar);
     return CGRectMake(frame.origin.x, frame.size.height + frame.origin.y - hairlineWidth, frame.size.width, hairlineWidth);
 }
 
 @end
-
