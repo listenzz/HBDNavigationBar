@@ -1,6 +1,5 @@
 # 本库始于 iOS 9.0，现已经过去 8 年多了，大多数 API 已经过时，本库已经不再维护，择日归档，请使用其他库。
 
-
 [English Document](./README_EN.md)
 
 UINavigationBar 是每一个 iOS 工程师都会遇到的坎，它令人抓狂的地方在于是否能随着页面切换而平滑地过渡到目的状态。想要把这件事情做好，不需要高深的算法，不需要深刻的底层原理，只需要一颗执着的内心。
@@ -143,9 +142,9 @@ self.window.rootViewController = [[HBDNavigationController alloc] initWithRootVi
 
 本库重写了 UINavigationBar 的 `translucent` 属性，使得它的值总是 YES。
 
-本库根据导航栏的背景是否含有透明度，自动调整  `UIViewController#edgesForExtendedLayout`  这个属性。
+本库根据导航栏的背景是否含有透明度，自动调整 `UIViewController#edgesForExtendedLayout` 这个属性。
 
-如果导航栏一开始是不透明的，由于后续操作而变透明，需要设置 `UIViewController#extendedLayoutIncludesOpaqueBars`  的值为 `YES`。
+如果导航栏一开始是不透明的，由于后续操作而变透明，需要设置 `UIViewController#extendedLayoutIncludesOpaqueBars` 的值为 `YES`。
 
 ```objc
 - (void)viewDidLoad {
@@ -166,7 +165,6 @@ self.window.rootViewController = [[HBDNavigationController alloc] initWithRootVi
 基本原则就是如果我们设置的背景是含有透明度的，那么页面就应该位于 NavigationBar 底下(under)，否则位于 NavigationBar 下面(below).
 
 如果我们的 NavigationBar 一开始是不透明的，但有可能因为用户操作而变透明，那么设置 `extendedLayoutIncludesOpaqueBars` 的值为 `YES`。
-
 
 #### 拦截返回事件
 
@@ -195,7 +193,7 @@ self.window.rootViewController = [[HBDNavigationController alloc] initWithRootVi
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     // 获取系统自带滑动手势的target对象
     id target = self.interactivePopGestureRecognizer.delegate;
     // 创建全屏滑动手势，调用系统自带滑动手势的 target 的 action 方法
@@ -211,7 +209,6 @@ self.window.rootViewController = [[HBDNavigationController alloc] initWithRootVi
 @end
 ```
 
-
 ## 感谢
 
 在完善导航栏相关功能时，查看了 GitHub 上十多个相关项目，其中给我帮助最大的是 [YPNavigationBarTransition](https://github.com/yiplee/YPNavigationBarTransition)，它为我解决不同背景之间如何平滑切换提供了非常有价值的参考。
@@ -226,7 +223,7 @@ HBDNavigationBar is available through [CocoaPods](http://cocoapods.org). To inst
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'HBDNavigationBar', '~> 1.9.12'
+pod 'HBDNavigationBar', '~> 1.10.0'
 ```
 
 ## License

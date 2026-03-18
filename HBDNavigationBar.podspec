@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'HBDNavigationBar'
-  s.version          = '1.9.12'
+  s.version          = '1.10.0'
   s.summary          = 'An aspiring UINavigationBar.'
 
 # This description is used to generate tags and improve search results.
@@ -31,7 +31,7 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '9.0'
 
   s.source_files = 'HBDNavigationBar/Classes/**/*'
-  
+
   # s.resource_bundles = {
   #   'HBDNavigationBar' => ['HBDNavigationBar/Assets/*.png']
   # }
